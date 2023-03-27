@@ -186,7 +186,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        @yield("content")  
+
+        @yield("content")   <!-- Page Content -->
+
     </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
@@ -218,10 +220,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src=""{{asset("plugins/jquery/jquery.min.js")}}"></script>
+<script src="{{asset("plugins/jquery/jquery.min.js")}}"></script>
 <!-- Bootstrap 4 -->
-<script src=""{{asset("plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
+<script src="{{asset("plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
 <!-- AdminLTE App -->
-<script src=""{{asset("dist/js/adminlte.min.js")}}"></script>
+<script src="{{asset("dist/js/adminlte.min.js")}}"></script>
 </body>
 </html>
