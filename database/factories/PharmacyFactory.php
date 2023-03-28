@@ -5,10 +5,11 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
+
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Pharmacy>
  */
-class UserFactory extends Factory
+class PharmacyFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -23,21 +24,8 @@ class UserFactory extends Factory
             'avatar_image' => Str::random(10),
             'national_id' => fake()->randomNumber($nbDigits = NULL, $strict = false),
             'email' => fake()->unique()->safeEmail(),
-            'date_of_birth' => fake()->date(),
-            'gender' => '1',
-            'phone'  => fake()->randomNumber($nbDigits = NULL, $strict = false),
-            'email_verified_at' => now(),
-            'remember_token' => Str::random(10),
+            'area_id'=>'1',
+            'priority'=>'4'
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
     }
 }
