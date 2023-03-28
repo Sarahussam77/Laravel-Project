@@ -19,7 +19,8 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
+        return view("Doctors.create");
+
     }
 
     /**
