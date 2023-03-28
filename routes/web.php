@@ -1,6 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\PharmacyController;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AreaController;
+
+use App\Http\Controllers\UserAddressController;
+use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\RevenueController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +34,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('pharmacies', PharmacyController::class);
+Route::resource('doctors', DoctorController::class);
+Route::resource('users', UserController::class);
+Route::resource('areas', AreaController::class);
+
+Route::resource('useraddresses', UserAddressController::class);
+Route::resource('medicines', MedicineController::class);
+Route::resource('orders', OrderController::class);
+Route::resource('revenue', RevenueController::class);
