@@ -3,5 +3,5 @@
 
 @section("content")
 
-Medicines
+Medicines Datatables 
 @endsection
