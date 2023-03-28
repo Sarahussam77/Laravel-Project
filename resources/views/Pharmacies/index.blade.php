@@ -3,6 +3,8 @@
 
 @section("content")
 
-pharmacies
+<div class="text-center">
+        <a href="{{route('pharmacies.create')}}" class="mt-4 btn btn-success">Create Pharmaciest</a>
+    </div>
 
 @endsection
