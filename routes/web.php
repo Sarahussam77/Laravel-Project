@@ -44,5 +44,3 @@ Route::resource('useraddresses', UserAddressController::class);
 Route::resource('medicines', MedicineController::class);
 Route::resource('orders', OrderController::class);
 Route::resource('revenue', RevenueController::class);
-
-//kkkk
