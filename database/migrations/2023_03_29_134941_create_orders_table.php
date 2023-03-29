@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('doctor_id')->nullable();
             $table->unsignedInteger('pharmacy_id')->nullable(false);
             $table->string('status', 120);
-            $table->string('actions', 120);
+            $table->string('actions', 300);
             $table->string('is_insured');
             $table->string('creator_type', 30);
             $table->double('price')->default(0);
