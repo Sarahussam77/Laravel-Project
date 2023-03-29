@@ -18,9 +18,9 @@ class OrderFactory extends Factory
     {
         return [
             'user_id'=>fake()->randomNumber(),
-            'user_address_id'=>fake()->randomNumber(),,
-            'doctor_id'=>fake()->randomNumber(),,
-            'pharmacy_id'=>fake()->randomNumber(),,
+            'user_address_id'=>fake()->randomNumber(),
+            'doctor_id'=>fake()->randomNumber(),
+            'pharmacy_id'=>fake()->randomNumber(),
             'status'=>'1',
             'actions'=>fake()->text(),
             'is_insured'=>'1',

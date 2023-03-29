@@ -18,7 +18,7 @@ class AreaFactory extends Factory
     {
         return [
             'name'=>fake()->name(),
-            'address'=>fake()->text()
+            'address'=>fake()->text(),
         ];
     }
 }
