@@ -24,7 +24,7 @@ class AddressFactory extends Factory
             'is_main'=>'1',
             'area_id'=>fake()->randomNumber(),
             'user_id'=>fake()->randomNumber(),
-
+            
         ];
     }
 }
