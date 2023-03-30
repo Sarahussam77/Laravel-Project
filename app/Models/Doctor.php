@@ -17,4 +17,13 @@ class Doctor extends Model
         "pharmacy_id",
         'is_baned'
     ];
+    public function pharmacy()
+    {
+        return $this->belongsTo(Pharmacy::class, 'pharmacy_id');
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'doctor_id');
+    }
 }

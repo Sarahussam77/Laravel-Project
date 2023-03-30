@@ -17,4 +17,19 @@ class Pharmacy extends Model
         'area_id',
         'priority',
     ];
+    public function doctors()
+    {
+        return $this->hasMany(Doctor::class, 'pharmacy_id');
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'area_id');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'pharmacy_id');
+    }
+
 }
