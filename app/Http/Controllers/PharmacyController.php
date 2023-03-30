@@ -17,8 +17,9 @@ class PharmacyController extends Controller
         $data = Pharmacy::select('id','name','email','national_id','avatar_image','area_id','priority')->get();
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('action', function($row){
-                $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
-                return $btn;
+                return '<a href="/pharmacies/'.$row->id.'" class="btn btn-primary btn-sm">View</a>'. " ".
+                '<a href="/pharmacies/'.$row->id.'" class="btn btn-primary btn-sm">Edit</a>';
+                
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -48,7 +49,8 @@ class PharmacyController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $pharmacies= Pharmacy::find($id);
+        return view('pharmacies.show', ['pharmacies' => $pharmacies]);
     }
 
     /**

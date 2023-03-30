@@ -17,7 +17,8 @@
                     <th>Avatar_image</th>
                     <th>Area_ID</th>
                     <th>priority</th>
-                    <th>Action</th>
+                    <th>View</th>
+                    
                 </tr>
             </thead>
                 <tbody>
@@ -45,6 +46,7 @@
                       {data: 'area_id', name: 'area_id'},
                       {data: 'priority', name: 'priority'},
                       {data: 'action', name: 'action', orderable: true, searchable: true},
+                      
                   ]
         });
     } );
