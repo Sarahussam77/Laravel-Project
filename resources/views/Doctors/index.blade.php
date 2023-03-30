@@ -31,9 +31,10 @@
         $('#myTable').DataTable({
             processing: true,
             serverSide: true,
+            responsive:true,
             ajax: {
                 url:"{{ route('doctors.index') }}",
-            }
+            },
             columns: [
                       {data: 'id', name: 'id'},
                       {data: 'name', name: 'name'},

@@ -32,6 +32,7 @@
         $('#myTable').DataTable({
             processing: true,
             serverSide: true,
+            responsive:true,
             ajax: {
                 url:"{{ route('pharmacies.index') }}",
             },
