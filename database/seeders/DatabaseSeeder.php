@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Pharmacy;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,9 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-       $this->call([
-        RolesAndPermissionsSeeder::class,
-        UserSeeder::class
-       ]); 
+    //    $this->call([
+    //     RolesAndPermissionsSeeder::class,
+    //     UserSeeder::class
+    //    ]); 
+
+       Pharmacy::factory(10)->create();
     }
 }
