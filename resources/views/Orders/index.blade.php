@@ -13,7 +13,7 @@
                 <tr>
                     <th>ID</th>
                     <th>user_id</th>
-                    	<th> useraddress_id</th>
+                    	<th> user_address_id</th>
                         <th>doctor_id</th>
                         <th>pharmacy_id</th>
                         <th>status</th>
@@ -22,7 +22,7 @@
                         <th>creator_type</th>
                         <th>price</th>
                     
-                    <th>Action</th>
+                        <th>View</th>
                 </tr>
             </thead>
                 <tbody>

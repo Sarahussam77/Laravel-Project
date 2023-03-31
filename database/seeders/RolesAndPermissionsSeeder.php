@@ -17,5 +17,11 @@ class RolesAndPermissionsSeeder extends Seeder
        $adminRole=Role::create(['name'=>'admin']);
        $doctorRole=Role::create(['name'=>'doctor']);
        $pharmacyRole=Role::create(['name'=>'pharmacy']);
+       $createDoctorPer = Permission::create(['name' => 'create doctor']);
+       $updatePharmacyinfoPer = Permission::create(['name' => 'update some pharmacy info']);
+       $updatePharmacyareaPer = Permission::create(['name' => 'update pharmacy area']);
+       $updatePharmacypriorityPer = Permission::create(['name' => 'update priority ']);
+       $adminRole->givePermissionTo([$createDoctorPer, $updatePharmacyinfoPer, $updatePharmacyareaPer, $updatePharmacypriorityPer]);
+       $pharmacyRole->givePermissionTo([$createDoctorPer, $updatePharmacyinfoPer]);
     }
 }
