@@ -13,4 +13,14 @@ class Area extends Model
         'name',
         'address'
     ];
+
+    public function pharmacies()
+    {
+        return $this->hasMany(Pharmacy::class, 'area_id');
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class, 'area_id');
+    }
 }

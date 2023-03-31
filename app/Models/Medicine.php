@@ -15,4 +15,19 @@ class Medicine extends Model
         'type',
         'price',
     ];
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class, 'doctor_id');
+    }
+
+    public function pharmacy()
+    {
+        return $this->belongsTo(Pharmacy::class, 'pharmacy_id');
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
 }
