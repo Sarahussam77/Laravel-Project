@@ -13,7 +13,8 @@ class MedicineController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {     if ($request->ajax()) {
+    {    
+         if ($request->ajax()) {
         $data = Medicine::select('id','name','quantity','type','price','pharmacy_id','doctor_id')->get();
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('action', function($row){

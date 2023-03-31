@@ -13,7 +13,8 @@ class AreaController extends Controller
      */
    
     public function index(Request $request)
-    {     if ($request->ajax()) {
+    {
+        if ($request->ajax()) {
         $data = Area::select('id','name','address')->get();
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('action', function($row){

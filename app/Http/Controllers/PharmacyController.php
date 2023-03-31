@@ -16,7 +16,8 @@ class PharmacyController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {     if ($request->ajax()) {
+    {    
+         if ($request->ajax()) {
         $data = Pharmacy::select('id','name','email','national_id','avatar_image','area_id','priority')->get();
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('action', function($row){
@@ -29,7 +30,7 @@ class PharmacyController extends Controller
             ->make(true);
     }
 
-        return view("Pharmacies.index");
+        return view("pharmacies.index");
     }
 
     /**

@@ -13,7 +13,8 @@ class UserAddressController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {   if ($request->ajax()) {
+    {  
+         if ($request->ajax()) {
         $data = Address::select('id','street_name','building_number','floor_number','flat_number','is_main','area_id','user_id')->get();
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('action', function($row){

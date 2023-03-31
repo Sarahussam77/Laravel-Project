@@ -14,7 +14,8 @@ class OrderController extends Controller
      */
 	
    public function index(Request $request)
-   {   if ($request->ajax()) {
+   {  
+     if ($request->ajax()) {
        $data = Order::select('*')->get();
        return Datatables::of($data)->addIndexColumn()
            ->addColumn('action', function($row){

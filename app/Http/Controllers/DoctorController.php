@@ -13,7 +13,8 @@ class DoctorController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {   if ($request->ajax()) {
+    {  
+         if ($request->ajax()) {
         $data = Doctor::select('id','name','avatar_image','national_id','email','pharmacy_id','is_baned')->get();
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('action', function($row){
