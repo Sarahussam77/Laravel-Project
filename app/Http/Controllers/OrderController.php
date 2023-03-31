@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\DataTables\OrdersDataTable;
 use App\Models\User;
-use DataTables;
+use Yajra\DataTables\Facades\DataTables;
+
 class OrderController extends Controller
 {
     /**
@@ -17,7 +18,7 @@ class OrderController extends Controller
    {  
      if ($request->ajax()) {
        $data = Order::select('*')->get();
-       return Datatables::of($data)->addIndexColumn()
+       return DataTables::of($data)->addIndexColumn()
            ->addColumn('action', function($row){
                $btn = '<a href="/orders/'.$row->id.'" class="btn btn-primary btn-sm">View</a>'." ".
                '<a href="//'.$row->id.'" class="btn btn-primary btn-sm">Edit</a>'.'<br>'.

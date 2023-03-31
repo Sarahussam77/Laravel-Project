@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Medicine;
 use App\DataTables\MedicinesDataTable;
-use DataTables;
+use Yajra\DataTables\Facades\DataTables;
 
 class MedicineController extends Controller
 {
@@ -16,7 +16,7 @@ class MedicineController extends Controller
     {    
          if ($request->ajax()) {
         $data = Medicine::select('id','name','quantity','type','price','pharmacy_id','doctor_id')->get();
-        return Datatables::of($data)->addIndexColumn()
+        return DataTables::of($data)->addIndexColumn()
             ->addColumn('action', function($row){
                 $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
                 return $btn;

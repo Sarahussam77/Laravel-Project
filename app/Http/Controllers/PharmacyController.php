@@ -7,8 +7,9 @@ use App\Models\Pharmacy;
 use App\DataTables\PharmaciesDataTable;
 use App\Models\Area;
 use App\Models\User;
-use DataTables;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\DataTables as DataTablesDataTables;
+use Yajra\DataTables\Facades\DataTables ;
 
 class PharmacyController extends Controller
 {
@@ -19,7 +20,7 @@ class PharmacyController extends Controller
     {    
          if ($request->ajax()) {
         $data = Pharmacy::select('id','name','email','national_id','avatar_image','area_id','priority')->get();
-        return Datatables::of($data)->addIndexColumn()
+        return DataTables::of($data)->addIndexColumn()
             ->addColumn('action', function($row){
                 return '<a href="'.route('pharmacies.show',$row->id).'" class="btn btn-primary btn-sm">View</a>'. " ".
                 '<a href="'.route('pharmacies.edit',$row->id).'" class="btn btn-primary btn-sm">Edit</a>'. " ".
