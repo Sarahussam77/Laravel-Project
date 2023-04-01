@@ -37,7 +37,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('pharmacies', PharmacyController::class);
 Route::resource('doctors', DoctorController::class);
-Route::resource('user', UserController::class);
+Route::resource('users', UserController::class);
 Route::resource('areas', AreaController::class);
 
 Route::resource('useraddresses', UserAddressController::class);
