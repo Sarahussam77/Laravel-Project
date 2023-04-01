@@ -25,7 +25,7 @@
                     <th>Avatar_image</th>
                     <th>Area_ID</th>
                     <th>priority</th>
-                    <th>View</th>
+                    <th>Action</th>
                     
                 </tr>
             </thead>
