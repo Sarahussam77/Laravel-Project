@@ -34,6 +34,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('single-charge',[HomeController::class,'singleCharge'])->name('single-charge');
 
 Route::resource('pharmacies', PharmacyController::class);
 //Route::get('/readsoftdelete', 'PharmacyController@readsoftdelete')->name('pharmacies.readsoftdelete');
