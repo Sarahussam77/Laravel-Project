@@ -28,7 +28,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">{{ __('Payment') }}</div>
 
                 <div class="card-body">
                 @if (Session::has('success'))
@@ -41,7 +41,8 @@
     <form action="{{ route('single.charge') }}" method="POST" id="subscribe-form">
     <input type="number" name="amount" id="amount" class="form-control"> <br>
     <label for="card-holder-name form-control">Card Holder Name</label><br>
-    <input id="card-holder-name" type="text"><br>
+    <input  type="text" id="card-holder-name" class="form-control"> <br>
+
     @csrf
     <div class="form-row">
         <label for="card-element">Credit or debit card</label>
@@ -59,7 +60,7 @@
     </div>
     @endif
     <div class="form-group text-center">
-        <button  id="card-button" data-secret="{{ $intent->client_secret }}" class="btn btn-lg btn-success btn-block">SUBMIT</button>
+        <button  id="card-button" data-secret="{{ $intent->client_secret }}" class="btn btn-lg btn-success btn-block mt-3">SUBMIT</button>
     </div>
 </form>
                 </div>
