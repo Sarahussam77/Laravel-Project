@@ -10,7 +10,8 @@ use App\Models\Doctor;
 use App\Models\Medicine;
 use App\Models\Pharmacy;
 use App\Models\User;
-use DataTables;
+use Yajra\DataTables\Facades\DataTables;
+
 use Phar;
 
 class OrderController extends Controller
@@ -20,7 +21,8 @@ class OrderController extends Controller
      */
 	
    public function index(Request $request)
-   {   if ($request->ajax()) {
+   {  
+     if ($request->ajax()) {
        $data = Order::select('*')->get();
        return Datatables::of($data)->addIndexColumn()
            ->addColumn('action', function ($row) {
