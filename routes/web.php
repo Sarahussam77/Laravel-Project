@@ -36,8 +36,11 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('pharmacies', PharmacyController::class);
+//Route::get('/readsoftdelete', 'PharmacyController@readsoftdelete')->name('pharmacies.readsoftdelete');
+//Route::get('{pharmacy}/restore', 'PharmacyController@restore')->name('pharmacies.restore');
+
 Route::resource('doctors', DoctorController::class);
-Route::resource('user', UserController::class);
+Route::resource('users', UserController::class);
 Route::resource('areas', AreaController::class);
 
 Route::resource('useraddresses', UserAddressController::class);
