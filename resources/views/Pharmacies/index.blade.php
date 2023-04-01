@@ -8,9 +8,12 @@
         <a href="{{route('pharmacies.create')}}" class="btn bg-gradient-success m-3">Create Pharmaciest</a>
         
     </div>
-
-    
- 
+@if(isset($alert))
+<div class="alert alert-{!! $alert['type'] !!} alert-dismissable" 
+    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+    {!! $alert['message']!!}
+</div>
+ @endif
     <div class="container mt-5 ">
         <table id="myTable">
             <thead>

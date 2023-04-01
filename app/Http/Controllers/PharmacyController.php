@@ -123,7 +123,15 @@ class PharmacyController extends Controller
          $pharmacies = Pharmacy::withTrashed()
                  ->where('id', $id)
                  ->get()->first();
+                 if($pharmacies->orders)
+                 {
+                    $alert=[];
+                    $alert['type']='danger';
+                    $alert['message']='Pharmacy has orders Can not be deleted';
+                    return view('pharmacies.index',['alert'=>$alert]);
+                 }
          $pharmacies->delete();
+        
          return view('pharmacies.index');
      }
 
