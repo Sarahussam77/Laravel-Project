@@ -1,4 +1,4 @@
-<!-- @extends('layouts.app')
+@extends('layouts.app')
 
 @section('title')
     Edit
@@ -32,11 +32,11 @@
         <td>{{$pharmacies->national_id}}</td>
         <td>{{$pharmacies->area_id}}</td>
         <td>{{$pharmacies->priority}}</td>
-        <td>
+<td>
             <a class="btn btn-success btn-sm" href="{{route('pharmacies.restore', [ 'pharmacy' => $pharmacies->id ])}}">Restore</a>
-            <a class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#exampleModalLong{{$pharmacies->id}}">Delete</a>
+            <a class="btn btn-danger btn-sm"  href="{{route('pharmacies.forcedelete', [ 'pharmacy' => $pharmacies->id ])}}">Delete</a>
 
-            <div class="modal text-danger" id="exampleModalLong{{$pharmacy->id}}" tabindex="-1" role="dialog">
+   <!-- <div class="modal text-danger" id="exampleModalLong{{$pharmacies->id}}" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -56,7 +56,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
           
@@ -66,4 +66,4 @@
       @endif
        
     
-@endsection -->
+@endsection
