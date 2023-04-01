@@ -24,7 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = auth()->user();
+        return view('home',[
+            'intent' => $user->createSetupIntent()
+        ]);
     }
 
     public function singleCharge(Request $request)

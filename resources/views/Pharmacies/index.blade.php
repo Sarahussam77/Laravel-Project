@@ -3,9 +3,12 @@
 
 @section("content")
 
-<div class="text-center">
-        <a href="{{route('pharmacies.create')}}" class="mt-4 btn btn-success">Create Pharmaciest</a>
+<div class="d-flex flex-row-reverse mb-3 text-center ">
+        <a class="btn bg-gradient-danger m-3" href="/readsoftdelete">Show Deleted Pharmacies</a>
+        <a href="{{route('pharmacies.create')}}" class="btn bg-gradient-success m-3">Create Pharmaciest</a>
+        
     </div>
+
     
  
     <div class="container mt-5 ">

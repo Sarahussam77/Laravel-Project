@@ -38,7 +38,7 @@
                     </div>
                     @endif
 
-    <form action="{{ route('single-charge') }}" method="POST" id="subscribe-form">
+    <form action="{{ route('single.charge') }}" method="POST" id="subscribe-form">
     <input type="number" name="amount" id="amount" class="form-control"> <br>
     <label for="card-holder-name form-control">Card Holder Name</label><br>
     <input id="card-holder-name" type="text"><br>

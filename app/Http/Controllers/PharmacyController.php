@@ -119,35 +119,32 @@ class PharmacyController extends Controller
      public function destroy(Request $request, String $id)
      {
          //$pharmacyId = $request->pharmacies;
+         
          $pharmacies = Pharmacy::withTrashed()
                  ->where('id', $id)
                  ->get()->first();
          $pharmacies->delete();
-         return response()->json([
-             'success' => 'Record deleted successfully!'
-         ]);
+         return view('pharmacies.index');
      }
 
-    // public function softdelete(Pharmacy $pharmacies)
-    // {
-    //     $pharmacies->delete();
-    //     return response()->json([
-    //         'success' => 'Record deleted successfully!'
-    //     ]);
-    // }
+    public function forceDelete($id)
+    {
+        Pharmacy::withTrashed()->where('id',$id)->forceDelete();
+        return redirect()->route('pharmacies.readsoft');
+        
+    }
 
-    // public function readsoftdelete()
-    // {
-    //     $pharmacies = Pharmacy::onlyTrashed()
-    //                 ->get();
-    //     return view('pharmacies.destroy', [
-    //         'deletedPharmacies' => $pharmacies
-    //     ]);
-    // }
-    // public function restore(Request $request)
-    // {
-    //     $pharmacies = Pharmacy::onlyTrashed()->where('id', $request->pharmacies);
-    //     $pharmacies->restore();
-    //     return redirect()->route('pharmacies.index');
-    // }
+    public function readsoftdelete()
+    {
+        $pharmacies = Pharmacy::onlyTrashed()
+                    ->get();
+        return view('pharmacies.destroy', [
+            'deletedPharmacies' => $pharmacies
+        ]);
+    }
+    public function restore($id)
+    {
+        $pharmacies = Pharmacy::onlyTrashed()->where('id', $id)->restore();
+        return redirect()->route('pharmacies.index');
+    }
 }
