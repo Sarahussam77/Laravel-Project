@@ -3,6 +3,7 @@
 
 @section('content')
 
+
     <div class="container mt-5 ">
         <table id="myTable">
             <thead>

@@ -6,6 +6,8 @@
 <div class="text-center">
         <a href="{{route('pharmacies.create')}}" class="mt-4 btn btn-success">Create Pharmaciest</a>
     </div>
+    
+ 
     <div class="container mt-5 ">
         <table id="myTable">
             <thead>
@@ -50,9 +52,7 @@
                   ]
         });
     } );
-    
-    
-    
+
         </script>
 
 @endsection
