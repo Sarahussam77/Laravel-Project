@@ -20,7 +20,7 @@ class Doctor extends Model
         return $this->belongsTo(Pharmacy::class, 'pharmacy_id');
     }
 
-    public function order()
+    public function orders()
     {
         return $this->hasMany(Order::class, 'doctor_id');
     }
@@ -30,8 +30,8 @@ class Doctor extends Model
         return $this->hasMany(Medicine::class, 'doctor_id');
     }
 
-    public function all_user()
+    public function user()
     {
-        return $this->belongsTo(All_Users::class, 'id');
+        return $this->belongsTo(User::class, 'id');
     }
 }

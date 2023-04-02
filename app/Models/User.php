@@ -49,17 +49,17 @@ class User extends Model
         'email_verified_at' => 'datetime',
     ];
 
-    public function doctor()
+    public function doctors()
     {
         return $this->hasMany(Doctor::class, 'id');
     }
 
-    public function user()
+    public function clients()
     {
         return $this->hasMany(Client::class, 'id');
     }
 
-    public function pharmacy()
+    public function pharmacies()
     {
         return $this->hasMany(Pharmacy::class, 'id');
     }
