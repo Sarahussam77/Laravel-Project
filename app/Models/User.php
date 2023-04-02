@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use Laravel\Cashier\Billable;
 
-
-class User extends Authenticatable
+class User extends Model
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable,HasRoles,Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -17,25 +21,50 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'id',
-        'date_of_birth',
-        'gender',
-        'phone',
+        'name',
+        'password',
+        'avatar_image',
+        'national_id',
+        'email',
+        'email_verified_at',
+        'user_type'
     ];
 
-    public function addresses()
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function doctor()
     {
-        return $this->hasMany(Address::class, "user_id");
+        return $this->hasMany(Doctor::class, 'id');
     }
 
-    public function orders()
+    public function user()
     {
-        return $this->hasMany(Order::class, "user_id");
+        return $this->hasMany(Client::class, 'id');
     }
 
-    public function all_user()
+    public function pharmacy()
     {
-        return $this->belongsTo(All_Users::class, 'id');
+        return $this->hasMany(Pharmacy::class, 'id');
     }
 }
+
+
+
 
