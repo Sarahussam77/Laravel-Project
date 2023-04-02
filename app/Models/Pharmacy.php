@@ -37,9 +37,9 @@ class Pharmacy extends Model
         return $this->hasMany(Medicine::class, 'pharmacy_id');
     }
 
-    public function all_user()
+    public function user()
     {
-        return $this->belongsTo(All_Users::class, 'id');
+        return $this->belongsTo(User::class, 'id');
     }
 
 }
