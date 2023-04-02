@@ -18,10 +18,18 @@ class AreaController extends Controller
         if ($request->ajax()) {
         $data = Area::select('id','name','address')->get();
         return DataTables::of($data)->addIndexColumn()
-            ->addColumn('action', function($row){
-                $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
-                return $btn;
-            })
+        ->addColumn('action', function ($row) {
+            $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0 mr-2" href="'.route('areas.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
+            $button .= '<a name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm p-0 mr-2" href="'.route('areas.edit', $row->id).'" style="border-radius: 20px;"><i class="fas fa-edit m-2"></i></a>';
+            $button .= '<form method="post" onSubmit="return confirm(Are you sure you want to delete this row?)" action= "'.route('areas.destroy', $row->id).'">
+        <input type="hidden" name="_token" value="'. csrf_token().' ">
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit" class="btn btn-danger btn-sm  p-0 ml-4" style="border-radius: 20px;"><i class="fas fa-trash m-2"></i>
+        </button>
+        </form>';
+            return $button;
+            ;
+        })
             ->rawColumns(['action'])
             ->make(true);
     }
@@ -43,7 +51,15 @@ class AreaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $name = request()->name;
+       $address=request()->address;
+
+        Area::create([
+            'name' => $name,
+            'address'=>$address,
+
+        ]);
+        return to_route('areas.index');
     }
 
     /**
@@ -51,7 +67,8 @@ class AreaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $area= Area::find($id);
+        return view('areas.show', ['area' => $area]);
     }
 
     /**
@@ -59,7 +76,8 @@ class AreaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $area =Area::find($id);
+        return view('areas.edit', ['area' => $area]);
     }
 
     /**
@@ -67,7 +85,13 @@ class AreaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $area = Area::findOrFail($id);
+        $area->name = $request->input('name');
+        $area->address = $request->input('address');
+      
+
+        $area->save();
+        return redirect()->route('areas.index');
     }
 
     /**
@@ -75,6 +99,7 @@ class AreaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Area::where('id',$id)->Delete();
+        return redirect()->route('areas.index');
     }
 }

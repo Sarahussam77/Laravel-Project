@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Doctor;
+use App\Models\Pharmacy;
 use App\DataTables\DoctorsDataTable;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -15,7 +16,7 @@ class DoctorController extends Controller
     public function index(Request $request)
     {  
          if ($request->ajax()) {
-        $data = Doctor::select('id','name','avatar_image','national_id','email','pharmacy_id','is_baned')->get();
+        $data = Doctor::select('id','name','avatar_image','national_id','email','is_baned')->get();
         return DataTables::of($data)->addIndexColumn()
             ->addColumn('action', function($row){
                 $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0" href="'.route('doctors.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
@@ -29,6 +30,10 @@ class DoctorController extends Controller
                 return $button;
                 ;
             })
+            ->addColumn('Pharmacy', function($row){
+                $Pharmacyname = Pharmacy::all()->where('id' , $row['pharmacy_id'] )->first()->name;
+                return $Pharmacyname;
+            })
             ->rawColumns(['action'])
             ->make(true);
     }
@@ -39,8 +44,8 @@ class DoctorController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view("Doctors.create");
+    {   $pharmacy = Pharmacy::all();
+        return view("Doctors.create",['pharmacy'=>$pharmacy ]);
 
     }
 
@@ -50,6 +55,19 @@ class DoctorController extends Controller
     public function store(Request $request)
     {
        
+        $data = $request->all();
+        $PharmacyId = Pharmacy::all()->where('name' , $data['PharmacyName'] )->first()->id;
+       
+        
+        $doctor = Doctor::Create([
+            'email'=> $data['email'],
+            'pharmacy_id'=> $PharmacyId,
+            ''
+        ]);
+
+
+
+        return to_route('orders.index');   
     }
 
     /**

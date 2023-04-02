@@ -12,16 +12,13 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>user_id</th>
-                    	<th> user_address_id</th>
-                        <th>doctor_id</th>
-                        <th>pharmacy_id</th>
+                    <th>user</th>
+                        <th>doctor</th>
+                        <th>pharmacy</th>
                         <th>status</th>
-                        <th>actions </th>
                         <th>is_insured</th>
                         <th>creator_type</th>
                         <th>price</th>
-                    
                         <th>View</th>
                 </tr>
             </thead>
@@ -43,12 +40,10 @@
             },
             columns: [
                       {data: 'id', name: 'id'},
-                      {data: 'user_id', name: 'user_id'},
-                      {data: 'user_address_id', name: 'user_address_id'},
-                      {data: 'doctor_id', name: 'doctor_id'},
-                      {data: 'pharmacy_id', name: 'pharmacy_id'},
+                      {data: 'user', name: 'user'},
+                      {data: 'doctor', name: 'doctor'},
+                      {data: 'Pharmacy', name: 'Pharmacy'},
                       {data: 'status', name: 'status'},
-                      {data: 'actions', name: 'actions'},
                       {data: 'is_insured', name: 'is_insured'},
                       {data: 'creator_type', name: 'creator_type'},
                       {data: 'price', name: 'price'},

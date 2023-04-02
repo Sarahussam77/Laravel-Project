@@ -11,11 +11,7 @@ class Doctor extends Model
     use HasFactory;
     // use HasRoles;
     protected $fillable = [
-        'name',
-        'password',
-        'avatar_image',
-        'national_id',
-        'email',
+        'id',
         "pharmacy_id",
         'is_baned'
     ];
@@ -32,5 +28,10 @@ class Doctor extends Model
     public function medicines()
     {
         return $this->hasMany(Medicine::class, 'doctor_id');
+    }
+
+    public function all_user()
+    {
+        return $this->belongsTo(All_Users::class, 'id');
     }
 }

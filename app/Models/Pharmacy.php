@@ -15,11 +15,7 @@ class Pharmacy extends Model
     // use HasRoles;
 
     protected $fillable = [
-        'name',
-        'password',
-        'national_id',
-        'email',
-        'avatar_image',
+        'id',
         'area_id',
         'priority',
     ];
@@ -41,6 +37,11 @@ class Pharmacy extends Model
     public function medicines()
     {
         return $this->hasMany(Medicine::class, 'pharmacy_id');
+    }
+
+    public function all_user()
+    {
+        return $this->belongsTo(All_Users::class, 'id');
     }
 
 }
