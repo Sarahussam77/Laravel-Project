@@ -9,7 +9,7 @@
             Pharmacy Details
         </div>
         <div class="card-body">
-            <p class="card-title">Name: {{$pharmacies['name']}}</p>
+            <p class="card-title">Name: {{$pharmacies->type->name}}</p>
             <p class="card-text">National ID: {{$pharmacies['national_id']}}</p> 
             <p class="card-text">Area: {{$pharmacies['area_id']}}</p> 
         </div>
@@ -19,7 +19,7 @@
             Pharmacy Image
         </div>
         <div class="card-body">
-            <p class="card-text">Image: {{$pharmacies['avatar_image']}}</p>
+            <p class="card-text">Image: {{$pharmacies['avatar']}}</p>
         </div>
     </div>
     </div>

@@ -11,11 +11,11 @@
      @csrf
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Name</label>
-            <input name="name" type="text" class="form-control"  value="{{$pharmacies['name']}}">
+            <input name="name" type="text" class="form-control"  value="{{$pharmacies->type->name}}">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Email</label>
-            <input name="email" type="text" class="form-control"  value="{{$pharmacies['email']}}">
+            <input name="email" type="text" class="form-control"  value="{{$pharmacies->type->email}}">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">National ID</label>
