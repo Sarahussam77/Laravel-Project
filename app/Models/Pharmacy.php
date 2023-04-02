@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Permission\Traits\HasRoles;
+// use Spatie\Permission\Traits\HasRoles;
 
 
 class Pharmacy extends Model
 {
     use HasFactory;
-    use SoftDeletes ,HasRoles;
+    use SoftDeletes ;
+    // use HasRoles;
 
     protected $fillable = [
         'name',

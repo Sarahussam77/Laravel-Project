@@ -18,8 +18,16 @@ class DoctorController extends Controller
         $data = Doctor::select('id','name','avatar_image','national_id','email','pharmacy_id','is_baned')->get();
         return DataTables::of($data)->addIndexColumn()
             ->addColumn('action', function($row){
-                $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
-                return $btn;
+                $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0" href="'.route('doctors.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
+                $button .= '<a name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm p-0" href="'.route('doctors.edit', $row->id).'" style="border-radius: 20px;"><i class="fas fa-edit m-2"></i></a>';
+                $button .= '<form method="post" action= "'.route('doctors.destroy', $row->id).'">
+            <input type="hidden" name="_token" value="'. csrf_token().' ">
+            <input type="hidden" name="_method" value="delete">
+            <button type="submit" class="btn btn-danger btn-sm  p-0 ml-3" style="border-radius: 20px;"><i class="fas fa-trash m-2"></i>
+            </button>
+            </form>';
+                return $button;
+                ;
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -41,7 +49,7 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
     }
 
     /**
@@ -49,7 +57,8 @@ class DoctorController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $doctors= Doctor::find($id);
+        return view('doctors.show', ['doctors' => $doctors]);
     }
 
     /**
@@ -57,7 +66,8 @@ class DoctorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view("Doctors.edit");
+
     }
 
     /**
