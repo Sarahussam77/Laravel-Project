@@ -6,7 +6,6 @@
 <div class="d-flex flex-row-reverse mb-3 text-center ">
         <a class="btn bg-gradient-danger m-3" href="/readsoftdelete"> Deleted Pharmacies</a>
         <a href="{{route('pharmacies.create')}}" class="btn bg-gradient-success m-3">Create Pharmaciest</a>
-        
     </div>
 @if(isset($alert))
 <div class="alert alert-{!! $alert['type'] !!} alert-dismissable" 
