@@ -19,11 +19,6 @@ class PharmacyFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'avatar_image' => Str::random(10),
-            'national_id' => fake()->randomNumber($nbDigits = NULL, $strict = false),
-            'email' => fake()->unique()->safeEmail(),
             'area_id'=>'1',
             'priority'=>'4'
         ];
