@@ -11,9 +11,9 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Email</th>
                     <th>Avatar_image</th>
                     <th>National_ID</th>
-                    <th>Email</th>
                     <th>Pharmacy</th>
                     <th>is_baned</th>
                     <th>Action</th>
@@ -38,10 +38,10 @@
             columns: [
                       {data: 'id', name: 'id'},
                       {data: 'name', name: 'name'},
-                      {data: 'avatar_image', name: 'avatar_image'},
-                      {data: 'national_id', name: 'national_id'},
                       {data: 'email', name: 'email'},
-                      {data: 'pharmacy', name: 'pharmacy'},
+                      {data: 'avatar', name: 'avatar'},
+                      {data: 'national_id', name: 'national_id'},
+                     {data: 'pharmacy', name: 'pharmacy'},
                       {data: 'is_baned', name: 'is_baned'},
                       {data: 'action', name: 'action', orderable: true, searchable: true},
                   ]
