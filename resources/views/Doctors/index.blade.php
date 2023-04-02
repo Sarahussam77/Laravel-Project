@@ -14,7 +14,7 @@
                     <th>Avatar_image</th>
                     <th>National_ID</th>
                     <th>Email</th>
-                    <th>Pharmacy_ID</th>
+                    <th>Pharmacy</th>
                     <th>is_baned</th>
                     <th>Action</th>
                 </tr>
@@ -41,7 +41,7 @@
                       {data: 'avatar_image', name: 'avatar_image'},
                       {data: 'national_id', name: 'national_id'},
                       {data: 'email', name: 'email'},
-                      {data: 'pharmacy_id', name: 'pharmacy_id'},
+                      {data: 'pharmacy', name: 'pharmacy'},
                       {data: 'is_baned', name: 'is_baned'},
                       {data: 'action', name: 'action', orderable: true, searchable: true},
                   ]
