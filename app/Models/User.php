@@ -23,11 +23,10 @@ class User extends Model
     protected $fillable = [
         'name',
         'password',
-        'avatar_image',
-        'national_id',
         'email',
-        'email_verified_at',
-        'user_type'
+        'typeable_type',
+        'typeable_id'
+        
     ];
 
     /**
@@ -49,20 +48,11 @@ class User extends Model
         'email_verified_at' => 'datetime',
     ];
 
-    public function doctors()
+    public function typeable()
     {
-        return $this->hasMany(Doctor::class, 'id');
+        return $this->morphTo();
     }
-
-    public function clients()
-    {
-        return $this->hasMany(Client::class, 'id');
-    }
-
-    public function pharmacies()
-    {
-        return $this->hasMany(Pharmacy::class, 'id');
-    }
+   
 }
 
 

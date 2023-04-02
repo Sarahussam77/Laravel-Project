@@ -13,10 +13,12 @@ class Pharmacy extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'id',
-        'area_id',
-        'priority',
+        'national_id', 'avatar', 'area_id', 'priority'
     ];
+    public function type()
+    {
+        return $this->morphOne('App\Models\User', 'typeable');
+    }
     public function doctors()
     {
         return $this->hasMany(Doctor::class, 'pharmacy_id');
@@ -37,9 +39,6 @@ class Pharmacy extends Model
         return $this->hasMany(Medicine::class, 'pharmacy_id');
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'id');
-    }
+   
 
 }

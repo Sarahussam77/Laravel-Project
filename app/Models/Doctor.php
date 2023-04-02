@@ -11,6 +11,8 @@ class Doctor extends Model
     protected $fillable = [
         'id',
         "pharmacy_id",
+        'national_id',
+         'avatar',
         'is_baned'
     ];
     public function pharmacy()
@@ -18,18 +20,9 @@ class Doctor extends Model
         return $this->belongsTo(Pharmacy::class, 'pharmacy_id');
     }
 
-    public function orders()
+    public function type()
     {
-        return $this->hasMany(Order::class, 'doctor_id');
+        return $this->morphOne('App\Models\User', 'typeable');
     }
 
-    public function medicines()
-    {
-        return $this->hasMany(Medicine::class, 'doctor_id');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'id');
-    }
 }

@@ -42,6 +42,7 @@ class CreateAdmin extends Command
         'gender'=>fake()->numberBetween(1, 2),
         'phone'=>fake()->phoneNumber,
         'email_verified_at' => now(),
+        'user_type'=>'admin'
             
         ])->id;
         
