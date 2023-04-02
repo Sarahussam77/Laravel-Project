@@ -19,7 +19,7 @@ class PharmacyController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Pharmacy::select('id', 'name', 'email', 'national_id', 'avatar_image', 'area_id', 'priority')->get();
+            $data = Pharmacy::select('id', 'priority')->get();
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0 mr-2" href="'.route('pharmacies.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
@@ -33,8 +33,26 @@ class PharmacyController extends Controller
                     return $button;
                     ;
                 })
-
-
+                ->addColumn('name', function($row){
+                    $username = User::all()->where('id' , $row['id'] )->first()->name;
+                    return $username;
+                })
+                ->addColumn('email', function($row){
+                    $email = User::all()->where('id' , $row['id'] )->first()->email;
+                    return $email;
+                })
+                ->addColumn('national_id', function($row){
+                    $national_id = User::all()->where('id' , $row['id'] )->first()->national_id;
+                    return $national_id;
+                })
+                ->addColumn('avatar_image', function($row){
+                    $avatar_image = User::all()->where('id' , $row['id'] )->first()->avatar_image;
+                    return $avatar_image;
+                })
+                ->addColumn('area', function($row){
+                    $area = Area::all()->where('id' , $row['area_id'] )->first()->name;
+                    return $area;
+                })
                 ->rawColumns(['action'])
                 ->make(true);
         }
@@ -55,26 +73,26 @@ class PharmacyController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $name = request()->name;
-        $email = request()->email;
-        $national_id =request()->national_id;
-        $password =request()->password;
-        $avatar_image =request()->avatar_image;
-        $area_id =request()->area_id;
-        $priority=request()->priority;
-
-        Pharmacy::create([
-            'name' => $name,
-            'email' => $email,
-            'national_id' =>$national_id,
-            'password' =>$password,
-            'avatar_image'=>$avatar_image,
+    {   $data = $request->all();
+        $area_id =Area::all()->where('id' , $data['area_id'] )->first()->id;
+        
+       $pharmacy= Pharmacy::create([
             'area_id'=>$area_id,
-            'priority'=>$priority
+            'priority'=>$data['priority'],
+            'national_id'=>$data['national_id'],
+            'avatar'=>$data['avatar_image'],
 
         ]);
-
+     
+        User::create([
+           
+            'name'=>$data['name'],
+            'email'=>$data['email'],
+            'password'=>$data['password'],
+            'typeable_type'=>'app\Models\Pharmacy',
+            'typeable_id'=>$pharmacy->id
+           
+        ]);
         return to_route('pharmacies.index');
     }
 
