@@ -12,19 +12,19 @@ display doctor
   </div>
   <div class="card-body">
     <h5 class="card-title">Email:</h5>
-    <p>{{$doctor['email']}}</p>
+    <p>{{$doctors['email']}}</p>
     <h5 class="card-title">Name:</h5>
-    <p class="card-text">{{$doctor['name']}}</p>
+    <p class="card-text">{{$doctors['name']}}</p>
 
     <h5 class="card-title">National ID:</h5>
-    <p class="card-text">{{$doctor['national_id']}}</p>
+    <p class="card-text">{{$doctors['national_id']}}</p>
 
-    <img src="{{$doctor['image']}}" alt="">
-    @if($doctor->image)
-            <img src="{{Storage::url($doctor->image)}}" width="250px"   alt="{{$doctor->image}}">
+    <img src="{{$doctors['image']}}" alt="">
+    @if($doctors->image)
+            <img src="{{Storage::url($doctors->image)}}" width="250px"   alt="{{$doctors->image}}">
         @endif
         
-   <p class=" text-danger card-text"><span class="fw-bold">created At:</span><br> {{ $doctor->created_at->format('l jS \\of F Y h:i:s A') }}</h5>  </div>
+   <p class=" text-danger card-text"><span class="fw-bold">created At:</span><br> {{ $doctors->created_at->format('l jS \\of F Y h:i:s A') }}</h5>  </div>
 </div>
 
       

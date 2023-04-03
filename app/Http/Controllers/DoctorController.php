@@ -20,6 +20,7 @@ class DoctorController extends Controller
         $data = Doctor::select('id','avatar','national_id','pharmacy_id','is_baned')->get();
         
         return DataTables::of($data)->addIndexColumn()
+          
         ->addColumn('action', function ($row) {
             $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0 mr-2" href="'.route('doctors.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
             $button .= '<a name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm p-0 mr-2" href="'.route('doctors.edit', $row->id).'" style="border-radius: 20px;"><i class="fas fa-edit m-2"></i></a>';
@@ -69,6 +70,7 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
+       
         $data = $request->all();
         $PharmacyId = Pharmacy::all()->where('name' , $data['PharmacyName'] );
        
@@ -99,7 +101,8 @@ class DoctorController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $doctors= Doctor::find($id);
+        return view('doctors.show', ['doctors' => $doctors]);
     }
 
     /**
@@ -107,7 +110,8 @@ class DoctorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view("Doctors.edit");
+
     }
 
     /**

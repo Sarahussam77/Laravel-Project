@@ -19,7 +19,7 @@
                         <th>is_insured</th>
                         <th>creator_type</th>
                         <th>price</th>
-                        <th>View</th>
+                        <th>Action</th>
                 </tr>
             </thead>
                 <tbody>

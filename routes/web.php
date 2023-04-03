@@ -36,17 +36,31 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('single-charge',[App\Http\Controllers\HomeController::class,'singleCharge'])->name('single.charge');
 
-Route::resource('pharmacies', PharmacyController::class);
-Route::get('/readsoftdelete',[PharmacyController::class,'readsoftdelete'])->name('pharmacies.readsoft');
-Route::get('{pharmacy}/restore', [PharmacyController::class,'restore'])->name('pharmacies.restore');
-Route::get('{pharmacy}/forcedelete', [PharmacyController::class,'forceDelete'])->name('pharmacies.forcedelete');
+Route::middleware(['auth','order-role'])->group(function()
+{
+    Route::resource('orders', OrderController::class);
+});
 
-Route::resource('doctors', DoctorController::class);
-Route::resource('users', UserController::class);
-Route::resource('areas', AreaController::class);
+// doctor Route
+// Route::middleware(['auth','user-role:doctor'])->group(function()
+// {
+//     // Route::resource('orders', OrderController::class);
+// });
 
-Route::resource('useraddresses', UserAddressController::class);
-Route::resource('medicines', MedicineController::class);
-Route::resource('orders', OrderController::class);
-Route::resource('revenue', RevenueController::class);
-
+// Admin Route
+Route::middleware(['auth','user-role:admin'])->group(function()
+{
+    Route::resource('pharmacies', PharmacyController::class);
+    Route::get('/readsoftdelete',[PharmacyController::class,'readsoftdelete'])->name('pharmacies.readsoft');
+    Route::get('{pharmacy}/restore', [PharmacyController::class,'restore'])->name('pharmacies.restore');
+    Route::get('{pharmacy}/forcedelete', [PharmacyController::class,'forceDelete'])->name('pharmacies.forcedelete');
+    
+    Route::resource('doctors', DoctorController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('areas', AreaController::class);
+    
+    Route::resource('useraddresses', UserAddressController::class);
+    Route::resource('medicines', MedicineController::class);
+    // Route::resource('orders', OrderController::class);
+    Route::resource('revenue', RevenueController::class);
+});

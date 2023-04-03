@@ -60,7 +60,6 @@
     </div>
     @endif
     <div class="form-group text-center">
-        <button  id="card-button" data-secret="{{ $intent->client_secret }}" class="btn btn-lg btn-success btn-block mt-3">SUBMIT</button>
     </div>
 </form>
                 </div>
@@ -74,7 +73,7 @@
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-    var stripe = Stripe('{{ env('STRIPE_KEY') }}');
+    
     var elements = stripe.elements();
     var style = {
         base: {

@@ -13,7 +13,7 @@
                     <th>Avatar_image</th>
                     <th>National_ID</th>
                     <th>Email</th>
-                    <th>Date Of Birth</th>
+                    <!-- <th>Date Of Birth</th> -->
                     <th>Gender</th>
                     <th>Phone</th>
                     <th>Action</th>
@@ -41,7 +41,7 @@
                       {data: 'avatar_image', name: 'avatar_image'},
                       {data: 'national_id', name: 'national_id'},
                       {data: 'email', name: 'email'},
-                      {data: 'date_fo_birth', name: 'date_fo_birth'},
+                    //   {data: 'date_fo_birth', name: 'date_fo_birth'},
                       {data: 'gender', name: 'gender'},
                       {data: 'phone', name: 'phone'},
                       {data: 'action', name: 'action', orderable: true, searchable: true},

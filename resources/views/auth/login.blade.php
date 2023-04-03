@@ -38,26 +38,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div  style="text-align: center;">
-                        <div style="width:100%" class="optionsLogin" >
-                      <div class="form-check form-check-inline" >
-                      <input class="form-check-input" type="radio" name="usertype" id="usertype_0" value="1" checked="checked">
-                      <label class="form-check-label" for="usertype_0">Admin</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="usertype" id="usertype_2" value="3">
-                      <label class="form-check-label" for="usertype_2">Doctor</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="usertype" id="usertype_1" value="2">
-                      <label class="form-check-label" for="usertype_1">Pharmaciest</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="usertype" id="usertype_1" value="2">
-                      <label class="form-check-label" for="usertype_1">User</label>
-                    </div>
-          </div>
-</div>
+          
                         <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
