@@ -10,7 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables as DataTablesDataTables;
 use Yajra\DataTables\Facades\DataTables ;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 
 class PharmacyController extends Controller
 {
@@ -85,8 +85,8 @@ class PharmacyController extends Controller
             'name'=>$data['name'],
             'email'=>$data['email'],
             'password'=>Hash::make($data['password']),
-            'typeable_type'=>'pharmacy',
-            'typeable_id'=>3
+            'typeable_type'=>'app\Models\Pharmacy',
+            'typeable_id'=>$pharmacy->id
            
         ])->assignRole('pharmacy');
         

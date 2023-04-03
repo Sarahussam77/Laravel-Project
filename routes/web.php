@@ -48,7 +48,7 @@ Route::middleware(['auth','order-role'])->group(function()
 // });
 
 // Admin Route
-Route::middleware(['auth','user-role:admin'])->group(function()
+Route::middleware(['auth','role:admin'])->group(function()
 {
     Route::resource('pharmacies', PharmacyController::class);
     Route::get('/readsoftdelete',[PharmacyController::class,'readsoftdelete'])->name('pharmacies.readsoft');

@@ -17,7 +17,8 @@ class UserRoleMiddleware
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        if(Auth::check() && Auth::user()->typeable_type == $role)
+        
+        if(Auth::check() && Auth::user()->role == $role)
         {
             return $next($request);
         }
