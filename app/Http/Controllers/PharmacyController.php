@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables as DataTablesDataTables;
 use Yajra\DataTables\Facades\DataTables ;
+use Hash;
 
 class PharmacyController extends Controller
 {
@@ -19,7 +20,8 @@ class PharmacyController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Pharmacy::select('id', 'priority')->get();
+            
+            $data = Pharmacy::select('id', 'priority','area_id','national_id','avatar')->get();
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0 mr-2" href="'.route('pharmacies.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
@@ -34,21 +36,15 @@ class PharmacyController extends Controller
                     ;
                 })
                 ->addColumn('name', function($row){
-                    $username = User::all()->where('id' , $row['id'] )->first()->name;
-                    return $username;
+                    // $username = Pharmacy::find($row['id']);
+                    return Pharmacy::find($row['id'])->type->name;
                 })
+                
                 ->addColumn('email', function($row){
-                    $email = User::all()->where('id' , $row['id'] )->first()->email;
-                    return $email;
+                    
+                    return Pharmacy::find($row['id'])->type->email;
                 })
-                ->addColumn('national_id', function($row){
-                    $national_id = User::all()->where('id' , $row['id'] )->first()->national_id;
-                    return $national_id;
-                })
-                ->addColumn('avatar_image', function($row){
-                    $avatar_image = User::all()->where('id' , $row['id'] )->first()->avatar_image;
-                    return $avatar_image;
-                })
+                
                 ->addColumn('area', function($row){
                     $area = Area::all()->where('id' , $row['area_id'] )->first()->name;
                     return $area;
@@ -88,11 +84,13 @@ class PharmacyController extends Controller
            
             'name'=>$data['name'],
             'email'=>$data['email'],
-            'password'=>$data['password'],
+            'password'=>Hash::make($data['password']),
             'typeable_type'=>'app\Models\Pharmacy',
             'typeable_id'=>$pharmacy->id
            
-        ]);
+        ])->assignRole('pharmacy');
+        
+        $user;
         return to_route('pharmacies.index');
     }
 
@@ -121,11 +119,11 @@ class PharmacyController extends Controller
     public function update(Request $request, string $id)
     {
         $pharmacies = Pharmacy::findOrFail($id);
-        $pharmacies->name = $request->input('name');
+        $pharmacies->type->name = $request->input('name');
         $pharmacies->national_id = $request->input('national_id');
-        $pharmacies->email = $request->input('email');
+        $pharmacies->type->email = $request->input('email');
         $pharmacies->area_id = $request->input('area_id');
-
+        $pharmacies->type->save();
         $pharmacies->save();
         return redirect()->route('pharmacies.index');
     }
@@ -136,11 +134,12 @@ class PharmacyController extends Controller
 
      public function destroy(Request $request, String $id)
      {
-         //$pharmacyId = $request->pharmacies;
-         
+        $user=User::withTrashed()->where('typeable_id' ,$id )->get()->first();
          $pharmacies = Pharmacy::withTrashed()
                  ->where('id', $id)
                  ->get()->first();
+                 
+                 
                  if(count($pharmacies->orders))
                  {
                     $alert=[];
@@ -148,28 +147,33 @@ class PharmacyController extends Controller
                     $alert['message']='Pharmacy has orders Can not be deleted';
                     return view('pharmacies.index',['alert'=>$alert]);
                  }
+                 $user->delete();  
          $pharmacies->delete();
         
          return view('pharmacies.index');
      }
 
     public function forceDelete($id)
-    {
+     { 
+        user::withTrashed()->where('typeable_id' ,$id)->forceDelete();
         Pharmacy::withTrashed()->where('id',$id)->forceDelete();
         return redirect()->route('pharmacies.readsoft');
         
     }
 
     public function readsoftdelete()
-    {
+    {   
         $pharmacies = Pharmacy::onlyTrashed()
                     ->get();
+        $users = User::onlyTrashed()
+                    ->get();   
+                        
         return view('pharmacies.destroy', [
-            'deletedPharmacies' => $pharmacies
+            'deletedPharmacies' => $pharmacies,'users'=>$users
         ]);
     }
     public function restore($id)
-    {
+    {    $user = User::onlyTrashed()->where('typeable_id' ,$id)->restore();
         $pharmacies = Pharmacy::onlyTrashed()->where('id', $id)->restore();
         return redirect()->route('pharmacies.index');
     }
