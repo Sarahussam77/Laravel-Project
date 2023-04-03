@@ -85,8 +85,8 @@ class PharmacyController extends Controller
             'name'=>$data['name'],
             'email'=>$data['email'],
             'password'=>Hash::make($data['password']),
-            'typeable_type'=>'app\Models\Pharmacy',
-            'typeable_id'=>$pharmacy->id
+            'typeable_type'=>'pharmacy',
+            'typeable_id'=>3
            
         ])->assignRole('pharmacy');
         

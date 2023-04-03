@@ -3,6 +3,6 @@
 
 @section("content")
 
-A7la msa 3la e5waty el gd3na kolha
+<h1 style="text-align: center;">Welcome To Our Application</h1>
 
 @endsection
