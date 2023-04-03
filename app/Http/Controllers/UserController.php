@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use App\Models\Client;
+use Illuminate\Support\Facades\Hash;
+
+
 
 class UserController extends Controller
 {
@@ -40,8 +44,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        $data = $request->all();
+        $client= Client::create([
+		
+            'gender'=>1,
+            'date_of_birth'=>$data['date_of_birth'],
+            'phone'=>$data['phone'],
+
+        ]);
+        User::create([
+           
+            'name'=>$data['name'],
+            'email'=>$data['email'],
+            'password'=>Hash::make($data['password']),
+            'typeable_type'=>'app\Models\Client',
+            'typeable_id'=>$client->id
+           
+        ])->assignRole('client');
+
+
     }
+
 
     /**
      * Display the specified resource.

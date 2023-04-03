@@ -7,7 +7,7 @@ use App\Models\Doctor;
 use App\Models\Pharmacy;
 use App\DataTables\DoctorsDataTable;
 use App\Models\User;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class DoctorController extends Controller
