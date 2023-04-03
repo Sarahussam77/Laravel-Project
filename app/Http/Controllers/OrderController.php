@@ -40,11 +40,11 @@ class OrderController extends Controller
     })
 
         ->addColumn('Pharmacy', function($row){
-            $Pharmacyname = Pharmacy::all()->where('id' , $row['pharmacy_id'] )->first()->name;
+            $Pharmacyname = User::all()->where('id' , $row['pharmacy_id'] )->first()->name;
             return $Pharmacyname;
         })
         ->addColumn('doctor', function($row){
-            $doctorname = Doctor::all()->where('id' , $row['doctor_id'] )->first()->name;
+            $doctorname = User::all()->where('id' , $row['doctor_id'] )->first()->name;
             return $doctorname;
         })
         ->addColumn('user', function($row){
@@ -82,8 +82,8 @@ class OrderController extends Controller
     {
         $data = $request->all();
         $UserId = User::all()->where('name' , $data['name_of_user'] )->first()->id;
-        $DocId = Doctor::all()->where('name' , $data['DocName'] )->first()->id;
-        $PharmacyId = Pharmacy::all()->where('name' , $data['PharmacyName'] )->first()->id;
+        $DocId = User::all()->where('name' , $data['DocName'] )->first()->id;
+        $PharmacyId = User::all()->where('name' , $data['PharmacyName'] )->first()->id;
         $useradd = Address::all()->where('street_name' , $data['address'] )->first()->id;
         // dd($data);
         $med = $data['med'];
@@ -155,8 +155,8 @@ class OrderController extends Controller
     {
         $data = $request->all();
         $UserId = User::all()->where('name' , $data['name_of_user'] )->first()->id;
-        $DocId = Doctor::all()->where('name' , $data['DocName'] )->first()->id;
-        $PharmacyId = Pharmacy::all()->where('name' , $data['PharmacyName'] )->first()->id;
+        $DocId = User::all()->where('name' , $data['DocName'] )->first()->id;
+        $PharmacyId = User::all()->where('name' , $data['PharmacyName'] )->first()->id;
         $useradd = Address::all()->where('street_name' , $data['address'] )->first()->id;
         $order = Order::findOrFail($id);
         
