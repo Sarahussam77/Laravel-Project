@@ -3,6 +3,11 @@
 
 @section("content")
 
+<div class="text-center">
+        {{-- style="background-color:#6D9886 ; color:white" --}}
+        <a   href="{{route('useraddresses.create')}}" class="mt-4 btn btn-success">Create Order</a>
+    </div>
+
 addresses
 <div class="container mt-5 ">
     <table id="myTable">
@@ -14,9 +19,9 @@ addresses
                 <th>floor_number</th>
                 <th>flat_number</th>
                 <th>is_main</th>
-                <th>area_id</th>
-                <th>user_id</th>
-                <th>Action</th>
+                <th>area</th>
+                <th>user</th>
+                <th>action</th>
             </tr>
         </thead>
             <tbody>
@@ -41,9 +46,9 @@ addresses
                   {data: 'building_number', name: 'building_number'},
                   {data: 'floor_number', name: 'floor_number'},
                   {data: 'flat_number', name: 'flat_number'},
-                  {data: 'is_main', name: 'is_main'},
-                  {data: 'area_id', name: 'area_id'},
-                  {data: 'user_id', name: 'user_id'},
+                  {data: 'ismain', name: '"Is Main"'},
+                  {data: 'area', name: 'area'},
+                  {data: 'user', name: 'user'},
                   {data: 'action', name: 'action', orderable: true, searchable: true},
               ]
     });

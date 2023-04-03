@@ -23,11 +23,15 @@
   <tbody>
 
   @if(isset($deletedPharmacies))
+ 
   @foreach($deletedPharmacies as $pharmacies)
+ 
         <tr id="{{$pharmacies->id}}">
         <th scope="row">{{$pharmacies->id}}</th>
-        <td>{{$pharmacies->name}}</td>
-        <td>{{$pharmacies->email}}</td>
+        @foreach($users as $user)
+         <td>{{$user->name}}</td>
+        <td>{{$user->email}}</td>
+        @endforeach 
         <th scope="col"><img src="{{asset('/storage/'.$pharmacies->avatar_image)}}" width="30px" height="30px"></th>
         <td>{{$pharmacies->national_id}}</td>
         <td>{{$pharmacies->area_id}}</td>

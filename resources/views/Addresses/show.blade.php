@@ -11,16 +11,16 @@ display address
   </div>
   <div class="card-body">
     <h5 class="card-title">Street Name:</h5>
-    <p>{{$address['street_name']}}</p>
+    <p> {{$address['street_name']}}</p>
 
-    <h5 class="card-title">Building Number:</h5>
-    <p class="card-text">{{$address['building_number']}}</p>
+    <h5 class="card-title">Building Number: </h5>
+    <p >{{$address['building_number']}}</p>
 
-    <h5 class="card-title">Floor Number:</h5>
-    <p class="card-text">{{$address['floor_number']}}</p>
+    <h5 class="card-title">Floor Number: </h5>
+    <p >{{$address['floor_number']}}</p>
 
-    <h5 class="card-title">Flat Number:</h5>
-    <p class="card-text">{{$address['flat_number']}}</p>
+    <h5 class="card-title">Flat Number : </h5>
+    <p >{{$address['flat_number']}}</p>
 
    <p class=" text-danger card-text"><span class="fw-bold">created At:</span><br> {{ $address->created_at->format('l jS \\of F Y h:i:s A') }}</h5>  </div>
 </div>
