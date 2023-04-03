@@ -11,8 +11,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Cashier\Billable;
+// use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable,HasRoles,Billable ,SoftDeletes;
 

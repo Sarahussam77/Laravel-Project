@@ -35,18 +35,12 @@ class CreateAdmin extends Command
             'name' => 'admin',
             'email' => $email[1],
             'password' => Hash::make($password[1]),
-            'avatar_image'=>'admin.jpg',
-        'national_id'=>fake()->unique()->randomNumber($nbDigits = NULL, $strict = false),
-            
-            'date_of_birth'=>fake()->dateTimeBetween($startDate = '-50 years', $endDate = '-20 years'),
-        'gender'=>fake()->numberBetween(1, 2),
-        'phone'=>fake()->phoneNumber,
-        'email_verified_at' => now(),
-        'user_type'=>'admin'
-            
-        ])->id;
+            'typeable_type'=>'null',
+            'typeable_id'=>0
+          
+        ])->assignRole('admin');
         
-        $role_id = DB::table('roles')->where('name', 'admin')->value('id');
-        User::find($user)->roles()->sync($role_id) ;
+        // $role_id = DB::table('roles')->where('name', 'admin')->value('id');
+        // User::find($user)->roles()->sync($role_id) ;
     }
 }
