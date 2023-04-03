@@ -19,19 +19,7 @@ class DoctorController extends Controller
         $data = Doctor::select('id','avatar','national_id','pharmacy_id','is_baned')->get();
         
         return DataTables::of($data)->addIndexColumn()
-<<<<<<< HEAD
-            ->addColumn('action', function($row){
-                $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0" href="'.route('doctors.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
-                $button .= '<a name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm p-0" href="'.route('doctors.edit', $row->id).'" style="border-radius: 20px;"><i class="fas fa-edit m-2"></i></a>';
-                $button .= '<form method="post" action= "'.route('doctors.destroy', $row->id).'">
-            <input type="hidden" name="_token" value="'. csrf_token().' ">
-            <input type="hidden" name="_method" value="delete">
-            <button type="submit" class="btn btn-danger btn-sm  p-0 ml-3" style="border-radius: 20px;"><i class="fas fa-trash m-2"></i>
-            </button>
-            </form>';
-                return $button;
-                ;
-=======
+          
         ->addColumn('action', function ($row) {
             $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0 mr-2" href="'.route('doctors.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
             $button .= '<a name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm p-0 mr-2" href="'.route('doctors.edit', $row->id).'" style="border-radius: 20px;"><i class="fas fa-edit m-2"></i></a>';
@@ -52,7 +40,6 @@ class DoctorController extends Controller
             ->addColumn('email', function($row){
                 
                 return Doctor::find($row['id'])->type->email;
->>>>>>> c6e25fb84e723bbe648ed04234dcdb4738e5b85c
             })
             
             ->addColumn('pharmacy', function($row){
