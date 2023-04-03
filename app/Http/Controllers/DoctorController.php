@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Doctor;
 use App\Models\Pharmacy;
 use App\DataTables\DoctorsDataTable;
+use App\Models\User;
 use Yajra\DataTables\Facades\DataTables;
 
 class DoctorController extends Controller
@@ -57,8 +58,9 @@ class DoctorController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {   $pharmacy = Pharmacy::all();
-        return view("Doctors.create",['pharmacy'=>$pharmacy ]);
+    {  
+         $pharmacy = Pharmacy::all();
+        return view("doctors.create",['pharmacy'=>$pharmacy ]);
 
     }
 
@@ -68,18 +70,28 @@ class DoctorController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $PharmacyId = Pharmacy::all()->where('name' , $data['PharmacyName'] )->first()->id;
+        $PharmacyId = Pharmacy::all()->where('name' , $data['PharmacyName'] );
        
-        
-        $doctor = Doctor::Create([
-            'email'=> $data['email'],
-            'pharmacy_id'=> $PharmacyId,
-            ''
+        $doctor= Doctor::create([
+            'pharmacy_id'=>$PharmacyId,
+            'national_id'=>$data['national_id'],
+            'is_baned'=>$data['is_baned'],
+            'avatar'=>$data['avatar_image'],
+
         ]);
+        User::create([
+           
+            'name'=>$data['name'],
+            'email'=>$data['email'],
+            'password'=>Hash::make($data['password']),
+            'typeable_type'=>'app\Models\Doctor',
+            'typeable_id'=>$doctor->id
+           
+        ])->assignRole('doctor');
 
 
 
-        return to_route('orders.index');   
+        return to_route('doctors.index');   
     }
 
     /**

@@ -90,7 +90,6 @@ class PharmacyController extends Controller
            
         ])->assignRole('pharmacy');
         
-        $user;
         return to_route('pharmacies.index');
     }
 
