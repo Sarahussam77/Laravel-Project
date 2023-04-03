@@ -19,14 +19,6 @@ class DoctorFactory extends Factory
     public function definition(): array
     {
         return [
-<<<<<<< HEAD
-            'name' => fake()->name(),
-            'password' => fake()->randomNumber($nbDigits = NULL, $strict = false), // password
-            // 'avatar_image' => Str::random(10),
-            'national_id' => fake()->randomNumber($nbDigits = NULL, $strict = false),
-            'email' => fake()->unique()->safeEmail(),
-=======
->>>>>>> d515279e4754757eadecd710c84198dadf6fa62b
             'pharmacy_id'=>'1',
             'is_baned'=>'0'
         ];

@@ -40,33 +40,33 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request)
-    {
-        $input = $request->all();
-        $this->validate($request,[
-            'email'=>'required|email',
-            'password'=>'required'
-        ]);
-        if(auth()->attempt(['email'=>$input["email"], 'password'=>$input['password']]))
-        {
-            // if(auth()->user()->role == 'admin')
-            // {
-            //     return redirect()->route('home.admin');
-            // }
-            // else if(auth()->user()->role == 'editor')
-            // {
-            //     return redirect()->route('home.editor');
-            // }
-            // else
-            // {
-                return redirect()->route('home');
-            // }
-        }
-        else
-        {
-            return redirect()
-            ->route("login")
-            ->with("error",'Incorrect email or password');
-        }
-    }
+    // public function login(Request $request)
+    // {
+    //     $input = $request->all();
+    //     $this->validate($request,[
+    //         'email'=>'required|email',
+    //         'password'=>'required'
+    //     ]);
+    //     if(auth()->attempt(['email'=>$input["email"], 'password'=>$input['password']]))
+    //     {
+    //         // if(auth()->user()->role == 'admin')
+    //         // {
+    //         //     return redirect()->route('home.admin');
+    //         // }
+    //         // else if(auth()->user()->role == 'editor')
+    //         // {
+    //         //     return redirect()->route('home.editor');
+    //         // }
+    //         // else
+    //         // {
+    //             return redirect()->route('home');
+    //         // }
+    //     }
+    //     else
+    //     {
+    //         return redirect()
+    //         ->route("login")
+    //         ->with("error",'Incorrect email or password');
+    //     }
+    // }
 }

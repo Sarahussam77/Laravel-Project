@@ -21,10 +21,12 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name,
             'password' => Hash::make("123456"),
-            'avatar_image' => "image.jpg",
-            'national_id' => fake()->unique()->randomNumber($nbDigits = NULL, $strict = false),
-            'email' => $faker->unique()->safeEmail,
-            'email_verified_at' => now(),
+            // 'avatar_image' => "image.jpg",
+            // 'national_id' => fake()->unique()->randomNumber($nbDigits = NULL, $strict = false),
+            // 'email' => $faker->unique()->safeEmail,
+            'email' => 'client@gmail.com',
+
+            // 'email_verified_at' => now(),
             'remember_token' => Str::random(10),
             
         ];

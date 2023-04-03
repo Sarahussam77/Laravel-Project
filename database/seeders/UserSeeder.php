@@ -19,13 +19,32 @@ class UserSeeder extends Seeder
         $admin= User::create([
             'name' => 'admin',
             'password' =>Hash::make(123456) ,
-            'avatar_image'=>'admin.jpg',
-            'national_id'=>fake()->unique()->randomNumber($nbDigits = NULL, $strict = false),
-            'email' => 'admin@admin.com',
-            'email_verified_at' => now(),
-            'user_type'=>'admin'
+            // 'avatar_image'=>'admin.jpg',
+            // 'national_id'=>fake()->unique()->randomNumber($nbDigits = NULL, $strict = false),
+            'email' => 'admin2@admin.com',
+            // 'email_verified_at' => now(),
+            'typeable_type'=>'admin',
+            'typeable_id'=>'1'
+
+
         ]);
         $admin->assignRole('admin');
+
+        $pharmacy= User::create([
+            'name' => 'sameh',
+            'password' =>Hash::make(123456) ,
+            // 'avatar_image'=>'admin.jpg',
+            // 'national_id'=>fake()->unique()->randomNumber($nbDigits = NULL, $strict = false),
+            'email' => 'pharmacy@gmail.com',
+            // 'email_verified_at' => now(),
+            'typeable_type'=>'pharmacy',
+            'typeable_id'=>'3'
+
+
+        ]);
+        $pharmacy->assignRole('pharmacy');
+
+   
     }
 }
 

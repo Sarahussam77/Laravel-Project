@@ -23,18 +23,18 @@ class ApiController extends Controller
         //
     }
 
-    public function login(Request $request){
-     if(!Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
-        return response()->json([
-         "success" =>false,
-         "status"=>200
-        ]);
-     }
-    //  $user= auth()->user();
-     $token = $request->user()->createToken($request->token_name);
+    // public function login(Request $request){
+    //  if(!Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
+    //     return response()->json([
+    //      "success" =>false,
+    //      "status"=>200
+    //     ]);
+    //  }
+    // //  $user= auth()->user();
+    //  $token = $request->user()->createToken($request->token_name);
  
-     return ['token' => $token->plainTextToken];
-    }
+    //  return ['token' => $token->plainTextToken];
+    // }
     /**
      * Display the specified resource.
      */
