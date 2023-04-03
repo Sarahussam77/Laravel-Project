@@ -33,9 +33,9 @@ class Client extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Order::class, "user_id");
     }
 
-    public function user()
+    public function type()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->morphOne('App\Models\User', 'typeable');
     }
 }
 

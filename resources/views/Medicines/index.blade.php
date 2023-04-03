@@ -3,18 +3,23 @@
 
 @section("content")
 
-Medicines Datatables 
+<div class="text-center">
+    <a href="{{route('medicines.create')}}" class="mt-4 btn btn-success">Add Medicine</a>
+</div>
+@if(isset($alert))
+<div class="alert alert-{!! $alert['type'] !!} alert-dismissable" 
+    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+    {!! $alert['message']!!}
+</div>
+ @endif
 <div class="container mt-5 ">
     <table id="myTable">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>quantity</th>
-                <th>type</th>
+                 <th>Name</th>
+                 <th>type</th>
                 <th>price</th>
-                <th>pharmacy_id</th>
-                <th>doctor_id</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -37,11 +42,8 @@ Medicines Datatables
         columns: [
                   {data: 'id', name: 'id'},
                   {data: 'name', name: 'name'},
-                  {data: 'quantity', name: 'quantity'},
                   {data: 'type', name: 'type'},
                   {data: 'price', name: 'price'},
-                  {data: 'pharmacy_id', name: 'pharmacy_id'},
-                  {data: 'doctor_id', name: 'doctor_id'},
                   {data: 'action', name: 'action', orderable: true, searchable: true},
               ]
     });
