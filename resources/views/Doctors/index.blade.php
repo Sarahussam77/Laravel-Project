@@ -25,8 +25,7 @@
             
         </table>
         </div>
-        
-        <script>
+      <script>
           $data=  $(document).ready(function() {
         $('#myTable').DataTable({
             processing: true,
