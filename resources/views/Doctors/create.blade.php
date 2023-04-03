@@ -39,16 +39,16 @@
             <textarea name="is_baned" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
         <div class="form-group">
-            <label for="PharmacyName">Pharmacy Name</label>
-            <select name="PharmacyName" class="form-control">
+            <label for="Pharmacy_id">Pharmacy Name</label>
+            <select name="Pharmacy_id" class="form-control" >
             @if(isset($pharmacy))  
               @foreach($pharmacy as $phar)
-                <option >{{$phar->type->name}}</option>
+                <option value="{{$phar->type->id}}">{{$phar->type->name}}</option>
               @endforeach
             @endif
             </select>
 </div>
-        
+         
 
         <button class="btn btn-success" style="background-color:#6D9886 ; color:white">Submit</button>
     </form>

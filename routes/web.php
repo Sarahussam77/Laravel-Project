@@ -36,7 +36,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('single-charge',[App\Http\Controllers\HomeController::class,'singleCharge'])->name('single.charge');
 
-Route::middleware(['auth','order-role'])->group(function()
+Route::middleware(['auth','role:pharmacy|doctor'])->group(function()
 {
     Route::resource('orders', OrderController::class);
 });
@@ -50,7 +50,7 @@ Route::middleware(['auth','order-role'])->group(function()
 // Admin Route
 Route::middleware(['auth','role:admin'])->group(function()
 {
-    Route::resource('pharmacies', PharmacyController::class);
+  Route::resource('pharmacies', PharmacyController::class);
     Route::get('/readsoftdelete',[PharmacyController::class,'readsoftdelete'])->name('pharmacies.readsoft');
     Route::get('{pharmacy}/restore', [PharmacyController::class,'restore'])->name('pharmacies.restore');
     Route::get('{pharmacy}/forcedelete', [PharmacyController::class,'forceDelete'])->name('pharmacies.forcedelete');
@@ -63,4 +63,4 @@ Route::middleware(['auth','role:admin'])->group(function()
     Route::resource('medicines', MedicineController::class);
     // Route::resource('orders', OrderController::class);
     Route::resource('revenue', RevenueController::class);
-});
+ });

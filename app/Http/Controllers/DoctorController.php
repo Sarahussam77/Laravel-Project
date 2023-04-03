@@ -7,6 +7,7 @@ use App\Models\Doctor;
 use App\Models\Pharmacy;
 use App\DataTables\DoctorsDataTable;
 use App\Models\User;
+use Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class DoctorController extends Controller
@@ -61,6 +62,7 @@ class DoctorController extends Controller
     public function create()
     {  
          $pharmacy = Pharmacy::all();
+         
         return view("doctors.create",['pharmacy'=>$pharmacy ]);
 
     }
@@ -72,8 +74,7 @@ class DoctorController extends Controller
     {
        
         $data = $request->all();
-        $PharmacyId = Pharmacy::all()->where('name' , $data['PharmacyName'] );
-       
+         $PharmacyId = USer::all()->where('id' , $data['Pharmacy_id'] )->first()->typeable_id;
         $doctor= Doctor::create([
             'pharmacy_id'=>$PharmacyId,
             'national_id'=>$data['national_id'],
