@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables as DataTablesDataTables;
 use Yajra\DataTables\Facades\DataTables ;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\StoreRequest;
+use App\Http\Requests\UpdateRequest;
+use Illuminate\Support\Facades\Validator;
+
 
 class PharmacyController extends Controller
 {
@@ -66,25 +70,35 @@ class PharmacyController extends Controller
         return view('Pharmacies.create', ['areas' => $areas]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {   $data = $request->all();
+    // protected function validator(Request $data){
+
+    //     return Validator::make($data, [
+    //                'name' => ['required', 'string', 'max:255'],
+    //                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    //                'national_id' => ['required', 'string', 'national_id', 'max:255', 'unique:users'],
+    //                'password' => ['required', 'string', 'min:6', 'confirmed'],
+    //             //    'phone'=>['required', 'string', 'min:11'],
+    //                'avatar'=>'required|image'
+    //            ]);
+    //            }
+    public function store(StoreRequest $request)
+    {    
+        $data = $request->all();
+        $request->validate([
+            'national_id' => ['required', 'string', 'max:255', 'unique:pharmacies'],
+
+        ]);
         $area_id =Area::all()->where('id' , $data['area_id'] )->first()->id;
         $image = $request->file('avatar')->store('images',['disk' => "public"]);
        $pharmacy= Pharmacy::create([
             'area_id'=>$area_id,
             'priority'=>$data['priority'],
-            'national_id'=>$data['national_id'],
             'avatar'=>$image,
-
         ]);
      
         User::create([
            
             'name'=>$data['name'],
-            'email'=>$data['email'],
             'password'=>Hash::make($data['password']),
             'typeable_type'=>'app\Models\Pharmacy',
             'typeable_id'=>$pharmacy->id
@@ -117,7 +131,13 @@ class PharmacyController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
+    {  
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'avatar'=>'image'
+
+        ]);
+
         $pharmacies = Pharmacy::findOrFail($id);
         $pharmacies->type->name = $request->input('name');
         $pharmacies->area_id = $request->input('area_id');
