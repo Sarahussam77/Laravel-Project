@@ -36,7 +36,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('single-charge',[App\Http\Controllers\HomeController::class,'singleCharge'])->name('single.charge');
 
-Route::middleware(['auth','role:pharmacy|doctor'])->group(function()
+Route::middleware(['auth','role:pharmacy|doctor|admin'])->group(function()
 {
     Route::resource('orders', OrderController::class);
 });

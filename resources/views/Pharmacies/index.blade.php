@@ -21,7 +21,6 @@
                      <th>Name</th>
                   <th>Email</th>
                       <th>National_ID</th>
-                    <th>Avatar_image</th>
                      <th>Area</th> 
                     <th>priority</th>
                     <th>Action</th>
@@ -49,7 +48,6 @@
                        {data: 'name', name: 'name'},
                     {data: 'email', name: 'email'},
                       {data: 'national_id', name: 'national_id'},
-                      {data: 'avatar', name: 'avatar'},
                       {data: 'area', name: 'area'},
                       {data: 'priority', name: 'priority'},
                       {data: 'action', name: 'action', orderable: true, searchable: true},
