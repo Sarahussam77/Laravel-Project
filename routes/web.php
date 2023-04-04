@@ -36,6 +36,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+
 Route::middleware(['auth','role:pharmacy|doctor|admin|client'])->group(function()
 {
     Route::resource('orders', OrderController::class);

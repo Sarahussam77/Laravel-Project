@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Doctor;
 use App\Models\Pharmacy;
+use Illuminate\Support\File;
 use App\DataTables\DoctorsDataTable;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +19,7 @@ class DoctorController extends Controller
     public function index(Request $request)
     {  
          if ($request->ajax()) {
-        $data = Doctor::select('id','avatar','national_id','pharmacy_id','is_baned')->get();
+        $data = Doctor::select('id','national_id','pharmacy_id','is_baned')->get();
         
         return DataTables::of($data)->addIndexColumn()
           
@@ -74,12 +75,14 @@ class DoctorController extends Controller
     {
        
         $data = $request->all();
-         $PharmacyId = User::all()->where('id' , $data['Pharmacy_id'] )->first()->typeable_id;
+         $PharmacyId = USer::all()->where('id' , $data['Pharmacy_id'] )->first()->typeable_id;
+         $image = $request->file('avatar')->store('images',['disk' => "public"]);
+         
         $doctor= Doctor::create([
             'pharmacy_id'=>$PharmacyId,
             'national_id'=>$data['national_id'],
             'is_baned'=>$data['is_baned'],
-            'avatar'=>$data['avatar_image'],
+            'avatar'=>$image,
 
         ]);
         User::create([

@@ -12,7 +12,6 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Avatar_image</th>
                     <th>National_ID</th>
                     <th>Pharmacy</th>
                     <th>is_baned</th>
@@ -38,7 +37,6 @@
                       {data: 'id', name: 'id'},
                       {data: 'name', name: 'name'},
                       {data: 'email', name: 'email'},
-                      {data: 'avatar', name: 'avatar'},
                       {data: 'national_id', name: 'national_id'},
                      {data: 'pharmacy', name: 'pharmacy'},
                       {data: 'is_baned', name: 'is_baned'},

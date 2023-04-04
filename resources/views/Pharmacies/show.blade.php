@@ -19,7 +19,7 @@
             Pharmacy Image
         </div>
         <div class="card-body">
-            <p class="card-text">Image: {{$pharmacies['avatar']}}</p>
+            <img src="{{'/'.'storage/'.$pharmacies->avatar}}" width="250" alt=""/>
         </div>
     </div>
     </div>

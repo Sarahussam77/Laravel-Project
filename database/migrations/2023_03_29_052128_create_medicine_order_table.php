@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('order_medicines', function (Blueprint $table) {
-            $table->dropColumn('quantity');
+        Schema::create('medicine_order', function (Blueprint $table) {
+            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('medicine_id');
+            $table->integer('quantity');
+            $table->timestamps();
         });
     }
 };
