@@ -63,7 +63,7 @@ class DoctorController extends Controller
              
                 return $Pharmacyname;
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','ban'])
             ->make(true);
     }
         return view("Doctors.index");
