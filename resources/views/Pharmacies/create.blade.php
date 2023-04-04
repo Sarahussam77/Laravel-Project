@@ -53,7 +53,7 @@
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Image Avatar</label>
-            <input type="file" name="avatar_image" class="form-control" id="exampleFormControlTextarea1" >
+            <input type="file" name="avatar" class="form-control" id="exampleFormControlTextarea1" >
         </div>
 
         <button class="btn btn-success" style="background-color:#6D9886 ; color:white">Submit</button>

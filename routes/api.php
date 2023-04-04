@@ -24,10 +24,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/users', [UserController::class,'store']);
 
+////////////////////////////////////////////////////////////////////////////////////
+// Route::group(['middleware' => ['auth:sanctum']],function () {
+
+// });
+///////////////////////////////////////////////////////////////////////////////
+
+
 Route::post('/sanctum/token', function (Request $request) {
     $request->validate([
         'email' => 'required|email',
         'password' => 'required',
+        'device_name' => 'required',
     ]);
 
     $user = User::where('email', $request->email)->first();

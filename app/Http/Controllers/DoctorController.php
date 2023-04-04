@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Doctor;
 use App\Models\Pharmacy;
+use Illuminate\Support\File;
 use App\DataTables\DoctorsDataTable;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
-// use App\Http\Requests\StoreRequest;
+use App\Http\Requests\StoreRequest;
 
 class DoctorController extends Controller
 {
@@ -20,7 +21,7 @@ class DoctorController extends Controller
     public function index(Request $request)
     {  
          if ($request->ajax()) {
-        $data = Doctor::select('id','avatar','national_id','pharmacy_id','is_baned')->get();
+        $data = Doctor::select('id','national_id','pharmacy_id','is_baned')->get();
         
         return DataTables::of($data)->addIndexColumn()
           
@@ -58,17 +59,17 @@ class DoctorController extends Controller
         return view("Doctors.index");
     }
 
-    protected function validator(Request $data){
+    // protected function validator(Request $data){
 
-        return Validator::make($data, [
-                   'name' => ['required', 'string', 'max:255'],
-                   'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                   'national_id' => ['required', 'string', 'national_id', 'max:255', 'unique:users'],
-                   'password' => ['required', 'string', 'min:6', 'confirmed'],
-                   'phone'=>['required', 'string', 'min:11'],
-                   'avatar'=>'required|image',
-               ]);
-               }
+    //     return Validator::make($data, [
+    //                'name' => ['required', 'string', 'max:255'],
+    //                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    //                'national_id' => ['required', 'string', 'national_id', 'max:255', 'unique:users'],
+    //                'password' => ['required', 'string', 'min:6', 'confirmed'],
+    //             //    'phone'=>['required', 'string', 'min:11'],
+    //                'avatar'=>'required|image',
+    //            ]);
+    //            }
     /**
      * 
      * 
@@ -85,16 +86,25 @@ class DoctorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
        
         $data = $request->all();
-         $PharmacyId = User::all()->where('id' , $data['Pharmacy_id'] )->first()->typeable_id;
+        $request->validate([
+            'national_id' => ['required', 'string', 'max:255', 'unique:doctors'],
+
+        ]);
+         $PharmacyId = USer::all()->where('id' , $data['Pharmacy_id'] )->first()->typeable_id;
+         if($request->file('avatar')){
+            $image = $request->file('avatar')->store('images',['disk' => "public"]);}
+            else{
+                $image = null;
+            }         
         $doctor= Doctor::create([
             'pharmacy_id'=>$PharmacyId,
             'national_id'=>$data['national_id'],
             'is_baned'=>$data['is_baned'],
-            'avatar'=>$data['avatar_image'],
+            'avatar'=>$image,
 
         ]);
         User::create([

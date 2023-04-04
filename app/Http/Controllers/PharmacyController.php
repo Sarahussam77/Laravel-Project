@@ -7,6 +7,7 @@ use App\Models\Pharmacy;
 use App\DataTables\PharmaciesDataTable;
 use App\Models\Area;
 use App\Models\User;
+use Illuminate\Support\File;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables as DataTablesDataTables;
 use Yajra\DataTables\Facades\DataTables ;
@@ -25,7 +26,7 @@ class PharmacyController extends Controller
     {
         if ($request->ajax()) {
             
-            $data = Pharmacy::select('id', 'priority','area_id','national_id','avatar')->get();
+            $data = Pharmacy::select('id', 'priority','area_id','national_id')->get();
             return DataTables::of($data)->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0 mr-2" href="'.route('pharmacies.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
@@ -69,28 +70,36 @@ class PharmacyController extends Controller
         return view('Pharmacies.create', ['areas' => $areas]);
     }
 
-    protected function validator(Request $data){
+    // protected function validator(Request $data){
 
-        return Validator::make($data, [
-                   'name' => ['required', 'string', 'max:255'],
-                   'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                   'national_id' => ['required', 'string', 'national_id', 'max:255', 'unique:users'],
-                   'password' => ['required', 'string', 'min:6', 'confirmed'],
-                   'phone'=>['required', 'string', 'min:11'],
-                   'avatar'=>'required|image'
-               ]);
-               }
-    public function store(Request $request)
+    //     return Validator::make($data, [
+    //                'name' => ['required', 'string', 'max:255'],
+    //                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    //                'national_id' => ['required', 'string', 'national_id', 'max:255', 'unique:users'],
+    //                'password' => ['required', 'string', 'min:6', 'confirmed'],
+    //             //    'phone'=>['required', 'string', 'min:11'],
+    //                'avatar'=>'required|image'
+    //            ]);
+    //            }
+    public function store(StoreRequest $request)
     {    
         $data = $request->all();
-       
+        $request->validate([
+            'national_id' => ['required', 'string', 'max:255', 'unique:pharmacies'],
+
+        ]);
         $area_id =Area::all()->where('id' , $data['area_id'] )->first()->id;
+        if($request->file('avatar')){
+        $image = $request->file('avatar')->store('images',['disk' => "public"]);}
+        // else{
+        //     $image = $request->file('avatar')->store('images',['disk' => "public"]);
+        // }
         
        $pharmacy= Pharmacy::create([
             'area_id'=>$area_id,
             'priority'=>$data['priority'],
             'national_id'=>$data['national_id'],
-            'avatar'=>$data['avatar_image'],
+            'avatar'=>$image,
 
         ]);
      

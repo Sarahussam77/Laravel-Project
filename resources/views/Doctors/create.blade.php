@@ -5,7 +5,15 @@
 @endsection
 
 @section('content')
-
+@if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <form method="POST" action= "{{route('doctors.store')}}" enctype="multipart/form-data">
         @csrf
@@ -32,7 +40,7 @@
         </div> -->
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Image Avatar</label>
-            <input type="file" name="avatar_image" class="form-control" id="exampleFormControlTextarea1" >
+            <input type="file" name="avatar" class="form-control" id="exampleFormControlTextarea1" >
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">is baned</label>
