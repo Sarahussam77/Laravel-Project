@@ -9,7 +9,6 @@ use Illuminate\Support\File;
 use App\DataTables\DoctorsDataTable;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class DoctorController extends Controller
@@ -43,15 +42,11 @@ class DoctorController extends Controller
         })
         
         ->addColumn('is_baned', function ($row) {
-            if($row->is_baned==0)
-            {
-               return "No";
-            }
-           else
-            {
-               return "Yes";
-            }
-            })
+            if($row->is_baned==0){
+            return "No";
+        }else{
+        return "Yes";
+        }})
             ->addColumn('name', function($row){
                 // $username = Pharmacy::find($row['id']);
                 return Doctor::find($row['id'])->type->name;
@@ -68,7 +63,7 @@ class DoctorController extends Controller
              
                 return $Pharmacyname;
             })
-            ->rawColumns(['action','ban'])
+            ->rawColumns(['action'])
             ->make(true);
     }
         return view("Doctors.index");
@@ -148,6 +143,7 @@ class DoctorController extends Controller
     {
         $doctors = Doctor::findOrFail($id);
     
+        $doctors->national_id = $request->input('national_id');
         $doctors->pharmacy_id = $request->input('pharmacy_id');
             
             if($request->hasFile('avatar')){
@@ -162,13 +158,13 @@ class DoctorController extends Controller
 
             //'avatar_image'=> request()->avatar_image,
             //'is_banned'=>0,
-        
+        ]);
 
         $doctors->type()->update([
             'name'=>request()->name,
             'password'=> Hash::make(request()->password) ,
         ]);
-        $doctors->update();
+
         return redirect()->route('doctors.index'); 
 
     }
