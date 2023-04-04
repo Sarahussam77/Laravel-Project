@@ -58,7 +58,6 @@ class DoctorController extends Controller
         return view("Doctors.index");
     }
 
-
     protected function validator(Request $data){
 
         return Validator::make($data, [
@@ -67,10 +66,12 @@ class DoctorController extends Controller
                    'national_id' => ['required', 'string', 'national_id', 'max:255', 'unique:users'],
                    'password' => ['required', 'string', 'min:6', 'confirmed'],
                    'phone'=>['required', 'string', 'min:11'],
-                   'avatar'=>'required|image'
+                   'avatar'=>'required|image',
                ]);
                }
     /**
+     * 
+     * 
      * Show the form for creating a new resource.
      */
     public function create()
