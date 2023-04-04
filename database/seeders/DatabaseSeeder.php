@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
     //     RolesAndPermissionsSeeder::class,
     //     UserSeeder::class
     //    ]); 
+    //Seed the countries
+$this->call('CountriesSeeder');
+$this->command->info('Seeded the countries!'); 
 
        Pharmacy::factory(10)->create();
     }
