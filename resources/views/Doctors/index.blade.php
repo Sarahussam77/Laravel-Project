@@ -6,7 +6,7 @@
         <a href="{{route('doctors.create')}}" class="mt-4 btn btn-success">Create Doctor</a>
     </div>
     <div class="container mt-5 ">
-        <table id="myTable">
+    
             <thead>
                 <tr>
                     <th>ID</th>
@@ -15,7 +15,6 @@
                     <th>Avatar_image</th>
                     <th>National_ID</th>
                     <th>Pharmacy</th>
-                    <th>is_baned</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -25,6 +24,7 @@
             
         </table>
         </div>
+        
       <script>
           $data=  $(document).ready(function() {
         $('#myTable').DataTable({
@@ -40,13 +40,13 @@
                       {data: 'email', name: 'email'},
                       {data: 'avatar', name: 'avatar'},
                       {data: 'national_id', name: 'national_id'},
-                     {data: 'pharmacy', name: 'pharmacy'},
-                      {data: 'is_baned', name: 'is_baned'},
+                      {data: 'pharmacy', name: 'pharmacy'},
                       {data: 'action', name: 'action', orderable: true, searchable: true},
                   ]
         });
     } );
-    
+
+   
     
     
         </script>

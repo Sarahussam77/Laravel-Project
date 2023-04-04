@@ -23,14 +23,17 @@ class DoctorController extends Controller
         return DataTables::of($data)->addIndexColumn()
           
         ->addColumn('action', function ($row) {
+            $ban = (!$row->isBanned())? "btn-dark ":"btn-secondary";
             $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0 mr-2" href="'.route('doctors.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
             $button .= '<a name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm p-0 mr-2" href="'.route('doctors.edit', $row->id).'" style="border-radius: 20px;"><i class="fas fa-edit m-2"></i></a>';
             $button .= '<form method="post" action= "'.route('doctors.destroy', $row->id).'">
         <input type="hidden" name="_token" value="'. csrf_token().' ">
         <input type="hidden" name="_method" value="delete">
-        <button type="submit" class="btn btn-danger btn-sm  p-0 ml-4" style="border-radius: 20px;"><i class="fas fa-trash m-2"></i>
+        <button type="submit" class="btn btn-danger btn-sm  p-0 m-1" style="border-radius: 20px;"><i class="fas fa-trash m-2"></i>
         </button>
         </form>';
+        $button .= '<button type="button" name="ban" id="'.$row->id.'" style="border-radius: 20px;" class="ban btn btn-sm '.$ban.' p-0"><i class="fas fa-ban m-2"></i></button>';
+
             return $button;
             ;
         })
@@ -38,6 +41,7 @@ class DoctorController extends Controller
                 // $username = Pharmacy::find($row['id']);
                 return Doctor::find($row['id'])->type->name;
             })
+
             
             ->addColumn('email', function($row){
                 
@@ -147,6 +151,7 @@ class DoctorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    
     public function destroy(string $id)
     {
         $doctor = Doctor::findOrFail($id);
@@ -154,4 +159,6 @@ class DoctorController extends Controller
         $doctor->type()->delete();
         return redirect()->route('doctors.index');
     }
+
+   
 }
