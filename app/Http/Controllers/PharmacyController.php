@@ -120,8 +120,6 @@ class PharmacyController extends Controller
     {
         $pharmacies = Pharmacy::findOrFail($id);
         $pharmacies->type->name = $request->input('name');
-        $pharmacies->national_id = $request->input('national_id');
-        $pharmacies->type->email = $request->input('email');
         $pharmacies->area_id = $request->input('area_id');
         if($request->hasFile('avatar')){
 
