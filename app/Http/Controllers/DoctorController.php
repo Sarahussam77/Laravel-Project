@@ -143,7 +143,6 @@ class DoctorController extends Controller
     {
         $doctors = Doctor::findOrFail($id);
         $doctors->update([
-            'national_id'=>request()->national_id,
             'pharmacy_id'=> request()->pharmacy_id,
             'avatar_image'=> request()->avatar_image,
             //'is_banned'=>0,
@@ -151,7 +150,6 @@ class DoctorController extends Controller
 
         $doctors->type()->update([
             'name'=>request()->name,
-            'email'=>request()->email,
             'password'=> Hash::make(request()->password) ,
         ]);
 

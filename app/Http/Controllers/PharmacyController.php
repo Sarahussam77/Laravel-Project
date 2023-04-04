@@ -76,7 +76,6 @@ class PharmacyController extends Controller
        $pharmacy= Pharmacy::create([
             'area_id'=>$area_id,
             'priority'=>$data['priority'],
-            'national_id'=>$data['national_id'],
             'avatar'=>$image,
 
         ]);
@@ -84,7 +83,6 @@ class PharmacyController extends Controller
         User::create([
            
             'name'=>$data['name'],
-            'email'=>$data['email'],
             'password'=>Hash::make($data['password']),
             'typeable_type'=>'app\Models\Pharmacy',
             'typeable_id'=>$pharmacy->id
