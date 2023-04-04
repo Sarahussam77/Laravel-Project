@@ -14,8 +14,8 @@
                     <th>Email</th>
                     <th>National_ID</th>
                     <th>Pharmacy</th>
-                    <th>is_baned</th>
                     <th>Action</th>
+                    <th>Ban</th>
                 </tr>
             </thead>
                 <tbody>
@@ -39,8 +39,8 @@
                       {data: 'email', name: 'email'},
                       {data: 'national_id', name: 'national_id'},
                       {data: 'pharmacy', name: 'pharmacy'},
-                      {data: 'is_baned', name: 'is_baned'},
                       {data: 'action', name: 'action', orderable: true, searchable: true},
+                      {data: 'ban', name: 'ban'},
                   ]
         });
     } );

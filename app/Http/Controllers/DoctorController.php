@@ -9,6 +9,7 @@ use Illuminate\Support\File;
 use App\DataTables\DoctorsDataTable;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class DoctorController extends Controller
@@ -26,7 +27,6 @@ class DoctorController extends Controller
         ->addColumn('action', function ($row) {
             $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0 mr-2" href="'.route('doctors.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
             $button .= '<a name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm p-0 mr-2" href="'.route('doctors.edit', $row->id).'" style="border-radius: 20px;"><i class="fas fa-edit m-2"></i></a>';
-            $button .='<a class="btn btn-sm  mx-1" href="'.route("doctors.ban",$row).'"><i class="fas fa-ban m-2"></i></a>';
             $button .= '<form method="post" action= "'.route('doctors.destroy', $row->id).'">
         <input type="hidden" name="_token" value="'. csrf_token().' ">
         <input type="hidden" name="_method" value="delete">
@@ -36,6 +36,12 @@ class DoctorController extends Controller
             return $button;
             ;
         })
+
+        ->addColumn('ban', function($row){
+            $button ='<a class="btn btn-sm  mx-1" href="'.route("doctors.ban",$row).'"><i class="fas fa-ban m-2"></i></a>';
+            return $button;
+        })
+        
         ->addColumn('is_banned', function ($row) {
             if($row->is_banned==0){
             return "No";
@@ -58,7 +64,7 @@ class DoctorController extends Controller
              
                 return $Pharmacyname;
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','ban'])
             ->make(true);
     }
         return view("Doctors.index");
@@ -137,19 +143,30 @@ class DoctorController extends Controller
     public function update(Request $request, string $id)
     {
         $doctors = Doctor::findOrFail($id);
-        $doctors->update([
-            'national_id'=>request()->national_id,
-            'pharmacy_id'=> request()->pharmacy_id,
-            'avatar_image'=> request()->avatar_image,
+    
+        $doctors->national_id = $request->input('national_id');
+        $doctors->pharmacy_id = $request->input('pharmacy_id');
+            
+            if($request->hasFile('avatar')){
+
+                Storage::disk("public")->delete($doctors->avatar);
+          
+                $image = $request->file('avatar')->store('images',['disk' => "public"]);
+                $doctors->avatar=$image;
+          
+              };
+            
+
+            //'avatar_image'=> request()->avatar_image,
             //'is_banned'=>0,
-        ]);
+        
 
         $doctors->type()->update([
             'name'=>request()->name,
             'email'=>request()->email,
             'password'=> Hash::make(request()->password) ,
         ]);
-
+        $doctors->update();
         return redirect()->route('doctors.index'); 
 
     }

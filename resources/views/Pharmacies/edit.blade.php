@@ -34,6 +34,11 @@
             @endforeach
             @endif
             </select>
+            <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Avatar Image</label>
+        <input name="avatar" type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+        <img class="mt-2" src="{{'/'.'storage/'.$pharmacies->avatar}}" width="250"alt=""/>
+      </div>
         </div>
         <button class="btn btn-success">Update</button>
     </form>
