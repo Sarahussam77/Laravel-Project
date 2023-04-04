@@ -9,6 +9,7 @@ use Illuminate\Support\File;
 use App\DataTables\DoctorsDataTable;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class DoctorController extends Controller
@@ -35,6 +36,18 @@ class DoctorController extends Controller
             return $button;
             ;
         })
+
+        ->addColumn('ban', function($row){
+            $button ='<a class="btn btn-sm  mx-1" href="'.route("doctors.ban",$row).'"><i class="fas fa-ban m-2"></i></a>';
+            return $button;
+        })
+        
+        ->addColumn('is_banned', function ($row) {
+            if($row->is_banned==0){
+            return "No";
+        }else{
+        return "Yes";
+        }})
             ->addColumn('name', function($row){
                 // $username = Pharmacy::find($row['id']);
                 return Doctor::find($row['id'])->type->name;
@@ -51,7 +64,7 @@ class DoctorController extends Controller
              
                 return $Pharmacyname;
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','ban'])
             ->make(true);
     }
         return view("Doctors.index");
@@ -130,19 +143,30 @@ class DoctorController extends Controller
     public function update(Request $request, string $id)
     {
         $doctors = Doctor::findOrFail($id);
-        $doctors->update([
-            'national_id'=>request()->national_id,
-            'pharmacy_id'=> request()->pharmacy_id,
-            'avatar_image'=> request()->avatar_image,
+    
+        $doctors->national_id = $request->input('national_id');
+        $doctors->pharmacy_id = $request->input('pharmacy_id');
+            
+            if($request->hasFile('avatar')){
+
+                Storage::disk("public")->delete($doctors->avatar);
+          
+                $image = $request->file('avatar')->store('images',['disk' => "public"]);
+                $doctors->avatar=$image;
+          
+              };
+            
+
+            //'avatar_image'=> request()->avatar_image,
             //'is_banned'=>0,
-        ]);
+        
 
         $doctors->type()->update([
             'name'=>request()->name,
             'email'=>request()->email,
             'password'=> Hash::make(request()->password) ,
         ]);
-
+        $doctors->update();
         return redirect()->route('doctors.index'); 
 
     }
@@ -155,6 +179,18 @@ class DoctorController extends Controller
         $doctor = Doctor::findOrFail($id);
         Doctor::destroy($id);
         $doctor->type()->delete();
+        return redirect()->route('doctors.index');
+    }
+
+    public function ban($id)
+    {
+        $doctor = Doctor::findOrFail($id);
+        if($doctor->is_banned===0){
+            $doctor->update(['is_baned'=>1]);
+        }
+        else{
+            $doctor->update(['is_baned'=>0]);
+        }
         return redirect()->route('doctors.index');
     }
 }

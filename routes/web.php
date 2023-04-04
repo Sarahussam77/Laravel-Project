@@ -51,6 +51,8 @@ Route::middleware(['auth','role:pharmacy|doctor|admin'])->group(function()
 Route::middleware(['auth','role:pharmacy|admin'])->group(function()
 {
     Route::resource('revenue', RevenueController::class);
+
+    Route::get('doctors/ban/{id}',[DoctorController::class,'ban'])->name('doctors.ban');
 });
 
 // Admin Route

@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.1",
         "almasaeed2010/adminlte": "~3.2",
+        "cybercog/laravel-ban": "^4.8",
         "guzzlehttp/guzzle": "^7.2",
         "jeroennoten/laravel-adminlte": "^3.8",
         "laravel/cashier": "^14.9",
@@ -16,7 +17,8 @@
         "laravel/ui": "^4.2",
         "spatie/laravel-permission": "^5.10",
         "stripe/stripe-php": "^10.12",
-        "yajra/laravel-datatables-oracle": "^10.0"
+        "yajra/laravel-datatables-oracle": "^10.0",
+        "webpatser/laravel-countries": "dev-master"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

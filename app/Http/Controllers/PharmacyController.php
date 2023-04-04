@@ -123,6 +123,15 @@ class PharmacyController extends Controller
         $pharmacies->national_id = $request->input('national_id');
         $pharmacies->type->email = $request->input('email');
         $pharmacies->area_id = $request->input('area_id');
+        if($request->hasFile('avatar')){
+
+            Storage::disk("public")->delete($pharmacies->avatar);
+      
+            $image = $request->file('avatar')->store('images',['disk' => "public"]);
+            $pharmacies->avatar=$image;
+      
+          };
+        
         $pharmacies->type->save();
         $pharmacies->save();
         return redirect()->route('pharmacies.index');
