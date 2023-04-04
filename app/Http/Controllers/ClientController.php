@@ -38,6 +38,12 @@ class ClientController extends Controller
             
             return Client::find($row['id'])->type->email;
         })
+        ->addColumn('gender', function ($row) {
+            if($row->gender==0){
+            return "male";
+        }else{
+        return "Female";
+        }})
             ->rawColumns(['action'])
             ->make(true);
         }
@@ -115,5 +121,6 @@ class ClientController extends Controller
     {
         //
     }
+   
 }
 
