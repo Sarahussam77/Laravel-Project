@@ -91,9 +91,9 @@ class PharmacyController extends Controller
         $area_id =Area::all()->where('id' , $data['area_id'] )->first()->id;
         if($request->file('avatar')){
         $image = $request->file('avatar')->store('images',['disk' => "public"]);}
-        // else{
-        //     $image = $request->file('avatar')->store('images',['disk' => "public"]);
-        // }
+        else{
+            $image = null;
+        }
         
        $pharmacy= Pharmacy::create([
             'area_id'=>$area_id,
@@ -137,7 +137,13 @@ class PharmacyController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
+    {  
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'avatar'=>'image'
+
+        ]);
+
         $pharmacies = Pharmacy::findOrFail($id);
         $pharmacies->type->name = $request->input('name');
         $pharmacies->area_id = $request->input('area_id');

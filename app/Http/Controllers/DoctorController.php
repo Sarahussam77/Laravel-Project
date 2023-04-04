@@ -103,7 +103,7 @@ class DoctorController extends Controller
        
         $data = $request->all();
         $request->validate([
-            'national_id' => ['required', 'string', 'max:255', 'unique:doctors'],
+            'national_id' => ['required', 'string', 'max:255', 'unique:pharmacies'],
 
         ]);
          $PharmacyId = USer::all()->where('id' , $data['Pharmacy_id'] )->first()->typeable_id;
@@ -162,7 +162,11 @@ class DoctorController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
+    { 
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'avatar'=>'image'
+        ]);
         $doctors = Doctor::findOrFail($id);
         $doctors->update([
             'pharmacy_id'=> request()->pharmacy_id,
