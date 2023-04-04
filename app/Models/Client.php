@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+// use Illuminate\Notifications\Notifiable;
 
 
-class Client extends Authenticatable implements MustVerifyEmail
+class Client extends Model
 {
-    use HasFactory,Notifiable;
+    use HasFactory;
+    // use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -23,6 +26,7 @@ class Client extends Authenticatable implements MustVerifyEmail
         'gender',
         'phone',
     ];
+
 
     public function addresses()
     {

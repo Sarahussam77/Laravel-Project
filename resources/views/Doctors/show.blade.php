@@ -3,25 +3,37 @@
 
 @section("content")
 
-<h1>show</h1>
-<div class="card mt-6 m-5">
-        <div class="card-header">
-            Doctor Details
-        </div>
-        <div class="card-body">
-            <p class="card-title">Name: {{$doctors->type->name}}</p>
-            <p class="card-text">National ID: {{$doctors['national_id']}}</p> 
-            <p class="card-text">pharmacy name: {{$doctors->pharmacy->type->name}}</p> 
-        </div>
+@section('title') 
+display doctor 
+@endsection
+@section('content')
+    <div class="container">
+      <div class="d-inline-flex">
+<div class="card m-3">
+  <div class="card-header">
+    Doctor Info
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Email:</h5>
+    <p>{{$doctors['email']}}</p>
+    <h5 class="card-title">Name:</h5>
+    <p class="card-text">{{$doctors['name']}}</p>
 
-        <div class="card mt-6 m-3">
-        <div class="card-header">
-            Doctor Image
-        </div>
-        <div class="card-body">
-            <img src="{{'/'.'storage/'.$doctors->avatar}}" width="250" alt=""/>
-        </div>
-    </div>
-    </div>
+    <h5 class="card-title">National ID:</h5>
+    <p class="card-text">{{$doctors['national_id']}}</p>
+
+    <img src="{{$doctors['image']}}" alt="">
+    @if($doctors->image)
+            <img src="{{Storage::url($doctors->image)}}" width="250px"   alt="{{$doctors->image}}">
+        @endif
+        
+   <p class=" text-danger card-text"><span class="fw-bold">created At:</span><br> {{ $doctors->created_at->format('l jS \\of F Y h:i:s A') }}</h5>  </div>
+</div>
+
+      
 
 @endsection
+
+
+
+
