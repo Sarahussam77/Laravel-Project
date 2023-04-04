@@ -12,6 +12,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>address</th>
+                    <th>country</th>
                     <th>action</th>
                 </tr>
             </thead>
@@ -35,6 +36,8 @@
                       {data: 'id', name: 'id'},
                       {data: 'name', name: 'name'},
                       {data: 'address', name: 'address'},
+                      {data: 'country', name: 'country'},
+
                       {data: 'action', name: 'action', orderable: true, searchable: true},
                   ]
         });

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Area;
 use App\DataTables\AreasDataTable;
 use Yajra\DataTables\Facades\DataTables ;
+use App\Models\Country;
+
 
 class AreaController extends Controller
 {
@@ -16,7 +18,7 @@ class AreaController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-        $data = Area::select('id','name','address')->get();
+        $data = Area::select('id','name','address','country_id')->get();
         return DataTables::of($data)->addIndexColumn()
         ->addColumn('action', function ($row) {
             $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0 mr-2" href="'.route('areas.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
@@ -30,6 +32,10 @@ class AreaController extends Controller
             return $button;
             ;
         })
+        ->addColumn('country', function ($row) {
+            $name = Country::all()->where('id',$row['country_id'])->first()->name;
+            return $name;
+        })
             ->rawColumns(['action'])
             ->make(true);
     }
@@ -42,7 +48,8 @@ class AreaController extends Controller
      */
     public function create()
     {
-        return view("Areas.create");
+        $Countries_data=Country::all();
+        return view("Areas.create",['countries'=>$Countries_data]);
 
     }
 
@@ -53,10 +60,12 @@ class AreaController extends Controller
     {
         $name = request()->name;
        $address=request()->address;
+       $country=request()->country_id;
 
         Area::create([
             'name' => $name,
             'address'=>$address,
+            'country_id'=>$country,
 
         ]);
         return to_route('areas.index');
@@ -76,8 +85,9 @@ class AreaController extends Controller
      */
     public function edit(string $id)
     {
+        $Countries_data=Country::all();
         $area =Area::find($id);
-        return view('areas.edit', ['area' => $area]);
+        return view('areas.edit', ['area' => $area],['countries'=>$Countries_data]);
     }
 
     /**
@@ -88,6 +98,7 @@ class AreaController extends Controller
         $area = Area::findOrFail($id);
         $area->name = $request->input('name');
         $area->address = $request->input('address');
+        $area->country_id = $request->input('country_id');
       
 
         $area->save();
