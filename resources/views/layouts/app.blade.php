@@ -134,7 +134,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Attributes Pages -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-          <img src="/dist/img/avatar2.png" class="img-circle elevation-2" alt="User Image">
+          <img src="/dist/img/pharmaciest.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="{{route('pharmacies.index')}}" class="d-block">Pharmacies</a>
@@ -142,42 +142,63 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div>
 
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+          <img src="/dist/img/doctor.png" class="img-circle elevation-2" alt="User Image">
+        </div>
         <div class="info">
           <a href="{{route('doctors.index')}}" class="d-block">Doctors</a>
         </div>
       </div>
 
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+          <img src="/dist/img/client.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
         <div class="info">
           <a href="{{route('clients.index')}}" class="d-block">Clients</a>
         </div>
       </div>
 
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+          <img src="/dist/img/areas.png" class="img-circle elevation-2" alt="User Image">
+        </div>
         <div class="info">
           <a href="{{route('areas.index')}}" class="d-block">Areas</a>
         </div>
       </div>
 
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+          <img src="/dist/img/addresses.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
         <div class="info">
           <a href="{{route('useraddresses.index')}}" class="d-block">User Adresses</a>
         </div>
       </div>
 
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+          <img src="/dist/img/medicines.avif" class="img-circle elevation-2" alt="User Image">
+        </div>
         <div class="info">
           <a href="{{route('medicines.index')}}" class="d-block">Medicines</a>
         </div>
       </div>
 
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+          <img src="/dist/img/revenue.png" class="img-circle elevation-2" alt="User Image">
+        </div>
         <div class="info">
           <a href="{{route('revenue.index')}}" class="d-block">Revenue</a>
         </div>
       </div>
 
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+          <img src="/dist/img/orders.png" class="img-circle elevation-2" alt="User Image">
+        </div>
         <div class="info">
           <a href="{{route('orders.index')}}" class="d-block">Order</a>
         </div>

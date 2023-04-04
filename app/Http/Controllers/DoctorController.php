@@ -9,6 +9,7 @@ use Illuminate\Support\File;
 use App\DataTables\DoctorsDataTable;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class DoctorController extends Controller
@@ -128,7 +129,7 @@ class DoctorController extends Controller
     public function edit(string $id)
     {
 
-         $pharmacies= Pharmacy::all();
+        $pharmacies= Pharmacy::all();
         $doctors= Doctor::find($id);
 
         
@@ -142,17 +143,28 @@ class DoctorController extends Controller
     public function update(Request $request, string $id)
     {
         $doctors = Doctor::findOrFail($id);
-        $doctors->update([
-            'pharmacy_id'=> request()->pharmacy_id,
-            'avatar_image'=> request()->avatar_image,
+
+        $doctors->pharmacy_id = $request->input('pharmacy_id');
+
+            if($request->hasFile('avatar')){
+
+                Storage::disk("public")->delete($doctors->avatar);
+
+                $image = $request->file('avatar')->store('images',['disk' => "public"]);
+                $doctors->avatar=$image;
+
+              };
+
+
+            //'avatar_image'=> request()->avatar_image,
             //'is_banned'=>0,
-        ]);
+
 
         $doctors->type()->update([
             'name'=>request()->name,
             'password'=> Hash::make(request()->password) ,
         ]);
-
+        $doctors->update();
         return redirect()->route('doctors.index'); 
 
     }

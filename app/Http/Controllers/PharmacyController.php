@@ -73,11 +73,10 @@ class PharmacyController extends Controller
     {   $data = $request->all();
         $area_id =Area::all()->where('id' , $data['area_id'] )->first()->id;
         $image = $request->file('avatar')->store('images',['disk' => "public"]);
-       $pharmacy= Pharmacy::create([
+        $pharmacy= Pharmacy::create([
             'area_id'=>$area_id,
             'priority'=>$data['priority'],
             'avatar'=>$image,
-
         ]);
      
         User::create([
