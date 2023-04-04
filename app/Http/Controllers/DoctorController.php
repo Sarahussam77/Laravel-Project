@@ -42,12 +42,16 @@ class DoctorController extends Controller
             return $button;
         })
         
-        ->addColumn('is_banned', function ($row) {
-            if($row->is_banned==0){
-            return "No";
-        }else{
-        return "Yes";
-        }})
+        ->addColumn('is_baned', function ($row) {
+            if($row->is_baned==0)
+            {
+               return "No";
+            }
+           else
+            {
+               return "Yes";
+            }
+            })
             ->addColumn('name', function($row){
                 // $username = Pharmacy::find($row['id']);
                 return Doctor::find($row['id'])->type->name;
@@ -185,7 +189,7 @@ class DoctorController extends Controller
     public function ban($id)
     {
         $doctor = Doctor::findOrFail($id);
-        if($doctor->is_banned===0){
+        if($doctor->is_baned===0){
             $doctor->update(['is_baned'=>1]);
         }
         else{
