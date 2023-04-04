@@ -63,7 +63,7 @@ class DoctorController extends Controller
              
                 return $Pharmacyname;
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','ban'])
             ->make(true);
     }
         return view("Doctors.index");
@@ -142,26 +142,16 @@ class DoctorController extends Controller
     public function update(Request $request, string $id)
     {
         $doctors = Doctor::findOrFail($id);
-    
-        $doctors->national_id = $request->input('national_id');
-        $doctors->pharmacy_id = $request->input('pharmacy_id');
-            
-            if($request->hasFile('avatar')){
-
-                Storage::disk("public")->delete($doctors->avatar);
-          
-                $image = $request->file('avatar')->store('images',['disk' => "public"]);
-                $doctors->avatar=$image;
-          
-              };
-            
-
-            //'avatar_image'=> request()->avatar_image,
+        $doctors->update([
+            'national_id'=>request()->national_id,
+            'pharmacy_id'=> request()->pharmacy_id,
+            'avatar_image'=> request()->avatar_image,
             //'is_banned'=>0,
         ]);
 
         $doctors->type()->update([
             'name'=>request()->name,
+            'email'=>request()->email,
             'password'=> Hash::make(request()->password) ,
         ]);
 
