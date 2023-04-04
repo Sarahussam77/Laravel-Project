@@ -22,6 +22,7 @@
             Doctor Image
         </div>
         <div class="card-body">
+            
             <img src="{{'/'.'storage/'.$doctors->avatar}}" width="250" alt=""/>
         </div>
     </div>

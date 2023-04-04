@@ -11,6 +11,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreRequest;
 
 class DoctorController extends Controller
 {
@@ -70,7 +72,20 @@ class DoctorController extends Controller
         return view("Doctors.index");
     }
 
+    // protected function validator(Request $data){
+
+    //     return Validator::make($data, [
+    //                'name' => ['required', 'string', 'max:255'],
+    //                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    //                'national_id' => ['required', 'string', 'national_id', 'max:255', 'unique:users'],
+    //                'password' => ['required', 'string', 'min:6', 'confirmed'],
+    //             //    'phone'=>['required', 'string', 'min:11'],
+    //                'avatar'=>'required|image',
+    //            ]);
+    //            }
     /**
+     * 
+     * 
      * Show the form for creating a new resource.
      */
     public function create()
@@ -84,13 +99,20 @@ class DoctorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
        
         $data = $request->all();
+        $request->validate([
+            'national_id' => ['required', 'string', 'max:255', 'unique:pharmacies'],
+
+        ]);
          $PharmacyId = USer::all()->where('id' , $data['Pharmacy_id'] )->first()->typeable_id;
-         $image = $request->file('avatar')->store('images',['disk' => "public"]);
-         
+         if($request->file('avatar')){
+            $image = $request->file('avatar')->store('images',['disk' => "public"]);}
+            else{
+                $image = null;
+            }         
         $doctor= Doctor::create([
             'pharmacy_id'=>$PharmacyId,
             'national_id'=>$data['national_id'],
@@ -141,7 +163,11 @@ class DoctorController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
+    { 
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'avatar'=>'image'
+        ]);
         $doctors = Doctor::findOrFail($id);
 
         $doctors->pharmacy_id = $request->input('pharmacy_id');
