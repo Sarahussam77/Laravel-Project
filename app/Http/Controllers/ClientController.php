@@ -18,9 +18,9 @@ class ClientController extends Controller
         $data = Client::select('id','date_of_birth','gender','phone')->get();
         return DataTables::of($data)->addIndexColumn()
         ->addColumn('action', function ($row) {
-            $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0" href="'.route('orders.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
-            $button .= '<a name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm p-0" href="'.route('orders.edit', $row->id).'" style="border-radius: 20px;"><i class="fas fa-edit m-2"></i></a>';
-            $button .= '<form method="post" action= "'.route('orders.destroy', $row->id).'">
+            $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0" href="'.route('clients.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
+            $button .= '<a name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm p-0" href="'.route('clients.edit', $row->id).'" style="border-radius: 20px;"><i class="fas fa-edit m-2"></i></a>';
+            $button .= '<form method="post" action= "'.route('clients.destroy', $row->id).'">
         <input type="hidden" name="_token" value="'. csrf_token().' ">
         <input type="hidden" name="_method" value="delete">
         <button type="submit" class="btn btn-danger btn-sm  p-0 ml-3" style="border-radius: 20px;"><i class="fas fa-trash m-2"></i>
@@ -67,25 +67,6 @@ class ClientController extends Controller
     public function store(Request $request)
     {
        
-        $data = $request->all();
-        $client= Client::create([
-		
-            'gender'=>1,
-            'date_of_birth'=>$data['date_of_birth'],
-            'phone'=>$data['phone'],
-
-        ]);
-        User::create([
-           
-            'name'=>$data['name'],
-            'email'=>$data['email'],
-            'password'=>Hash::make($data['password']),
-            'typeable_type'=>'app\Models\Client',
-            'typeable_id'=>$client->id
-           
-        ])->assignRole('client');
-
-
     }
 
 
@@ -93,8 +74,8 @@ class ClientController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
-    {
-        return view("clients.show");
+    {   $client= Client::find($id);
+        return view("clients.show",['client' => $client]);
 
     }
 
@@ -103,7 +84,8 @@ class ClientController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $client= Client::find($id);
+        return view("clients.edit",['client' => $client]);
     }
 
     /**
@@ -111,7 +93,16 @@ class ClientController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $client = Client::find($id);
+
+        $client->type->name = $request->input('name');
+        $client->date_of_birth =$request->input('date_of_birth');
+        $client->phone =$request->input('phone');
+        // dd($client->type->name);
+        $client->type->save();
+        $client->save();
+    
+        return redirect()->route('clients.index'); 
     }
 
     /**
@@ -119,7 +110,10 @@ class ClientController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $client = Client::findOrFail($id);
+        $client->type()->forceDelete();
+       $client->delete();
+        return redirect()->route('clients.index');
     }
    
 }

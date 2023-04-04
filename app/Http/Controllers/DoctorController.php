@@ -165,8 +165,8 @@ class DoctorController extends Controller
     public function destroy(string $id)
     {
         $doctor = Doctor::findOrFail($id);
-        Doctor::destroy($id);
-        $doctor->type()->delete();
+        $doctor->type()->forceDelete();
+        $doctor->delete();
         return redirect()->route('doctors.index');
     }
 
