@@ -148,7 +148,6 @@ class DoctorController extends Controller
     {
         $doctors = Doctor::findOrFail($id);
     
-        $doctors->national_id = $request->input('national_id');
         $doctors->pharmacy_id = $request->input('pharmacy_id');
             
             if($request->hasFile('avatar')){
@@ -167,7 +166,6 @@ class DoctorController extends Controller
 
         $doctors->type()->update([
             'name'=>request()->name,
-            'email'=>request()->email,
             'password'=> Hash::make(request()->password) ,
         ]);
         $doctors->update();
