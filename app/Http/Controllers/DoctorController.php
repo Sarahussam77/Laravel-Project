@@ -9,6 +9,8 @@ use App\DataTables\DoctorsDataTable;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
+// use App\Http\Requests\StoreRequest;
 
 class DoctorController extends Controller
 {
@@ -56,6 +58,18 @@ class DoctorController extends Controller
         return view("Doctors.index");
     }
 
+
+    protected function validator(Request $data){
+
+        return Validator::make($data, [
+                   'name' => ['required', 'string', 'max:255'],
+                   'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                   'national_id' => ['required', 'string', 'national_id', 'max:255', 'unique:users'],
+                   'password' => ['required', 'string', 'min:6', 'confirmed'],
+                   'phone'=>['required', 'string', 'min:11'],
+                   'avatar'=>'required|image'
+               ]);
+               }
     /**
      * Show the form for creating a new resource.
      */

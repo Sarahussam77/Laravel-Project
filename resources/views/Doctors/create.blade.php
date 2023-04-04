@@ -32,7 +32,7 @@
         </div> -->
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Image Avatar</label>
-            <input  name="avatar_image" class="form-control" id="exampleFormControlTextarea1" >
+            <input type="file" name="avatar_image" class="form-control" id="exampleFormControlTextarea1" >
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">is baned</label>

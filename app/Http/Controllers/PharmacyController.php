@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables as DataTablesDataTables;
 use Yajra\DataTables\Facades\DataTables ;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\StoreRequest;
+use App\Http\Requests\UpdateRequest;
+use Illuminate\Support\Facades\Validator;
+
 
 class PharmacyController extends Controller
 {
@@ -65,11 +69,21 @@ class PharmacyController extends Controller
         return view('Pharmacies.create', ['areas' => $areas]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    protected function validator(Request $data){
+
+        return Validator::make($data, [
+                   'name' => ['required', 'string', 'max:255'],
+                   'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                   'national_id' => ['required', 'string', 'national_id', 'max:255', 'unique:users'],
+                   'password' => ['required', 'string', 'min:6', 'confirmed'],
+                   'phone'=>['required', 'string', 'min:11'],
+                   'avatar'=>'required|image'
+               ]);
+               }
     public function store(Request $request)
-    {   $data = $request->all();
+    {    
+        $data = $request->all();
+       
         $area_id =Area::all()->where('id' , $data['area_id'] )->first()->id;
         
        $pharmacy= Pharmacy::create([
