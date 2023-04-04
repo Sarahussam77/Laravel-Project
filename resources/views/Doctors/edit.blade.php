@@ -6,28 +6,38 @@
 
 @section('content')
 
-
-    <form action="#" enctype="multipart/form-data">
-        @csrf
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Email</label>
-            <input name="email" type="text" class="form-control" id="exampleFormControlInput1">
-
+@if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Name</label>
-            <input name="name" type="text" class="form-control" id="exampleFormControlInput2">
-        </div>
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">National Id</label>
-            <textarea name="national_id" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Image Avatar</label>
-            <input type="file" name="image" class="form-control" id="exampleFormControlTextarea1" >
-        </div>
+    @endif
+<form method="POST" action= "{{route('doctors.update',$doctors['id'])}}" enctype="multipart/form-data">
+    @method('PUT')
+     @csrf
         
-        
+
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" id="exampleFormControlTextarea1"  value="{{$doctors->type->name}}">
+        </div>
+        <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Pharmacy name</label>
+      <select name="pharmacy_id" class="form-control">
+          @foreach($pharmacies as $pharmacy)
+              <option value="{{$pharmacy->id}}">{{$pharmacy->type->name}}</option>
+          @endforeach
+      </select>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Avatar Image</label>
+        <input name="avatar" type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+        <img class="mt-2" src="{{'/'.'storage/'.$doctors->avatar}}" width="250"alt=""/>
+      </div>
+      
+    </div>
 
         <button class="btn btn-success" style="background-color:#6D9886 ; color:white">Submit</button>
     </form>

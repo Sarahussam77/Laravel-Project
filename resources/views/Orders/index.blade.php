@@ -17,7 +17,6 @@
                         <th>pharmacy</th>
                         <th>status</th>
                         <th>is_insured</th>
-                        <th>creator_type</th>
                         <th>price</th>
                         <th>Action</th>
                 </tr>
@@ -45,7 +44,6 @@
                       {data: 'Pharmacy', name: 'Pharmacy'},
                       {data: 'status', name: 'status'},
                       {data: 'is_insured', name: 'is_insured'},
-                      {data: 'creator_type', name: 'creator_type'},
                       {data: 'price', name: 'price'},
                       {data: 'action', name: 'action', orderable: true, searchable: true},
                   ]

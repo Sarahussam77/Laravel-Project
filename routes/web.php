@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PharmacyController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AreaController;
 
 use App\Http\Controllers\UserAddressController;
@@ -34,33 +35,40 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('single-charge',[App\Http\Controllers\HomeController::class,'singleCharge'])->name('single.charge');
 
-Route::middleware(['auth','order-role'])->group(function()
+
+
+Route::middleware(['auth','role:pharmacy|doctor|admin'])->group(function()
 {
     Route::resource('orders', OrderController::class);
 });
 
-// doctor Route
-// Route::middleware(['auth','user-role:doctor'])->group(function()
-// {
-//     // Route::resource('orders', OrderController::class);
-// });
+Route::middleware(['auth','role:pharmacy|doctor|admin'])->group(function()
+{
+    Route::resource('medicines', MedicineController::class);
+});
+
+Route::middleware(['auth','role:pharmacy|admin'])->group(function()
+{
+    Route::resource('revenue', RevenueController::class);
+
+    Route::get('doctors/ban/{id}',[DoctorController::class,'ban'])->name('doctors.ban');
+});
 
 // Admin Route
-Route::middleware(['auth','user-role:admin'])->group(function()
+Route::middleware(['auth','role:admin'])->group(function()
 {
-    Route::resource('pharmacies', PharmacyController::class);
+  Route::resource('pharmacies', PharmacyController::class);
     Route::get('/readsoftdelete',[PharmacyController::class,'readsoftdelete'])->name('pharmacies.readsoft');
     Route::get('{pharmacy}/restore', [PharmacyController::class,'restore'])->name('pharmacies.restore');
     Route::get('{pharmacy}/forcedelete', [PharmacyController::class,'forceDelete'])->name('pharmacies.forcedelete');
-    
-    Route::resource('doctors', DoctorController::class);
-    Route::resource('users', UserController::class);
+    Route::post('single-charge',[App\Http\Controllers\HomeController::class,'singleCharge'])->name('single.charge');
+    Route::resource('clients', ClientController::class);
     Route::resource('areas', AreaController::class);
-    
     Route::resource('useraddresses', UserAddressController::class);
-    Route::resource('medicines', MedicineController::class);
-    // Route::resource('orders', OrderController::class);
-    Route::resource('revenue', RevenueController::class);
+ });
+
+ Route::middleware(['auth','role:admin'])->group(function()
+{
+ Route::resource('doctors', DoctorController::class);
 });

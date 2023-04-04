@@ -7,27 +7,23 @@
 @section('content')
 
 
-    <form action="#" enctype="multipart/form-data">
+<form method="POST" action= "{{route('medicines.update',$medicine['id'])}}" enctype="multipart/form-data">
+    @method('PUT')
         @csrf
        
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Name</label>
-            <input name="name" type="text" class="form-control" id="exampleFormControlInput2">
-        </div>
-
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Quantity</label>
-            <input name="quantity" type="text" class="form-control" id="exampleFormControlInput1">
+            <input name="name" type="text" class="form-control" id="exampleFormControlInput2" value="{{$medicine->name}}">
         </div>
 
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Type</label>
-            <input name="type" type="text" class="form-control" id="exampleFormControlInput1">
+            <input name="type" type="text" class="form-control" id="exampleFormControlInput1" value="{{$medicine->type}}">
         </div>
 
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Price</label>
-            <input name="price" type="text" class="form-control" id="exampleFormControlInput1">
+            <input name="price" type="text" class="form-control" id="exampleFormControlInput1" value="{{$medicine->price}}">
         </div>
         
         
