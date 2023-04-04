@@ -13,7 +13,7 @@
             <label for="name_of_user1" class="form-label">User</label>
             <select name="name_of_user" class="form-control">
                     @foreach($users as $user)
-                    <option>{{$user->name}}</option>
+                    <option value="{{$user->type->typeable_id}}">{{$user->type->name}}</option>
                     @endforeach
                   </select>
             </select>
@@ -39,15 +39,17 @@
         </div>
         <div class="mb-3">
             <label for="med" class="form-label">Medicine Name</label>
-            <select class="form-control" name="med" >   
+            <select class="form-control medicane" name="med" multiple="multiple" >   
                 @foreach($medicine as $med)
                     <option value="{{$med->id}}">{{$med->name}}</option>
                 @endforeach
             </select>
         </div>
+      
+       
         <div class="mb-3">
             <label for="qty" class="form-label">Quantity</label>
-            <select class="form-control" name="qty" >
+            <select class="form-control quantity" name="qty" multiple="multiple" >
                         @for($x=1;$x<=10;$x++)
                             <option value="{{$x}}">{{$x}}</option>
                         @endfor
@@ -57,7 +59,7 @@
         <label for="DocName">Doctor Name</label>
             <select name="DocName" class="form-control" >
                 @foreach($doctors as $doctor)
-                    <option>{{$doctor->name}}</option>
+                    <option>{{$doctor->type->name}}</option>
                  @endforeach
             </select>
         </div>
@@ -71,19 +73,12 @@
                 <option>NEW</option>
             </select>
         </div>
-        <div class="mb-3">
-            <label for="creator_type" class="form-label">Creator Type</label>
-            <select name="creator_type" class="form-control" >
-                <option>Doctor</option>
-                <option>Pharmacy</option>
-                <option>User</option>
-            </select>
-        </div>
+        
         <div class="form-group">
                         <label for="PharmacyName">Pharmacy Name</label>
-                        <select name="PharmacyName" class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                        <select name="PharmacyName" class="form-control " style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
                           @foreach($pharmacy as $phar)
-                          <option>{{$phar->name}}</option>
+                          <option>{{$phar->type->name}}</option>
                           @endforeach
                         </select>
         </div>
@@ -92,4 +87,15 @@
 
         <button class="btn btn-success" style="background-color:#6D9886 ; color:white">Submit</button>
     </form>
+    <script>
+        $(".medicane").select2({
+           tags: true
+           
+         });
+         $(".quantity").select2({
+           tags: true
+           
+         });
+         
+   </script>
 @endsection

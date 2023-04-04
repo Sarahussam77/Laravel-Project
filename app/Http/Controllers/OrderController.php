@@ -10,6 +10,7 @@ use App\Models\Doctor;
 use App\Models\Medicine;
 use App\Models\Pharmacy;
 use App\Models\User;
+use App\Models\Client;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -24,7 +25,7 @@ class OrderController extends Controller
    public function index(Request $request)
    {  
      if ($request->ajax()) {
-       $data = Order::select('id','user_id','doctor_id','pharmacy_id','status' , 'is_insured','creator_type', 'price')->get();
+       $data = Order::select('id','user_id','doctor_id','pharmacy_id','status' , 'is_insured', 'price')->get();
        return Datatables::of($data)->addIndexColumn()
        ->addColumn('action', function ($row) {
         $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0" href="'.route('orders.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
@@ -40,15 +41,15 @@ class OrderController extends Controller
     })
 
         ->addColumn('Pharmacy', function($row){
-            $Pharmacyname = User::all()->where('id' , $row['pharmacy_id'] )->first()->name;
+            $Pharmacyname = User::all()->where('tybeable_id' , $row['pharmacy_id'] )->first()->name;
             return $Pharmacyname;
         })
         ->addColumn('doctor', function($row){
-            $doctorname = User::all()->where('id' , $row['doctor_id'] )->first()->name;
+            $doctorname = User::all()->where('tybeable_id' , $row['doctor_id'] )->first()->name;
             return $doctorname;
         })
         ->addColumn('user', function($row){
-            $username = User::all()->where('id' , $row['user_id'] )->first()->name;
+            $username = User::all()->where('tybeable_id' , $row['user_id'] )->first()->name;
             return $username;
         })
            ->rawColumns(['action'])
@@ -62,7 +63,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        $users = Client::all();
         $doctors = Doctor::all();
         $medicine = Medicine::all();
         $pharmacy = Pharmacy::all();
@@ -81,9 +82,10 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $UserId = User::all()->where('name' , $data['name_of_user'] )->first()->id;
-        $DocId = User::all()->where('name' , $data['DocName'] )->first()->id;
-        $PharmacyId = User::all()->where('name' , $data['PharmacyName'] )->first()->id;
+        $UserId =  User::all()->where('name' , $data['name_of_user'] )->first()->typeable_id;
+        $DocId = User::all()->where('name' , $data['DocName'] )->first()->typeable_id;
+        $PharmacyId = User::all()->where('name' , $data['PharmacyName'] )->first()->typeable_id;
+        dd($PharmacyId);
         $useradd = Address::all()->where('street_name' , $data['address'] )->first()->id;
         // dd($data);
         $med = $data['med'];
