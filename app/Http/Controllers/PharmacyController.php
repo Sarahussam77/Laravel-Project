@@ -98,7 +98,6 @@ class PharmacyController extends Controller
        $pharmacy= Pharmacy::create([
             'area_id'=>$area_id,
             'priority'=>$data['priority'],
-            'national_id'=>$data['national_id'],
             'avatar'=>$image,
 
         ]);
@@ -106,7 +105,6 @@ class PharmacyController extends Controller
         User::create([
            
             'name'=>$data['name'],
-            'email'=>$data['email'],
             'password'=>Hash::make($data['password']),
             'typeable_type'=>'app\Models\Pharmacy',
             'typeable_id'=>$pharmacy->id
@@ -142,9 +140,16 @@ class PharmacyController extends Controller
     {
         $pharmacies = Pharmacy::findOrFail($id);
         $pharmacies->type->name = $request->input('name');
-        $pharmacies->national_id = $request->input('national_id');
-        $pharmacies->type->email = $request->input('email');
         $pharmacies->area_id = $request->input('area_id');
+        if($request->hasFile('avatar')){
+
+            Storage::disk("public")->delete($pharmacies->avatar);
+      
+            $image = $request->file('avatar')->store('images',['disk' => "public"]);
+            $pharmacies->avatar=$image;
+      
+          };
+        
         $pharmacies->type->save();
         $pharmacies->save();
         return redirect()->route('pharmacies.index');

@@ -8,7 +8,7 @@ display user
       <div class="d-inline-flex">
 <div class="card m-3">
   <div class="card-header">
-    $user Info
+    Client Info
   </div>
   <div class="card-body">
   <img src="{{$$user['avatar_image']}}" alt="">

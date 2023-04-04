@@ -22,14 +22,6 @@
             <input name="name" type="text" class="form-control"  value="{{$pharmacies->type->name}}">
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email</label>
-            <input name="email" type="text" class="form-control"  value="{{$pharmacies->type->email}}">
-        </div>
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">National ID</label>
-            <input name="national_id" class="form-control"  rows="3" value="{{$pharmacies['national_id']}}">
-        </div>
-        <div class="mb-3">
             <label for="user" class="form-label">Area</label>
             <select name="area_id" class="form-control">
             @if(isset($areas))
@@ -42,6 +34,11 @@
             @endforeach
             @endif
             </select>
+            <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Avatar Image</label>
+        <input name="avatar" type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+        <img class="mt-2" src="{{'/'.'storage/'.$pharmacies->avatar}}" width="250"alt=""/>
+      </div>
         </div>
         <button class="btn btn-success">Update</button>
     </form>

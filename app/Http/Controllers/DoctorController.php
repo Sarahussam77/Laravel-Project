@@ -37,6 +37,18 @@ class DoctorController extends Controller
             return $button;
             ;
         })
+
+        ->addColumn('ban', function($row){
+            $button ='<a class="btn btn-sm  mx-1" href="'.route("doctors.ban",$row).'"><i class="fas fa-ban m-2"></i></a>';
+            return $button;
+        })
+        
+        ->addColumn('is_baned', function ($row) {
+            if($row->is_baned==0){
+            return "No";
+        }else{
+        return "Yes";
+        }})
             ->addColumn('name', function($row){
                 // $username = Pharmacy::find($row['id']);
                 return Doctor::find($row['id'])->type->name;
@@ -53,7 +65,7 @@ class DoctorController extends Controller
              
                 return $Pharmacyname;
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','ban'])
             ->make(true);
     }
         return view("Doctors.index");
@@ -153,7 +165,6 @@ class DoctorController extends Controller
     {
         $doctors = Doctor::findOrFail($id);
         $doctors->update([
-            'national_id'=>request()->national_id,
             'pharmacy_id'=> request()->pharmacy_id,
             'avatar_image'=> request()->avatar_image,
             //'is_banned'=>0,
@@ -161,7 +172,6 @@ class DoctorController extends Controller
 
         $doctors->type()->update([
             'name'=>request()->name,
-            'email'=>request()->email,
             'password'=> Hash::make(request()->password) ,
         ]);
 
@@ -177,6 +187,18 @@ class DoctorController extends Controller
         $doctor = Doctor::findOrFail($id);
         Doctor::destroy($id);
         $doctor->type()->delete();
+        return redirect()->route('doctors.index');
+    }
+
+    public function ban($id)
+    {
+        $doctor = Doctor::findOrFail($id);
+        if($doctor->is_baned===0){
+            $doctor->update(['is_baned'=>1]);
+        }
+        else{
+            $doctor->update(['is_baned'=>0]);
+        }
         return redirect()->route('doctors.index');
     }
 }
