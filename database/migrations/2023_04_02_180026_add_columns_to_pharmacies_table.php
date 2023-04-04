@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('pharmacies', function (Blueprint $table) {
             $table->string('national_id');
-            $table->string('avatar_image')->default("avatar.png")->change();
+            $table->string('avatar')->nullable();
         });
     }
 
