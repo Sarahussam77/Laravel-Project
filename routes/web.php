@@ -28,7 +28,7 @@ use App\Http\Controllers\RevenueController;
 |
 */
 
-Route::get('/', function () {
+Route::middleware(['auth'])->get('/', function () {
     return view('welcome');
 });
 
@@ -56,7 +56,7 @@ Route::middleware(['auth','role:pharmacy|admin'])->group(function()
 });
 
 // Admin Route
-Route::middleware(['auth','role:admin'])->group(function()
+Route::middleware(['auth','role:admin|doctor'])->group(function()
 {
   Route::resource('pharmacies', PharmacyController::class);
     Route::get('/readsoftdelete',[PharmacyController::class,'readsoftdelete'])->name('pharmacies.readsoft');
@@ -68,7 +68,7 @@ Route::middleware(['auth','role:admin'])->group(function()
     Route::resource('useraddresses', UserAddressController::class);
  });
 
- Route::middleware(['auth','role:admin'])->group(function()
+ Route::middleware(['auth','role:admin|pharmacy|doctor'])->group(function()
 {
  Route::resource('doctors', DoctorController::class);
 });

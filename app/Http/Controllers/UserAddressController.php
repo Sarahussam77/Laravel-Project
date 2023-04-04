@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Address;
 use App\DataTables\AddressesDataTable;
 use App\Models\Area;
+use Auth;
 use App\Models\User;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -15,11 +16,14 @@ class UserAddressController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {  
+    { $user=Auth::user();
          if ($request->ajax()) {
         $data = Address::select('id','street_name','building_number','floor_number','flat_number','is_main','area_id','user_id')->get();
+        //   if($user->hasRole('admin')){
         return DataTables::of($data)->addIndexColumn()
+     
             ->addColumn('action', function ($row) {
+              
                 $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0" href="'.route('useraddresses.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
                 $button .= '<a name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm p-0" href="'.route('useraddresses.edit', $row->id).'" style="border-radius: 20px;"><i class="fas fa-edit m-2"></i></a>';
                 $button .= '<form method="post" action= "'.route('useraddresses.destroy', $row->id).'">
@@ -29,8 +33,10 @@ class UserAddressController extends Controller
             </button>
             </form>';
                 return $button;
-                ;
+                
             })
+        // }
+        
             ->addColumn('area', function (Address $address) {
                 return $address->area->name;
             })

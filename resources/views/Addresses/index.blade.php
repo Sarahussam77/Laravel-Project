@@ -2,13 +2,13 @@
 
 
 @section("content")
-
+@role('admin')
 <div class="text-center">
         {{-- style="background-color:#6D9886 ; color:white" --}}
-        <a   href="{{route('useraddresses.create')}}" class="mt-4 btn btn-success">Create Order</a>
+        <a   href="{{route('useraddresses.create')}}" class="mt-4 btn btn-success">Create Address</a>
     </div>
+@endrole
 
-addresses
 <div class="container mt-5 ">
     <table id="myTable">
         <thead>
@@ -21,7 +21,9 @@ addresses
                 <th>is_main</th>
                 <th>area</th>
                 <th>user</th>
+                @role('admin')
                 <th>action</th>
+                @endrole
             </tr>
         </thead>
             <tbody>
@@ -49,7 +51,10 @@ addresses
                   {data: 'ismain', name: '"Is Main"'},
                   {data: 'area', name: 'area'},
                   {data: 'user', name: 'user'},
+                //   if($user->hasRole('doctor')){
+                //     console.log(2);
                   {data: 'action', name: 'action', orderable: true, searchable: true},
+                // }
               ]
     });
 } );
