@@ -41,8 +41,8 @@ class DoctorController extends Controller
             return $button;
         })
         
-        ->addColumn('is_banned', function ($row) {
-            if($row->is_banned==0){
+        ->addColumn('is_baned', function ($row) {
+            if($row->is_baned==0){
             return "No";
         }else{
         return "Yes";
@@ -173,7 +173,7 @@ class DoctorController extends Controller
     public function ban($id)
     {
         $doctor = Doctor::findOrFail($id);
-        if($doctor->is_banned===0){
+        if($doctor->is_baned===0){
             $doctor->update(['is_baned'=>1]);
         }
         else{
