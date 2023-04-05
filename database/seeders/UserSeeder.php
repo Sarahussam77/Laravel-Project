@@ -23,8 +23,8 @@ class UserSeeder extends Seeder
             // 'national_id'=>fake()->unique()->randomNumber($nbDigits = NULL, $strict = false),
             'email' => 'admin2@admin.com',
             // 'email_verified_at' => now(),
-            'typeable_type'=>'admin',
-            'typeable_id'=>'1'
+            'typeable_type'=>'',
+            'typeable_id'=>'0'
         ]);
         $admin->assignRole('admin');
         
