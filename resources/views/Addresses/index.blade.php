@@ -5,7 +5,7 @@
 
 <div class="text-center">
         {{-- style="background-color:#6D9886 ; color:white" --}}
-        <a   href="{{route('useraddresses.create')}}" class="mt-4 btn btn-success">Create Order</a>
+        <a   href="{{route('useraddresses.create')}}" class="mt-4 btn btn-success">Create Address</a>
     </div>
 
 addresses
