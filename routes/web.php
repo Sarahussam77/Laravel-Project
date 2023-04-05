@@ -30,7 +30,7 @@ use App\Http\Controllers\RevenueController;
 
 Route::middleware(['auth'])->get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Auth::routes();
 
