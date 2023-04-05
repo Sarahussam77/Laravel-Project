@@ -136,48 +136,73 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </div>
       @endrole
+
       @role('doctor')
+      @php
+
+$id=Auth::user()->typeable_id;
+$doctors=App\Models\Doctor::find($id);
+   
+@endphp
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="/dist/img/profile.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <label class="d-block text-white">Doctor</label>
+          <a href="{{route('doctors.show',$doctors->id)}}" class="d-block">Doctor</a>
         </div>
       </div>
       
 
-      {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
             <img src="/dist/img/client.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
             
-            <a href="{{route('doctors.index')}}" class="d-block">Update Profile</a>
+            <a href="{{route('doctors.edit',$doctors->id)}}" class="d-block">Update Profile</a>
           </div>
-        </div> --}}
+        </div>
        @endrole
+       
       @role('pharmacy')
+      @php
+
+      $id=Auth::user()->typeable_id;
+      $pharmacies=App\Models\Pharmacy::find($id);
+         
+      @endphp
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="/dist/img/profile.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <label class="d-block text-white">Pharmacy</label>
+          <a href="{{route('pharmacies.show',$pharmacies->id)}}" class="d-block ">Pharmacy</a>
         </div>
       </div>
-      @endrole
+      
       <!-- Attributes Pages -->
-      @role('admin|pharmacy')
+      
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
           <img src="/dist/img/pharmaciest.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="{{route('pharmacies.index')}}" class="d-block">Pharmacies</a>
+          <a href="{{route('pharmacies.edit',$pharmacies->id)}}" class="d-block">Update profile</a>
         </div>
       </div>
-
+@endrole
+@role('admin')
+<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+  <div class="image">
+      <img src="/dist/img/pharmaciest.jpg" class="img-circle elevation-2" alt="User Image">
+    </div>
+    <div class="info">
+      <a href="{{route('pharmacies.index')}}" class="d-block">Pharmacies</a>
+    </div>
+  </div>
+@endrole
+@role('admin|pharmacy')
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
           <img src="/dist/img/doctor.png" class="img-circle elevation-2" alt="User Image">
@@ -186,7 +211,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="{{route('doctors.index')}}" class="d-block">Doctors</a>
         </div>
       </div>
-
+      @endrole
+      @role('admin')
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
           <img src="/dist/img/client.jpg" class="img-circle elevation-2" alt="User Image">
@@ -204,7 +230,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="{{route('areas.index')}}" class="d-block">Areas</a>
         </div>
       </div>
-      @endrole
+     
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
           <img src="/dist/img/addresses.jpg" class="img-circle elevation-2" alt="User Image">
@@ -213,7 +239,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="{{route('useraddresses.index')}}" class="d-block">User Adresses</a>
         </div>
       </div>
-
+      @endrole
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
           <img src="/dist/img/medicines.avif" class="img-circle elevation-2" alt="User Image">
