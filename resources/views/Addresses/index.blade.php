@@ -34,6 +34,9 @@
     </div>
     
     <script>
+          var user = {{ Js::from($user) }};
+          if(user!="app\\Models\\Doctor"|user!="app\\Models\\Pharmacy"){
+    
       $data=  $(document).ready(function() {
     $('#myTable').DataTable({
         processing: true,
@@ -51,15 +54,39 @@
                   {data: 'ismain', name: '"Is Main"'},
                   {data: 'area', name: 'area'},
                   {data: 'user', name: 'user'},
-                //   if($user->hasRole('doctor')){
-                //     console.log(2);
-                  {data: 'action', name: 'action', orderable: true, searchable: true},
-                // }
+                 
+                
+                 
               ]
     });
 } );
 
-
+          }
+          else{
+            $data=  $(document).ready(function() {
+    $('#myTable').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive:true,
+        ajax: {
+            url:"{{ route('useraddresses.index') }}",
+        },
+        columns: [
+                  {data: 'id', name: 'id'},
+                  {data: 'street_name', name: 'street_name'},
+                  {data: 'building_number', name: 'building_number'},
+                  {data: 'floor_number', name: 'floor_number'},
+                  {data: 'flat_number', name: 'flat_number'},
+                  {data: 'ismain', name: '"Is Main"'},
+                  {data: 'area', name: 'area'},
+                  {data: 'user', name: 'user'},
+                  {data: 'action', name: 'action', orderable: true, searchable: true},
+                
+                 
+              ]
+    });
+} );
+          }
 
     </script>
 @endsection

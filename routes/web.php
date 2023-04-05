@@ -35,7 +35,7 @@ Route::middleware(['auth'])->get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+// Route::get('/doctors/{{doctor}}/edit', [PostController::class,'edit',['doctors'=>Auth::user()]])->name('doctors.edit');
 
 
 Route::middleware(['auth','role:pharmacy|doctor|admin'])->group(function()
