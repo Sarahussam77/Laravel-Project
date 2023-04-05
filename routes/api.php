@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use App\Http\Controllers\Api\AddressController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,6 +32,13 @@ Route::post('/users', [UserController::class,'store']);
 // });
 ///////////////////////////////////////////////////////////////////////////////
 
+//address api 
+Route::get('/addresses', [AddressController::class, 'index']);
+Route::get('/addresses/{address}',[AddressController::class, 'show']);
+Route::post('/addresses/{address}',[AddressController::class, 'update']);
+Route::post('/addresses',[AddressController::class , 'store']);
+Route::delete('/addresses/{address}',[AddressController::class, 'destroy']);
+//end of address api
 
 Route::post('/sanctum/token', function (Request $request) {
     $request->validate([
