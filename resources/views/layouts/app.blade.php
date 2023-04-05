@@ -45,9 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{url('../home')}}" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
+      
     </ul>
 
     <!-- Right navbar links -->
@@ -114,24 +112,63 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Pharamacy system</span>
-    </a>
+    
+
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        </div>
+        <div class="info">
+          <a href="{{route('welcome')}}" class="d-block text-white text-decoration-none">Pharamacy system</a>
+        </div>
+      </div>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional)  -->
+        @role('admin')
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="/dist/img/admin.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="/dist/img/profile.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Admin</a>
+          <label class="d-block text-white">Admin</label>
         </div>
       </div>
+      @endrole
+      @role('doctor')
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="/dist/img/profile.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <label class="d-block text-white">Doctor</label>
+        </div>
+      </div>
+      
 
+      {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+            <img src="/dist/img/client.jpg" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            
+            <a href="{{route('doctors.index')}}" class="d-block">Update Profile</a>
+          </div>
+        </div> --}}
+       @endrole
+      @role('pharmacy')
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="/dist/img/profile.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <label class="d-block text-white">Pharmacy</label>
+        </div>
+      </div>
+      @endrole
       <!-- Attributes Pages -->
+      @role('admin|pharmacy')
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
           <img src="/dist/img/pharmaciest.jpg" class="img-circle elevation-2" alt="User Image">
@@ -167,7 +204,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="{{route('areas.index')}}" class="d-block">Areas</a>
         </div>
       </div>
-
+      @endrole
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
           <img src="/dist/img/addresses.jpg" class="img-circle elevation-2" alt="User Image">
@@ -185,7 +222,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="{{route('medicines.index')}}" class="d-block">Medicines</a>
         </div>
       </div>
-
+      @role('admin|pharmacy')
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
           <img src="/dist/img/revenue.png" class="img-circle elevation-2" alt="User Image">
@@ -194,7 +231,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="{{route('revenue.index')}}" class="d-block">Revenue</a>
         </div>
       </div>
-
+      @endrole
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
           <img src="/dist/img/orders.png" class="img-circle elevation-2" alt="User Image">

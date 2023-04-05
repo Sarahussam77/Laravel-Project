@@ -28,14 +28,14 @@ use App\Http\Controllers\RevenueController;
 |
 */
 
-Route::get('/', function () {
+Route::middleware(['auth'])->get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+// Route::get('/doctors/{{doctor}}/edit', [PostController::class,'edit',['doctors'=>Auth::user()]])->name('doctors.edit');
 
 
 Route::middleware(['auth','role:pharmacy|doctor|admin'])->group(function()
@@ -56,7 +56,7 @@ Route::middleware(['auth','role:pharmacy|admin'])->group(function()
 });
 
 // Admin Route
-Route::middleware(['auth','role:admin'])->group(function()
+Route::middleware(['auth','role:admin|doctor'])->group(function()
 {
   Route::resource('pharmacies', PharmacyController::class);
     Route::get('/readsoftdelete',[PharmacyController::class,'readsoftdelete'])->name('pharmacies.readsoft');
@@ -68,7 +68,7 @@ Route::middleware(['auth','role:admin'])->group(function()
     Route::resource('useraddresses', UserAddressController::class);
  });
 
- Route::middleware(['auth','role:admin'])->group(function()
+ Route::middleware(['auth','role:admin|pharmacy|doctor'])->group(function()
 {
  Route::resource('doctors', DoctorController::class);
 });
