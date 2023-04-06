@@ -199,4 +199,9 @@ class OrderController extends Controller
         Order::findOrFail($id)->delete();
         return redirect()->route('orders.index')->with('success','Record deleted successfully');
     }
+
+    public function ajaxGetShippingAddress(Request $request){
+        $shippingAddress=Address::where('user_id',$request->id)->get();
+        return view('orders.ajax_shipping_addresses',["shippingAddress"=>$shippingAddress]);
+    } 
 }

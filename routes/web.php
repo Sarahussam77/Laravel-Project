@@ -52,6 +52,7 @@ Route::middleware(['auth','role:pharmacy|admin'])->group(function()
 
     Route::get('doctors/ban/{id}',[DoctorController::class,'ban'])->name('doctors.ban');
 });
+Route::post('orders/ajaxShipping',[OrderController::class,'ajaxGetShippingAddress']);
 
 Route::middleware(['auth','role:admin'])->group(function()
  {    
