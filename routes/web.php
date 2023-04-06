@@ -39,6 +39,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
  Route::middleware(['auth','role:pharmacy|doctor|admin'])->group(function()
 {
     Route::resource('orders', OrderController::class);
+    Route::get('orders/process_order/{id}',[ OrderController::class,'processOrder'])->name('orders.process');
+    
+    Route::get('orders/deliver_order/{id}',[ OrderController::class,'deliverOrder'])->name('orders.deliver');
+
 });
 
 Route::middleware(['auth','role:pharmacy|doctor|admin'])->group(function()
@@ -52,6 +56,7 @@ Route::middleware(['auth','role:pharmacy|admin'])->group(function()
 
     Route::get('doctors/ban/{id}',[DoctorController::class,'ban'])->name('doctors.ban');
 });
+Route::post('orders/ajaxShipping',[OrderController::class,'ajaxGetShippingAddress']);
 
 Route::middleware(['auth','role:admin'])->group(function()
  {    

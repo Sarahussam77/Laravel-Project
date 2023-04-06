@@ -117,7 +117,7 @@ class DoctorController extends Controller
         $doctor= Doctor::create([
             'pharmacy_id'=>$PharmacyId,
             'national_id'=>$data['national_id'],
-            'is_baned'=>$data['is_baned'],
+            'is_baned'=>'0',
             'avatar'=>$image,
 
         ]);

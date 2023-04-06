@@ -37,7 +37,7 @@ class ClientController extends Controller
         ]);
         $data = $request->all();
         $client= Client::create([
-            'gender'=>1,
+            'gender'=>$data['gender']=='female'?1:0,
             'date_of_birth'=>$data['date_of_birth'],
             'phone'=>$data['phone'],
 
@@ -141,7 +141,7 @@ class ClientController extends Controller
     {
         $client_id = User::find($client)->typeable_id;
         Client::find($client_id)->delete();
-        User::find($client)->delete();
+        User::find($client)->forceDelete();
         return response()->json([
             'success' => 'Client deleted'
         ]);

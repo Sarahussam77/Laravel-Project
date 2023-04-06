@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Api\UpdateAddressRequest;
 use Illuminate\Support\Facades\Auth;
 
+
 class AddressController extends Controller
 {
     public function index () {
@@ -21,9 +22,10 @@ class AddressController extends Controller
 
     }
     public function store (StoreAddressRequest $request){
-
-        // $userId = Auth::user()->id;
-        $previousAddressIsMain = Address::where('user_id','1')->where('is_main', 1)->first();
+          
+         $userId = Auth::user()->typeable_id;
+        //  $id=User::find($userId)->typeable-id;
+        $previousAddressIsMain = Address::where('user_id',$userId)->where('is_main', 1)->first();
         if ( $request->input('is_main') == 1 && !empty($previousAddressIsMain) ) {
             $previousAddressIsMain->is_main = 0;
             $previousAddressIsMain->save();
@@ -35,7 +37,7 @@ class AddressController extends Controller
             'flat_number' => $request->flat_number,
             'is_main' => $request->is_main,
             'area_id' => $request->area,
-            'user_id' => '1'
+            'user_id' => $userId
         ]);
 
         return new AddressResource ($address);

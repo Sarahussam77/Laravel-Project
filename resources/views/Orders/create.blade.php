@@ -11,22 +11,20 @@
         @csrf
         <div class="mb-3">
             <label for="name_of_user1" class="form-label">User</label>
-            <select name="name_of_user" class="form-control">
+            <select id="user_id" name="name_of_user" class="form-control">
+                <option  selected disabled>-- Select A user -- </option>
                     @foreach($users as $user)
                     <option value="{{$user->type->typeable_id}}">{{$user->type->name}}</option>
                     @endforeach
                   </select>
             </select>
         </div>
-        {{-- <div class="mb-3">
+         <div class="mb-3">
             <label for="address" class="form-label">Address :street name</label>
-            <select name="address" class="form-control">
-                    @foreach($address as $add)
-                    <option>{{$add->street_name}}</option>
-                    @endforeach
+            <select id="address" name="address" class="form-control">
                   </select>
             </select>
-        </div> --}}
+        </div> 
         
         <div class="mb-3" >
                   <label for="insured">Is insured ?</label>
@@ -59,7 +57,7 @@
         <label for="DocName">Doctor Name</label>
             <select name="DocName" class="form-control" >
                 @foreach($doctors as $doctor)
-                    <option>{{$doctor->type->name}}</option>
+                    <option value=" {{ $doctor->type->id }}">{{$doctor->type->name}}</option>
                  @endforeach
             </select>
         </div>
@@ -78,7 +76,7 @@
                         <label for="PharmacyName">Pharmacy Name</label>
                         <select name="PharmacyName" class="form-control " style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
                           @foreach($pharmacy as $phar)
-                          <option>{{$phar->type->name}}</option>
+                          <option value="{{ $phar->type->id }}">{{$phar->type->name}}</option>
                           @endforeach
                         </select>
         </div>
@@ -95,8 +93,31 @@
          $(".quantity").select2({
            tags: true
            
-         });
-         
+         });    
+         $(document).ready(function() {
+            
+            $('#user_id').change(function() {
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                let user_id=$('#user_id').val();
+                console.log (user_id);
+    
+                    $.ajax({
+                url: "ajaxShipping",
+                type: "POST",
+                data: { id: user_id,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                        $('#address').html(response)
+                },
+                error: function() {
+                    console.log("Error retrieving data from server.");
+                }
+                    });
+                    });
+
+                });
+   
          
    </script>
 @endsection
