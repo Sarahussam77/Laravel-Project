@@ -42,15 +42,15 @@ class OrderController extends Controller
     })
 
         ->addColumn('Pharmacy', function($row){
-            $Pharmacyname = Pharmacy::find($row['pharmacy_id'] )->first()->type->name;
+            $Pharmacyname = $row->pharmacy->type->name;
             return $Pharmacyname;
         })
         ->addColumn('doctor', function($row){
-            $doctorname = Doctor::find($row['doctor_id'] )->first()->type->name;
+            $doctorname =$row->doctor->type->name;
             return $doctorname;
         })
         ->addColumn('user', function($row){
-            $username = Client::find($row['user_id'] )->first()->type->name;
+           $username=$row->client->type->name;
             return $username;
         })
            ->rawColumns(['action'])
@@ -81,12 +81,12 @@ class OrderController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   $totalprice=0;
         $data = $request->all();
-        
         $DocId = User::all()->where('name' , $data['DocName'] )->first()->typeable_id;
         $PharmacyId = User::all()->where('name' , $data['PharmacyName'] )->first()->typeable_id;
-        $useradd = Address::all()->where('street_name' , $data['address'] )->first()->id;
+        $useradd = $data['address'];
+        
        
         $segments =Auth::User()->typeable_type;
         if($segments=="null"){
@@ -98,6 +98,11 @@ class OrderController extends Controller
         else {
             $creator='pharmacy';
         }
+        
+        foreach($data['med'] as $key=>$value){
+          
+            $totalprice+=(Medicine::find($value)->price*$data['qty'][$key]??1);
+        }
         $order = Order::Create([
             'status'=> $data['status'],
             'pharmacy_id'=> $PharmacyId,
@@ -106,7 +111,7 @@ class OrderController extends Controller
             'is_insured'=> $data['insured'],
             'creator_type'=>$creator,
             'user_address_id'=>$useradd,
-            'price'=>Medicine::find($data['med'])[0]->price
+            'price'=>$totalprice
         ]);
         foreach($data['med'] as $key=>$value){
           
@@ -116,7 +121,7 @@ class OrderController extends Controller
                 'quantity'=>$data['qty'][$key]??1
                 ]);
         }
-       
+        
         
 
         return to_route('orders.index');
@@ -203,5 +208,6 @@ class OrderController extends Controller
     public function ajaxGetShippingAddress(Request $request){
         $shippingAddress=Address::where('user_id',$request->id)->get();
         return view('orders.ajax_shipping_addresses',["shippingAddress"=>$shippingAddress]);
-    } 
+    }
+    
 }

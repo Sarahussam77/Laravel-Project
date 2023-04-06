@@ -23,7 +23,8 @@ class AddressController extends Controller
     }
     public function store (StoreAddressRequest $request){
           
-         $userId = Auth::user()->id;
+         $userId = Auth::user()->typeable_id;
+        //  $id=User::find($userId)->typeable-id;
         $previousAddressIsMain = Address::where('user_id',$userId)->where('is_main', 1)->first();
         if ( $request->input('is_main') == 1 && !empty($previousAddressIsMain) ) {
             $previousAddressIsMain->is_main = 0;
