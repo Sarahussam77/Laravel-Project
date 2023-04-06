@@ -99,7 +99,7 @@ class OrderController extends Controller
         
         $DocId = User::all()->where('id' , $data['DocName'] )->first()->typeable_id;
         $PharmacyId = User::all()->where('id' , $data['PharmacyName'] )->first()->typeable_id;
-        dd($data);
+      
 
         $useradd = $data['address'];
         
@@ -228,6 +228,7 @@ class OrderController extends Controller
 
     public function processOrder(Request $request){
         $order=Order::find($request['id']);
+        Mail::to(User::find($order['user_id'])->email)->send(new SendOrderConfirmationMail($order));
         $order->status="Waiting For User Confirmation";
         $order->save();
     }
@@ -237,4 +238,3 @@ class OrderController extends Controller
         $order->save();
     }
 }
-// Mail::to(User::find($data['name_of_user'])->email)->send(new SendOrderConfirmationMail($order));
