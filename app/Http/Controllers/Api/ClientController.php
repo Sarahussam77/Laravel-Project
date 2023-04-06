@@ -102,8 +102,6 @@ class ClientController extends Controller
            $updateclient = Client::find($user->typeable->id);
             $user->update([
                 'name'=> $data['name'],
-                'email'=> $data['email'],
-
             ]);
             $updateclient->update([
                 // 'national_id' => $data['national_id'],
