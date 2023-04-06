@@ -99,7 +99,7 @@ class OrderController extends Controller
         
         $DocId = User::all()->where('id' , $data['DocName'] )->first()->typeable_id;
         $PharmacyId = User::all()->where('id' , $data['PharmacyName'] )->first()->typeable_id;
-        dd($data);
+    
 
         $useradd = $data['address'];
         
