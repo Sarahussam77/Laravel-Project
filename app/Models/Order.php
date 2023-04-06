@@ -50,4 +50,9 @@ class Order extends Model
     {
         return $this->belongsToMany(Medicine::class);
     }
+    public function prescription()
+    {
+        return $this->hasMany(Prescription::class,'order_id');
+    }
+
 }

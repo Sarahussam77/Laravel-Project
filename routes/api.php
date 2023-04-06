@@ -42,7 +42,10 @@ Route::post('/login', [ClientController::class,'login']);
 
 
 
-//address api 
+
+//esraa
+
+//address api
 Route::get('/addresses', [AddressController::class, 'index']);
 Route::get('/addresses/{address}',[AddressController::class, 'show']);
 Route::post('/addresses/{address}',[AddressController::class, 'update']);

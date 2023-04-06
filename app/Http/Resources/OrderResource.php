@@ -14,14 +14,28 @@ class OrderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $totalPrice = 0 ;
+        foreach(MedicineResource::collection($this->medicines) as $medicine){
+            $totalPrice += $medicine->price;
+        }
         return 
         [
+            // 'id' => $this->id,
+            // 'created_at' => $this->created_at,
+            // 'status' => $this->status,
+            // 'is_insured' => $this->is_insured,
+            // 'user_address_id' => $this->user_address_id,
+            // 'price' => $this->price
+
+            
             'id' => $this->id,
-            'created_at' => $this->created_at,
+            'medicines' => MedicineResource::collection($this->medicines),
+            'order_total_price'=> $totalPrice ,
             'status' => $this->status,
-            'is_insured' => $this->is_insured,
-            'user_address_id' => $this->user_address_id,
-            'price' => $this->price
+            'ordered_at' => $this->created_at,
+            'assigned_pharmacy' => new PharmacyResource($this->pharmacy),
+
+            
         ];
     }
 }
