@@ -27,7 +27,7 @@ class ClientController extends Controller
     {
         $data = $request->all();
         $client= Client::create([
-            'gender'=>1,
+            'gender'=>$data['gender']=='female'?1:0,
             'date_of_birth'=>$data['date_of_birth'],
             'phone'=>$data['phone'],
         ]);
