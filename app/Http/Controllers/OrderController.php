@@ -47,7 +47,7 @@ class OrderController extends Controller
         })
         ->addColumn('processing', function($row){
             if($row->status=="NEW")
-            $button ='<a class="btn btn-sm  mx-1" href="'.route("orders.process",$row->id).'">Process</a>';
+            $button ='<a class="btn btn-danger  mx-1" href="'.route("orders.process",$row->id).'">Process</a>';
             elseif($row->status=='Waiting For User Confirmation')
             $button='<p>Waiting for Confirmation </p>';
             elseif($row->status='Confirmed')
