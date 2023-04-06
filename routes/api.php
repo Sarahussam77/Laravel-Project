@@ -32,7 +32,10 @@ Route::post('/users', [UserController::class,'store']);
 // });
 ///////////////////////////////////////////////////////////////////////////////
 
-//address api 
+
+//esraa
+
+//address api
 Route::get('/addresses', [AddressController::class, 'index']);
 Route::get('/addresses/{address}',[AddressController::class, 'show']);
 Route::post('/addresses/{address}',[AddressController::class, 'update']);
@@ -40,20 +43,29 @@ Route::post('/addresses',[AddressController::class , 'store']);
 Route::delete('/addresses/{address}',[AddressController::class, 'destroy']);
 //end of address api
 
-Route::post('/sanctum/token', function (Request $request) {
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-        'device_name' => 'required',
-    ]);
+//oder api
+Route::get('/orders' , [OrderController::class , 'index']);
+Route::get('/orders/{order}' , [OrderController::class , 'show']);
+Route::post('/orders' , [OrderController::class , 'store']);
+Route::put('/orders/{order}' , [OrderController::class , 'update']);
+//end of order api
 
-    $user = User::where('email', $request->email)->first();
+//end esraa
 
-    if (! $user || ! Hash::check($request->password, $user->password)) {
-        throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
-        ]);
-    }
+// Route::post('/sanctum/token', function (Request $request) {
+//     $request->validate([
+//         'email' => 'required|email',
+//         'password' => 'required',
+//         'device_name' => 'required',
+//     ]);
 
-    return $user->createToken($request->device_name)->plainTextToken;
-});
+//     $user = User::where('email', $request->email)->first();
+
+//     if (! $user || ! Hash::check($request->password, $user->password)) {
+//         throw ValidationException::withMessages([
+//             'email' => ['The provided credentials are incorrect.'],
+//         ]);
+//     }
+
+//     return $user->createToken($request->device_name)->plainTextToken;
+// });
