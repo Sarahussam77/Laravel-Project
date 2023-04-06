@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class VerificationController extends Controller
 {
@@ -33,10 +36,27 @@ class VerificationController extends Controller
      *
      * @return void
      */
+
+     
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
+
+    public function verify(Request $request, $id, $hash)
+    {
+        $client = User::findOrFail($id);
+        if (!hash_equals((string) $hash, sha1(
+            $client->getEmailForVerification()
+        ))) {
+            throw new AuthorizationException();
+        }
+        $client->markEmailAsVerified();
+        return response()->json([
+            'message' => 'Email verified successfully'
+        ]);
+    }
+    
 }

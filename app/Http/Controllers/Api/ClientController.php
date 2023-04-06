@@ -11,8 +11,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\Events\Registered;
 
+// use App\Providers\EventServiceProvider\Registered;
 class ClientController extends Controller
+
 {
     public function index()
     {     
@@ -24,14 +27,22 @@ class ClientController extends Controller
      * Store a newly created resource in storage.
      */
     public function register(Request $request)
-    {
+    {    
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required',
+            'date_of_birth'=>'required',
+            'phone'=>'required',
+        ]);
         $data = $request->all();
         $client= Client::create([
             'gender'=>1,
             'date_of_birth'=>$data['date_of_birth'],
             'phone'=>$data['phone'],
+
         ]);
-        User::create([
+        $mainUser =User::create([
             'name'=>$data['name'],
             'email'=>$data['email'],
             'password'=>Hash::make($data['password']),
@@ -40,6 +51,8 @@ class ClientController extends Controller
            
         ])->assignRole('client');
 
+        event(new Registered($mainUser));
+        
         return new ClientResource($client);
     }
 

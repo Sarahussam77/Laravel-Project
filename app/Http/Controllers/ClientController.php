@@ -67,6 +67,24 @@ class ClientController extends Controller
     public function store(Request $request)
     {
        
+        $data = $request->all();
+        $client= Client::create([
+		
+            'gender'=>1,
+            'date_of_birth'=>$data['date_of_birth'],
+            'phone'=>$data['phone'],
+
+        ]);
+        User::create([
+           
+            'name'=>$data['name'],
+            'email'=>$data['email'],
+            'password'=>Hash::make($data['password']),
+            'typeable_type'=>'app\Models\Client',
+            'typeable_id'=>$client->id
+           
+        ])->assignRole('client');
+
     }
 
 

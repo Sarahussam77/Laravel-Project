@@ -11,10 +11,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Cashier\Billable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 // use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
-class User extends Authenticatable
+ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable,HasRoles,Billable ,SoftDeletes;
 
@@ -28,7 +30,7 @@ class User extends Authenticatable
         'password',
         'email',
         'typeable_type',
-        'typeable_id'
+        'typeable_id',
         
     ];
 

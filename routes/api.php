@@ -9,6 +9,7 @@ use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\EmailVerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::post('/login','App\Http\Controllers\ApiController@login');
 
 Route::post('/users', [UserController::class,'store']);
+    Route::post('/clients',[ClientController::class, 'store']);
 
 //client api
 
@@ -35,10 +37,20 @@ Route::middleware('auth:sanctum')->group(function()
     Route::get('/clients', [ClientController::class, 'index']);
     Route::get('/clients/{client}',[ClientController::class, 'show']);
     Route::post('/clients/{client}',[ClientController::class, 'update']);
+
     Route::delete('/clients/{client}',[ClientController::class, 'destroy']);
+
+    
 });
+
+
+// Route::middleware('auth:sanctum')->group(function()
+// {
+    // Route::post('email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail']);
 Route::post('/register',[ClientController::class , 'register']);
 Route::post('/login', [ClientController::class,'login']);
+
+
 //end of client api
 
 
