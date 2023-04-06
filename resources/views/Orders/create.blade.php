@@ -18,7 +18,7 @@
                   </select>
             </select>
         </div>
-        <div class="mb-3">
+        {{-- <div class="mb-3">
             <label for="address" class="form-label">Address :street name</label>
             <select name="address" class="form-control">
                     @foreach($address as $add)
@@ -26,7 +26,7 @@
                     @endforeach
                   </select>
             </select>
-        </div>
+        </div> --}}
         
         <div class="mb-3" >
                   <label for="insured">Is insured ?</label>
@@ -96,6 +96,7 @@
            tags: true
            
          });
+         
          
    </script>
 @endsection

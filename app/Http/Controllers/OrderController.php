@@ -68,12 +68,12 @@ class OrderController extends Controller
         $doctors = Doctor::all();
         $medicine = Medicine::all();
         $pharmacy = Pharmacy::all();
-        $address = Address::all();
+       
         return view("Orders.create",[
         'medicine'=>$medicine ,
         'pharmacy'=>$pharmacy ,
         'doctors'=>$doctors,
-        'address'=>$address,
+        
         'users' => $users]);
     }
 
@@ -87,28 +87,36 @@ class OrderController extends Controller
         $DocId = User::all()->where('name' , $data['DocName'] )->first()->typeable_id;
         $PharmacyId = User::all()->where('name' , $data['PharmacyName'] )->first()->typeable_id;
         $useradd = Address::all()->where('street_name' , $data['address'] )->first()->id;
-        // 
-        $med = $data['med'];
-      
-
-        $qty = $data['qty'];
+       
         $segments =Auth::User()->typeable_type;
-        
+        if($segments=="null"){
+            $creator='admin';
+        }
+        elseif($segments=='app\\Models\\Doctor'){
+            $creator='doctor';
+        }
+        else {
+            $creator='pharmacy';
+        }
         $order = Order::Create([
             'status'=> $data['status'],
             'pharmacy_id'=> $PharmacyId,
             'user_id'=> $data['name_of_user'],
             'doctor_id'=> $DocId,
             'is_insured'=> $data['insured'],
-            'creator_type'=>$segments=null ?'admin':$segments,
+            'creator_type'=>$creator,
             'user_address_id'=>$useradd,
             'price'=>Medicine::find($data['med'])[0]->price
         ]);
-       MedicineOrder::create([
-       'medicine_id'=>$data['med'][0],
-       'order_id'=>$order->id,
-       'quantity'=>$data['qty'][0]
-       ]);
+        foreach($data['med'] as $key=>$value){
+          
+            MedicineOrder::create([
+                'medicine_id'=>$value,
+                'order_id'=>$order->id,
+                'quantity'=>$data['qty'][$key]??1
+                ]);
+        }
+       
         
 
         return to_route('orders.index');
