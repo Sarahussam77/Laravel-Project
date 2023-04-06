@@ -211,3 +211,4 @@ class OrderController extends Controller
     }
     
 }
+// Mail::to(User::find($data['name_of_user'])->email)->send(new SendOrderConfirmationMail($order));
