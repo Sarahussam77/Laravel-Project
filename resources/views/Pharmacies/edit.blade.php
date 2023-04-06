@@ -22,23 +22,30 @@
             <input name="name" type="text" class="form-control"  value="{{$pharmacies->type->name}}">
         </div>
         <div class="mb-3">
-            <label for="user" class="form-label">Area</label>
-            <select name="area_id" class="form-control">
-            @if(isset($areas))
-            @foreach($areas as $area)
-                    @if($area->name == $pharmacies->area->name)
-                        <option value="{{$area->id}}" selected>{{$area->name}}</option>
-                    @else
-                        <option value="{{$area->id}}">{{$area->name}}</option>
-                    @endif
-            @endforeach
-            @endif
-            </select>
+            <label for="exampleFormControlInput1" class="form-label">Email</label>
+            <input name="email" type="text" class="form-control"  value="{{$pharmacies->type->email}}">
+        </div>
+       @role('admin')
+       <div class="mb-3">
+        <label for="user" class="form-label">Area</label>
+        <select name="area_id" class="form-control">
+        @if(isset($areas))
+        @foreach($areas as $area)
+                @if($area->name == $pharmacies->area->name)
+                    <option value="{{$area->id}}" selected>{{$area->name}}</option>
+                @else
+                    <option value="{{$area->id}}">{{$area->name}}</option>
+                @endif
+        @endforeach
+        @endif
+        </select>
+    </div>
+       @endrole
             <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Avatar Image</label>
         <input name="avatar" type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
         <img class="mt-2" src="{{'/'.'storage/'.$pharmacies->avatar}}" width="250"alt=""/>
-      </div>
+      
         </div>
         <button class="btn btn-success">Update</button>
     </form>

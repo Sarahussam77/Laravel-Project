@@ -18,7 +18,6 @@ class MedicineFactory extends Factory
     {
         return [
             'name'=>fake()->name(),
-            'quantity'=>fake()->randomNumber(),
             'type'=>fake()->name(),
             'price'=>fake()->randomNumber(),
         ];

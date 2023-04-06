@@ -19,11 +19,11 @@
                 <tr>
                     <th>ID</th>
                      <th>Name</th>
-                  <th>Email</th>
-                      <th>National_ID</th>
+                     <th>Email</th>
+                     <th>National_ID</th>
                      <th>Area</th> 
-                    <th>priority</th>
-                    <th>Action</th>
+                     <th>priority</th>
+                     <th>Action</th>
                     
                 </tr>
             </thead>

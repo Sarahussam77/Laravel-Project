@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreRequest;
+use Auth;
 
 class DoctorController extends Controller
 {
@@ -169,8 +170,8 @@ class DoctorController extends Controller
             'avatar'=>'image'
         ]);
         $doctors = Doctor::findOrFail($id);
-
-        $doctors->pharmacy_id = $request->input('pharmacy_id');
+        if(Auth::user()->typeable_type!="app\\Models\\Doctor"){
+        $doctors->pharmacy_id = $request->input('pharmacy_id');}
 
             if($request->hasFile('avatar')){
 
@@ -184,12 +185,18 @@ class DoctorController extends Controller
 
             //'avatar_image'=> request()->avatar_image,
             //'is_banned'=>0,
-
+           
 
         $doctors->type()->update([
             'name'=>request()->name,
-            'password'=> Hash::make(request()->password) ,
         ]);
+        if(Auth::user()->typeable_type=="app\\Models\\Doctor"){
+            $doctors->type()->update([
+                'email'=>request()->email,
+            ]);
+            $doctors->update();
+        return redirect()->route('welcome'); 
+        }
         $doctors->update();
         return redirect()->route('doctors.index'); 
 
