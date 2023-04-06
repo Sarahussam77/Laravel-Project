@@ -37,7 +37,6 @@
                       {data: 'name', name: 'name'},
                       {data: 'address', name: 'address'},
                       {data: 'country', name: 'country'},
-
                       {data: 'action', name: 'action', orderable: true, searchable: true},
                   ]
         });
