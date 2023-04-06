@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('prescriptions', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger("order_id");
-            $table->string("path");
-            $table->timestamps();
+        Schema::table('medicine_order', function (Blueprint $table) {
+            $table->integer('quantity')->default(5)->change();
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('prescriptions');
+        Schema::table('medicine_order_teble', function (Blueprint $table) {
+            //
+        });
     }
 };
