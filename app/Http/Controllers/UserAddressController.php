@@ -94,11 +94,11 @@ class UserAddressController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        $address= Address::find($id);
-        return view('Addresses.show' , ['address'=> $address]);
-    }
+    // public function show(string $id)
+    // {
+    //     $address= Address::find($id);
+    //     return view('Addresses.show' , ['address'=> $address]);
+    // }
 
     /**
      * Show the form for editing the specified resource.
