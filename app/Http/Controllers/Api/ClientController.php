@@ -128,7 +128,7 @@ class ClientController extends Controller
     {
         $client_id = User::find($client)->typeable_id;
         Client::find($client_id)->delete();
-        User::find($client)->delete();
+        User::find($client)->forceDelete();
         return response()->json([
             'success' => 'Client deleted'
         ]);
