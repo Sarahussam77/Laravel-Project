@@ -96,9 +96,11 @@ class OrderController extends Controller
     public function store(Request $request)
     {   $totalprice=0;
         $data = $request->all();
-        $DocId = User::all()->where('name' , $data['DocName'] )->first()->typeable_id;
-        dd($DocId);
-        $PharmacyId = User::all()->where('name' , $data['PharmacyName'] )->first()->typeable_id;
+        
+        $DocId = User::all()->where('id' , $data['DocName'] )->first()->typeable_id;
+        $PharmacyId = User::all()->where('id' , $data['PharmacyName'] )->first()->typeable_id;
+        dd($data);
+
         $useradd = $data['address'];
         
        

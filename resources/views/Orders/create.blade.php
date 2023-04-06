@@ -57,7 +57,7 @@
         <label for="DocName">Doctor Name</label>
             <select name="DocName" class="form-control" >
                 @foreach($doctors as $doctor)
-                    <option value=" {{$doctor->type->id}}">{{$doctor->type->name}}</option>
+                    <option value=" {{ $doctor->type->id }}">{{$doctor->type->name}}</option>
                  @endforeach
             </select>
         </div>
@@ -76,7 +76,7 @@
                         <label for="PharmacyName">Pharmacy Name</label>
                         <select name="PharmacyName" class="form-control " style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
                           @foreach($pharmacy as $phar)
-                          <option>{{$phar->type->name}}</option>
+                          <option value="{{ $phar->type->id }}">{{$phar->type->name}}</option>
                           @endforeach
                         </select>
         </div>
