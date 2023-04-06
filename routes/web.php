@@ -61,13 +61,13 @@ Route::post('/pharmacies', [PharmacyController::class, 'store'])->name('pharmaci
 Route::delete('/pharmacies/{id}', [PharmacyController::class, 'destroy'])->name('pharmacies.destroy');
 Route::get('/useraddresses/create', [UserAddressController::class,'create'])->name('useraddresses.create');
 Route::post('/useraddresses', [UserAddressController::class, 'store'])->name('useraddresses.store');
-Route::get('/useraddresses/{useraddress}', [UserAddressController::class, 'show'])->name('useraddresses.show');
+//Route::get('/useraddresses/{useraddress}', [UserAddressController::class, 'show'])->name('useraddresses.show');
 Route::get('/useraddresses/{useraddresses}/edit', [UserAddressController::class,'edit'])->name('useraddresses.edit');
 Route::put('/useraddresses/{id}', [UserAddressController::class, 'update'])->name('useraddresses.update');
 Route::delete('/useraddresses/{id}', [UserAddressController::class, 'destroy'])->name('useraddresses.destroy');
 Route::get('/areas/create', [AreaController::class,'create'])->name('areas.create');
 Route::post('/areas', [AreaController::class, 'store'])->name('areas.store');
-Route::get('/areas/{area}', [AreaController::class, 'show'])->name('areas.show');
+//Route::get('/areas/{area}', [AreaController::class, 'show'])->name('areas.show');
 Route::get('/areas/{area}/edit', [AreaController::class,'edit'])->name('areas.edit');
 Route::put('/areas/{id}', [AreaController::class, 'update'])->name('areas.update');
 Route::delete('/areas/{id}', [AreaController::class, 'destroy'])->name('areas.destroy');
