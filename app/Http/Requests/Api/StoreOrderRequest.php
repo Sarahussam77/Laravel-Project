@@ -24,6 +24,10 @@ class StoreOrderRequest extends FormRequest
         return [
             'is_insured'=>['required'],
             'prescription.*'=>['required' , 'mimes:jpg,png' ],
+            'user_id'=>['required'],
+            'user_address_id'=>['required'],
+            'pharmacy_id'=>['required'],
+            'status'=>['required'],
         ];
     }
 }
