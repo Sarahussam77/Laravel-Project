@@ -39,6 +39,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
  Route::middleware(['auth','role:pharmacy|doctor|admin'])->group(function()
 {
     Route::resource('orders', OrderController::class);
+    Route::post('orders/process_order/{id}',[ OrderController::class,'processOrder'])->name('orders.process');
+
 });
 
 Route::middleware(['auth','role:pharmacy|doctor|admin'])->group(function()
