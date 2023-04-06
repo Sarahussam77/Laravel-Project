@@ -52,6 +52,47 @@ Route::middleware(['auth','role:pharmacy|admin'])->group(function()
 
     Route::get('doctors/ban/{id}',[DoctorController::class,'ban'])->name('doctors.ban');
 });
+Route::middleware(['auth','role:admin'])->group(function()
+ {    
+Route::resource('clients', ClientController::class);
+Route::get('/pharmacies', [PharmacyController::class, 'index'])->name('pharmacies.index');
+Route::get('/pharmacies/create', [PharmacyController::class,'create'])->name('pharmacies.create');
+Route::post('/pharmacies', [PharmacyController::class, 'store'])->name('pharmacies.store');
+Route::delete('/pharmacies/{id}', [PharmacyController::class, 'destroy'])->name('pharmacies.destroy');
+Route::get('/useraddresses/create', [UserAddressController::class,'create'])->name('useraddresses.create');
+Route::post('/useraddresses', [UserAddressController::class, 'store'])->name('useraddresses.store');
+Route::get('/useraddresses/{useraddress}', [UserAddressController::class, 'show'])->name('useraddresses.show');
+Route::get('/useraddresses/{useraddresses}/edit', [UserAddressController::class,'edit'])->name('useraddresses.edit');
+Route::put('/useraddresses/{id}', [UserAddressController::class, 'update'])->name('useraddresses.update');
+Route::delete('/useraddresses/{id}', [UserAddressController::class, 'destroy'])->name('useraddresses.destroy');
+Route::get('/areas/create', [AreaController::class,'create'])->name('areas.create');
+Route::post('/areas', [AreaController::class, 'store'])->name('areas.store');
+Route::get('/areas/{area}', [AreaController::class, 'show'])->name('areas.show');
+Route::get('/areas/{area}/edit', [AreaController::class,'edit'])->name('areas.edit');
+Route::put('/areas/{id}', [AreaController::class, 'update'])->name('areas.update');
+Route::delete('/areas/{id}', [AreaController::class, 'destroy'])->name('areas.destroy');
+Route::get('/readsoftdelete',[PharmacyController::class,'readsoftdelete'])->name('pharmacies.readsoft');
+Route::get('{pharmacy}/restore', [PharmacyController::class,'restore'])->name('pharmacies.restore');
+Route::get('{pharmacy}/forcedelete', [PharmacyController::class,'forceDelete'])->name('pharmacies.forcedelete');
+Route::post('single-charge',[App\Http\Controllers\HomeController::class,'singleCharge'])->name('single.charge');
+Route::get('doctors/ban/{id}',[DoctorController::class,'ban'])->name('doctors.ban');
+    
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // // Admin Route
 // Route::middleware(['auth','role:admin|doctor'])->group(function()
@@ -92,46 +133,3 @@ Route::get('/pharmacies/{pharmacy}/edit', [PharmacyController::class,'edit'])->n
 Route::put('/pharmacies/{id}', [PharmacyController::class, 'update'])->name('pharmacies.update');
     
 });
-Route::middleware(['auth','role:admin'])->group(function()
- {    
-
-
-
-Route::resource('clients', ClientController::class);
-Route::get('/pharmacies', [PharmacyController::class, 'index'])->name('pharmacies.index');
-Route::get('/pharmacies/create', [PharmacyController::class,'create'])->name('pharmacies.create');
-Route::delete('/pharmacies/{id}', [PharmacyController::class, 'destroy'])->name('pharmacies.destroy');
-Route::post('/pharmacies', [PharmacyController::class, 'store'])->name('pharmacies.store');
-Route::get('/useraddresses/create', [UserAddressController::class,'create'])->name('useraddresses.create');
-Route::post('/useraddresses', [UserAddressController::class, 'store'])->name('useraddresses.store');
-Route::get('/useraddresses/{useraddress}', [UserAddressController::class, 'show'])->name('useraddresses.show');
-Route::get('/useraddresses/{useraddresses}/edit', [UserAddressController::class,'edit'])->name('useraddresses.edit');
-Route::put('/useraddresses/{id}', [UserAddressController::class, 'update'])->name('useraddresses.update');
-Route::delete('/useraddresses/{id}', [UserAddressController::class, 'destroy'])->name('useraddresses.destroy');
-Route::get('/areas/create', [AreaController::class,'create'])->name('areas.create');
-Route::post('/areas', [AreaController::class, 'store'])->name('areas.store');
-Route::get('/areas/{area}', [AreaController::class, 'show'])->name('areas.show');
-Route::get('/areas/{area}/edit', [AreaController::class,'edit'])->name('areas.edit');
-Route::put('/areas/{id}', [AreaController::class, 'update'])->name('areas.update');
-Route::delete('/areas/{id}', [AreaController::class, 'destroy'])->name('areas.destroy');
-Route::get('/readsoftdelete',[PharmacyController::class,'readsoftdelete'])->name('pharmacies.readsoft');
-Route::get('{pharmacy}/restore', [PharmacyController::class,'restore'])->name('pharmacies.restore');
-Route::get('{pharmacy}/forcedelete', [PharmacyController::class,'forceDelete'])->name('pharmacies.forcedelete');
-Route::post('single-charge',[App\Http\Controllers\HomeController::class,'singleCharge'])->name('single.charge');
-Route::get('doctors/ban/{id}',[DoctorController::class,'ban'])->name('doctors.ban');
-    
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
