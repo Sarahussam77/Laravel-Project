@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Auth;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\DataTables\OrdersDataTable;
@@ -41,15 +41,15 @@ class OrderController extends Controller
     })
 
         ->addColumn('Pharmacy', function($row){
-            $Pharmacyname = User::all()->where('tybeable_id' , $row['pharmacy_id'] )->first()->name;
+            $Pharmacyname = Pharmacy::find($row['pharmacy_id'] )->first()->type->name;
             return $Pharmacyname;
         })
         ->addColumn('doctor', function($row){
-            $doctorname = User::all()->where('tybeable_id' , $row['doctor_id'] )->first()->name;
+            $doctorname = Doctor::find($row['doctor_id'] )->first()->type->name;
             return $doctorname;
         })
         ->addColumn('user', function($row){
-            $username = User::all()->where('tybeable_id' , $row['user_id'] )->first()->name;
+            $username = Client::find($row['user_id'] )->first()->type->name;
             return $username;
         })
            ->rawColumns(['action'])
@@ -82,27 +82,27 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $UserId =  User::all()->where('name' , $data['name_of_user'] )->first()->typeable_id;
+        
         $DocId = User::all()->where('name' , $data['DocName'] )->first()->typeable_id;
         $PharmacyId = User::all()->where('name' , $data['PharmacyName'] )->first()->typeable_id;
-        dd($PharmacyId);
         $useradd = Address::all()->where('street_name' , $data['address'] )->first()->id;
-        // dd($data);
+        // 
         $med = $data['med'];
         $qty = $data['qty'];
+        $segments =Auth::User()->typeable_type;
         
         $order = Order::Create([
             'status'=> $data['status'],
             'pharmacy_id'=> $PharmacyId,
-            'user_id'=> $UserId,
+            'user_id'=> $data['name_of_user'],
             'doctor_id'=> $DocId,
             'is_insured'=> $data['insured'],
-            'creator_type'=>$data['creator_type'],
+            'creator_type'=>$segments=null?'admin':$segments,
             'user_address_id'=>$useradd,
-            'actions' => '--'
+            'price'=>Medicine::find($data['med'])[0]->price
         ]);
 
-
+        
 
         return to_route('orders.index');
     }

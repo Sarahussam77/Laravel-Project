@@ -38,8 +38,8 @@
                   </select>
         </div>
         <div class="mb-3">
-            <label for="med" class="form-label">Medicine Name</label>
-            <select class="form-control medicane" name="med" multiple="multiple" >   
+            <label for="med[]" class="form-label">Medicine Name</label>
+            <select class="form-control medicane" name="med[]" multiple="multiple" >   
                 @foreach($medicine as $med)
                     <option value="{{$med->id}}">{{$med->name}}</option>
                 @endforeach
@@ -48,8 +48,8 @@
       
        
         <div class="mb-3">
-            <label for="qty" class="form-label">Quantity</label>
-            <select class="form-control quantity" name="qty" multiple="multiple" >
+            <label for="qty[]" class="form-label">Quantity</label>
+            <select class="form-control quantity" name="qty[]" multiple="multiple" >
                         @for($x=1;$x<=10;$x++)
                             <option value="{{$x}}">{{$x}}</option>
                         @endfor
@@ -63,10 +63,10 @@
                  @endforeach
             </select>
         </div>
-        <!-- <div class="mb-3">
+        {{-- <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Price</label>
-            <input name="price" class="form-control" id="exampleFormControlTextarea1" rows="3"></input>
-        </div> -->
+            <input name="price" class="form-control" id="exampleFormControlTextarea1" rows="3" value="{{$medicine->price}}">
+        </div> --}}
         <div class="mb-3">
             <label for="status" class="form-label">Status</label>
             <select name="status" class="form-control" >

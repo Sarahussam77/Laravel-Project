@@ -240,7 +240,8 @@ $doctors=App\Models\Doctor::find($id);
         </div>
       </div>
       @endrole
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    @role('admin|pharmacy|doctor')
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
           <img src="/dist/img/medicines.avif" class="img-circle elevation-2" alt="User Image">
         </div>
@@ -248,6 +249,7 @@ $doctors=App\Models\Doctor::find($id);
           <a href="{{route('medicines.index')}}" class="d-block">Medicines</a>
         </div>
       </div>
+    @endrole
       @role('admin|pharmacy')
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
@@ -257,7 +259,8 @@ $doctors=App\Models\Doctor::find($id);
           <a href="{{route('revenue.index')}}" class="d-block">Revenue</a>
         </div>
       </div>
-      @endrole
+    @endrole
+    @role('admin|pharmacy|doctor')
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
           <img src="/dist/img/orders.png" class="img-circle elevation-2" alt="User Image">
@@ -266,7 +269,7 @@ $doctors=App\Models\Doctor::find($id);
           <a href="{{route('orders.index')}}" class="d-block">Order</a>
         </div>
       </div>
-
+  @endrole
       <!-- End of Attributes Pages -->
       <!-- Sidebar Menu -->
        <!-- <nav class="mt-2"> -->
