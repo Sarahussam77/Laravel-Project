@@ -51,7 +51,7 @@ class OrderController extends Controller
             elseif($row->status=='Waiting For User Confirmation')
             $button='<p>Waiting for Confirmation </p>';
             elseif($row->status='Confirmed')
-            $button ='<a class="btn btn-sm  mx-1" href="'.route("orders.process",$row->id).'">Deliver</a>'; // change route 
+            $button ='<a class="btn btn-sm  mx-1" href="'.route("orders.deliver",$row->id).'">Deliver</a>'; // change route 
             elseif($row->status='Delivered')
             $button ='<p>Completed </p>';
             else
@@ -230,10 +230,14 @@ class OrderController extends Controller
         $order=Order::find($request['id']);
         $order->status="Waiting For User Confirmation";
         $order->save();
+        return view("Orders.index");
+
     }
     public function deliverOrder(Request $request){
         $order=Order::find($request['id']);
         $order->status="Delivered";
         $order->save();
+        return view("Orders.index");
+
     }
 }
