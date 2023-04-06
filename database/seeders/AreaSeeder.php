@@ -13,6 +13,6 @@ class AreaSeeder extends Seeder
      */
     public function run(): void
     {
-        Area::factory(10)->create();
+        Area::factory(60)->create();
     }
 }
