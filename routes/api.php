@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Api\AddressController;
+use App\Http\Controllers\Api\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,11 +27,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/users', [UserController::class,'store']);
 
-////////////////////////////////////////////////////////////////////////////////////
-// Route::group(['middleware' => ['auth:sanctum']],function () {
+//client api
 
-// });
-///////////////////////////////////////////////////////////////////////////////
+// Route::middleware(['auth','role:client'])->group(function()
+// {
+    Route::get('/clients', [ClientController::class, 'index'])->middleware('auth:sanctum');
+    Route::get('/clients/{client}',[ClientController::class, 'show']);
+    Route::post('/clients/{client}',[ClientController::class, 'update']);
+    Route::delete('/clients/{client}',[ClientController::class, 'destroy']);
+//});
+Route::post('/register',[ClientController::class , 'register']);
+Route::post('/login', [ClientController::class,'login']);
+//end of client api
+
+
 
 //address api 
 Route::get('/addresses', [AddressController::class, 'index']);
@@ -40,20 +50,3 @@ Route::post('/addresses',[AddressController::class , 'store']);
 Route::delete('/addresses/{address}',[AddressController::class, 'destroy']);
 //end of address api
 
-Route::post('/sanctum/token', function (Request $request) {
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-        'device_name' => 'required',
-    ]);
-
-    $user = User::where('email', $request->email)->first();
-
-    if (! $user || ! Hash::check($request->password, $user->password)) {
-        throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
-        ]);
-    }
-
-    return $user->createToken($request->device_name)->plainTextToken;
-});

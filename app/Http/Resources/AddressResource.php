@@ -23,8 +23,6 @@ class AddressResource extends JsonResource
             'flat_number' => $this->flat_number,
             'is_main' => $this->is_main,
             'area_id' => $this->area->id,
-          
-           
         ];
     }
 }
