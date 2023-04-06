@@ -8,6 +8,7 @@ use App\DataTables\OrdersDataTable;
 use App\Models\Address;
 use App\Models\Doctor;
 use App\Models\Medicine;
+use App\Models\MedicineOrder;
 use App\Models\Pharmacy;
 use App\Models\User;
 use App\Models\Client;
@@ -88,6 +89,8 @@ class OrderController extends Controller
         $useradd = Address::all()->where('street_name' , $data['address'] )->first()->id;
         // 
         $med = $data['med'];
+      
+
         $qty = $data['qty'];
         $segments =Auth::User()->typeable_type;
         
@@ -97,11 +100,15 @@ class OrderController extends Controller
             'user_id'=> $data['name_of_user'],
             'doctor_id'=> $DocId,
             'is_insured'=> $data['insured'],
-            'creator_type'=>$segments=null?'admin':$segments,
+            'creator_type'=>$segments=null ?'admin':$segments,
             'user_address_id'=>$useradd,
             'price'=>Medicine::find($data['med'])[0]->price
         ]);
-
+       MedicineOrder::create([
+       'medicine_id'=>$data['med'][0],
+       'order_id'=>$order->id,
+       'quantity'=>$data['qty'][0]
+       ]);
         
 
         return to_route('orders.index');
