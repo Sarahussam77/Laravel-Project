@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreRequest;
 use App\Http\Requests\UpdateRequest;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 
 class PharmacyController extends Controller
@@ -94,11 +95,13 @@ class PharmacyController extends Controller
             'area_id'=>$area_id,
             'priority'=>$data['priority'],
             'avatar'=>$image,
+            'national_id'=>$data['national_id']
         ]);
      
         User::create([
            
             'name'=>$data['name'],
+            'email'=>$data['email'],
             'password'=>Hash::make($data['password']),
             'typeable_type'=>'app\Models\Pharmacy',
             'typeable_id'=>$pharmacy->id
@@ -140,7 +143,7 @@ class PharmacyController extends Controller
 
         $pharmacies = Pharmacy::findOrFail($id);
         $pharmacies->type->name = $request->input('name');
-        $pharmacies->area_id = $request->input('area_id');
+        $pharmacies->type->email = $request->input('email');
         if($request->hasFile('avatar')){
 
             Storage::disk("public")->delete($pharmacies->avatar);
@@ -149,10 +152,15 @@ class PharmacyController extends Controller
             $pharmacies->avatar=$image;
       
           };
-        
-        $pharmacies->type->save();
+          if(Auth::user()->typeable_type==null){
+            $pharmacies->area_id = $request->input('area_id');
+            $pharmacies->type->save();
         $pharmacies->save();
         return redirect()->route('pharmacies.index');
+        }
+        $pharmacies->type->update();
+        $pharmacies->save();
+        return redirect()->route('welcome');
     }
 
     /**

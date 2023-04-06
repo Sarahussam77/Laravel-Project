@@ -10,6 +10,7 @@
         </div>
         <div class="card-body">
             <p class="card-title">Name: {{$pharmacies->type->name}}</p>
+            <p class="card-text">Email: {{$pharmacies->type->email}}</p>
             <p class="card-text">National ID: {{$pharmacies['national_id']}}</p> 
             <p class="card-text">Area: {{$pharmacies['area_id']}}</p> 
         </div>

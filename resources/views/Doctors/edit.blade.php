@@ -22,16 +22,16 @@
      @role('doctor')
      <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Name</label>
-            <input type="text" name="name" class="form-control" id="exampleFormControlTextarea1"  value="{{$doctors->name}}">
+            <input type="text" name="name" class="form-control" id="exampleFormControlTextarea1"  value="{{$doctors->type->name}}">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">email</label>
-            <input type="text" name="email" class="form-control" id="exampleFormControlTextarea1"  value="{{$doctors->email}}">
+            <input type="text" name="email" class="form-control" id="exampleFormControlTextarea1"  value="{{$doctors->type->email}}">
         </div>
       
      @endrole
         
-     @role('pharmacy')
+     @role('pharmacy|admin')
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Name</label>
             <input type="text" name="name" class="form-control" id="exampleFormControlTextarea1"  value="{{$doctors->type->name}}">

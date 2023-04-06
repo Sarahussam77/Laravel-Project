@@ -48,8 +48,8 @@ class AreaController extends Controller
      */
     public function create()
     {
-        $Countries_data=Country::all();
-        return view("Areas.create",['countries'=>$Countries_data]);
+        $Countries=Country::all();
+        return view("Areas.create",['countries'=>$Countries]);
 
     }
 

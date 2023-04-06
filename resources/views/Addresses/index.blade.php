@@ -35,7 +35,7 @@
     
     <script>
           var user = {{ Js::from($user) }};
-          if(user!="app\\Models\\Doctor"|user!="app\\Models\\Pharmacy"){
+          if(user=="app\\Models\\Doctor"|user=="app\\Models\\Pharmacy"){
     
       $data=  $(document).ready(function() {
     $('#myTable').DataTable({
@@ -54,7 +54,7 @@
                   {data: 'ismain', name: '"Is Main"'},
                   {data: 'area', name: 'area'},
                   {data: 'user', name: 'user'},
-                 
+                     
                 
                  
               ]
@@ -81,6 +81,7 @@
                   {data: 'area', name: 'area'},
                   {data: 'user', name: 'user'},
                   {data: 'action', name: 'action', orderable: true, searchable: true},
+                
                 
                  
               ]
