@@ -32,28 +32,41 @@ class OrderController extends Controller
         $button = '<a name="show" id="'.$row->id.'" class="show btn btn-success btn-sm p-0" href="'.route('orders.show', $row->id).'" style="border-radius: 20px;"><i class="fas fa-eye m-2"></i></a>';
         $button .= '<a name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm p-0" href="'.route('orders.edit', $row->id).'" style="border-radius: 20px;"><i class="fas fa-edit m-2"></i></a>';
         $button .= '<form method="post" action= "'.route('orders.destroy', $row->id).'">
-    <input type="hidden" name="_token" value="'. csrf_token().' ">
-    <input type="hidden" name="_method" value="delete">
-    <button type="submit" class="btn btn-danger btn-sm  p-0 ml-3" style="border-radius: 20px;"><i class="fas fa-trash m-2"></i>
-    </button>
-    </form>';
+        <input type="hidden" name="_token" value="'. csrf_token().' ">
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit" class="btn btn-danger btn-sm  p-0 ml-3" style="border-radius: 20px;"><i class="fas fa-trash m-2"></i>
+        </button>
+        </form>';
         return $button;
         ;
     })
 
         ->addColumn('Pharmacy', function($row){
-            $Pharmacyname = $row->pharmacy->type->name;
+            $Pharmacyname = $row->pharmacy?->type?->name;
             return $Pharmacyname;
         })
+        ->addColumn('processing', function($row){
+            if($row->status=="NEW")
+            $button ='<a class="btn btn-sm  mx-1" href="'.route("orders.process",$row->id).'">Process</a>';
+            elseif($row->status=='Waiting For User Confirmation')
+            $button='<p>Waiting for Confirmation </p>';
+            elseif($row->status='Confirmed')
+            $button ='<a class="btn btn-sm  mx-1" href="'.route("orders.process",$row->id).'">Deliver</a>'; // change route 
+            elseif($row->status='Delivered')
+            $button ='<p>Completed </p>';
+            else
+            $button="<p>Canceled</p>";
+            return $button;
+        })
         ->addColumn('doctor', function($row){
-            $doctorname =$row->doctor->type->name;
+            $doctorname =$row->doctor?->type?->name;
             return $doctorname;
         })
         ->addColumn('user', function($row){
-           $username=$row->client->type->name;
+           $username=$row->client?->type?->name;
             return $username;
         })
-           ->rawColumns(['action'])
+           ->rawColumns(['action','processing'])
            ->make(true);
    }
         return view("Orders.index");
@@ -84,6 +97,7 @@ class OrderController extends Controller
     {   $totalprice=0;
         $data = $request->all();
         $DocId = User::all()->where('name' , $data['DocName'] )->first()->typeable_id;
+        dd($DocId);
         $PharmacyId = User::all()->where('name' , $data['PharmacyName'] )->first()->typeable_id;
         $useradd = $data['address'];
         
@@ -208,6 +222,16 @@ class OrderController extends Controller
     public function ajaxGetShippingAddress(Request $request){
         $shippingAddress=Address::where('user_id',$request->id)->get();
         return view('orders.ajax_shipping_addresses',["shippingAddress"=>$shippingAddress]);
+    } 
+
+    public function processOrder(Request $request){
+        $order=Order::find($request['id']);
+        $order->status="Waiting For User Confirmation";
+        $order->save();
     }
-    
+    public function deliverOrder(Request $request){
+        $order=Order::find($request['id']);
+        $order->status="Delivered";
+        $order->save();
+    }
 }

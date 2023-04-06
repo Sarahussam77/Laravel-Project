@@ -16,6 +16,7 @@
                         <th>doctor</th>
                         <th>pharmacy</th>
                         <th>status</th>
+                        <th>processing</th>
                         <th>is_insured</th>
                         <th>price</th>
                         <th>Action</th>
@@ -43,6 +44,7 @@
                       {data: 'doctor', name: 'doctor'},
                       {data: 'Pharmacy', name: 'Pharmacy'},
                       {data: 'status', name: 'status'},
+                      {data: 'processing', name: 'processing'},
                       {data: 'is_insured', name: 'is_insured'},
                       {data: 'price', name: 'price'},
                       {data: 'action', name: 'action', orderable: true, searchable: true},

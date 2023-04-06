@@ -46,12 +46,7 @@
             <label for="exampleFormControlTextarea1" class="form-label">is baned</label>
             <textarea name="is_baned" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="is_baned" id="exampleRadios2" value="0" {{isset($doctors)?$doctors->is_baned? "":'checked':''}}>
-            <label class="form-check-label" for="exampleRadios2">
-                False
-            </label>
-        </div>
+        
         <div class="form-group">
             <label for="Pharmacy_id">Pharmacy Name</label>
             <select name="Pharmacy_id" class="form-control" >
