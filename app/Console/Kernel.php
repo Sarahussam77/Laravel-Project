@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\SendMissYouEmails;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -11,11 +12,14 @@ class Kernel extends ConsoleKernel
      * Define the application's command schedule.
      */
      protected $commands = [
+        SendMissYouEmails::class,
+        'App\Console\Commands\SendMissYouEmails',
 
     ];
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('email:missyou')->daily();
+        $schedule->command('email:missyou')
+        ->everyMinute();
     }
 
     /**

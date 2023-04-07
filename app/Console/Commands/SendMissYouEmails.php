@@ -29,14 +29,14 @@ class SendMissYouEmails extends Command
 
     public function handle()
     {
-    $threshold = Carbon::now()->subMonth();
-    $users = User::where('last_login', '<', $threshold)->get();
+        $threshold = Carbon::now()->subMonth();
+        $users = User::where('last_login', '<', $threshold)->get();
 
-    foreach ($users as $user) {
-        $url = url('/');
-        Mail::to($user->email)->send(new MissYouEmail($user, $url));
+        foreach ($users as $user) {
+            $url = url('/');
+            Mail::to($user->email)->send(new MissYouEmail($user, $url));
+        }
+
+        $this->info("Emails sent to " . $users->count() . " users.");
     }
-
-    $this->info("Emails sent to " . $users->count() . " users.");
-}
 }
