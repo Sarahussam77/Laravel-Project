@@ -48,20 +48,20 @@ class OrderController extends Controller
             $Pharmacyname = $row->pharmacy?->type?->name;
             return $Pharmacyname;
         })
-        ->addColumn('processing', function($row){
-            if($row->status=="NEW")
-            $button ='<a class="btn btn-danger  mx-1" href="'.route("orders.process",$row->id).'">Process</a>';
-            elseif($row->status=='Waiting For User Confirmation')
-            $button='<p>Waiting for Confirmation </p>';
-            elseif($row->status=='Confirmed')
-            $button ='<a class="btn btn-sm  mx-1" href="'.route("orders.deliver",$row->id).'">Deliver</a>'; // change route 
-            elseif($row->status=='Cancelled')
-            $button ='<a class="btn btn-sm  mx-1" href="'.route("orders.cancel",$row->id).'">Cancel</a>'; 
-            elseif($row->status=='Delivered')
-            $button ='<p>Completed </p>';
+        // ->addColumn('processing', function($row){
+        //     if($row->status=="NEW")
+        //     $button ='<a class="btn btn-danger  mx-1" href="'.route("orders.process",$row->id).'">Process</a>';
+        //     elseif($row->status=='Waiting For User Confirmation')
+        //     $button='<p>Waiting for Confirmation </p>';
+        //     elseif($row->status=='Confirmed')
+        //     $button ='<a class="btn btn-sm  mx-1" href="'.route("orders.deliver",$row->id).'">Deliver</a>'; // change route 
+        //     elseif($row->status=='Cancelled')
+        //     $button ='<a class="btn btn-sm  mx-1" href="'.route("orders.cancel",$row->id).'">Cancel</a>'; 
+        //     elseif($row->status=='Delivered')
+        //     $button ='<p>Completed </p>';
            
-            return $button;
-        })
+        //     return $button;
+        // })
         ->addColumn('doctor', function($row){
             $doctorname =$row->doctor?->type?->name;
             return $doctorname;
@@ -70,7 +70,7 @@ class OrderController extends Controller
            $username=$row->client?->type?->name;
             return $username;
         })
-           ->rawColumns(['action','processing'])
+           ->rawColumns(['action'])
            ->make(true);
    }
         return view("Orders.index");
@@ -80,7 +80,7 @@ class OrderController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
+    {   
         $users = Client::all();
         $doctors = Doctor::all();
         $medicine = Medicine::all();
@@ -220,8 +220,9 @@ class OrderController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy( String $id)
-    {
+    {   MedicineOrder::where('order_id',$id)->delete();
         Order::findOrFail($id)->delete();
+        
         return redirect()->route('orders.index')->with('success','Record deleted successfully');
     }
 

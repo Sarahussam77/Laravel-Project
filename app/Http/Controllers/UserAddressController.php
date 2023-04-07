@@ -18,7 +18,7 @@ class UserAddressController extends Controller
      */
     public function index(Request $request)
     { 
-        $user=Auth::user()->typeable_type;
+        $authuser=Auth::user()->typeable_type;
         
          if ($request->ajax()) {
         $data = Address::select('id','street_name','building_number','floor_number','flat_number','is_main','area_id','user_id')->get();
@@ -44,7 +44,7 @@ class UserAddressController extends Controller
                 return $address->area->name;
             })
             ->addColumn('user', function (Address $address) {
-                return $address->user->name;
+                return Client::find($address->user_id)->type->name;
             })
             ->addColumn('ismain', function (Address $address) {
                 $is_main = NULL;
@@ -56,8 +56,10 @@ class UserAddressController extends Controller
         
             ->rawColumns(['action'])
             ->make(true);
+           
     }
-        return view("Addresses.index",["user"=>$user]);
+   
+        return view("Addresses.index",["authuser"=>$authuser]);
     }
 
     /**

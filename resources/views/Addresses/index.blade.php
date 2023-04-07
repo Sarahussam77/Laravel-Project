@@ -34,8 +34,8 @@
     </div>
     
     <script>
-          var user = {{ Js::from($user) }};
-          if(user=="app\\Models\\Doctor"|user=="app\\Models\\Pharmacy"){
+          var authuser = {{ Js::from($authuser) }};
+          if(authuser=="app\\Models\\Doctor"|authuser=="app\\Models\\Pharmacy"){
     
       $data=  $(document).ready(function() {
     $('#myTable').DataTable({
