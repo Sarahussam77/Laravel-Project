@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Mail\MissYouEmail;
+use App\Models\Client;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
