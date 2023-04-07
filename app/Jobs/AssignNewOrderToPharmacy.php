@@ -31,11 +31,11 @@ class AssignNewOrderToPharmacy implements ShouldQueue
          $orders = Order::where('status', 'NEW')->get();
          
         foreach ($orders as $order) {
-            $order->status = 'processing';
+           
          $orderArea = $order->client->addresses()->where('is_main', 1)->first()->area_id;
          
            $order->pharmacy_id = Pharmacy::where('area_id', $orderArea)->orderBy('priority', 'desc')->first()->id ?? 1;
-            
+           $order->status = 'processing';
              $order->save();
 
        }

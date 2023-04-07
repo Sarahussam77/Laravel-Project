@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     {   
         $schedule->command('email:missyou')
         ->everyMinute();
-        $schedule->job(new AssignNewOrderToPharmacy)->everyMinute();
+        // $schedule->job(new AssignNewOrderToPharmacy)->everyMinute();
         $schedule->command('scan:new-orders')->everyMinute();
     }
         

@@ -6,7 +6,12 @@ use Illuminate\Console\Command;
 // use Illuminate\Support\Carbon;
 use Carbon\Carbon;
 use App\Models\Order;
+use App\Models\Medicine;
+use App\Models\MedicineOrder;
 use App\Models\Pharmacy;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendOrderConfirmationMail;
+use Auth;
 
 class ScanNewOrders extends Command
 {
@@ -45,6 +50,19 @@ class ScanNewOrders extends Command
                     }
                 }
             }
+            $medicine_order=MedicineOrder::where('order_id',$order->id)->get();
+          
+        $medicine_id=$medicine_order->pluck('medicine_id');
+    
+          foreach($medicine_id as $id){
+         
+        $medicine[]=Medicine::where('id',$id)->get();
+      
+          }
+          
+        Mail::to('sarahussam203@gmail.com')->send(new SendOrderConfirmationMail($order,$medicine));
+         $order->status="Waiting For User Confirmation";
+         $order->save();
         }
         info('every_minute');
 
