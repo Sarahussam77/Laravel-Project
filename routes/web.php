@@ -13,6 +13,7 @@ use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RevenueController;
+use App\Http\Controllers\StripeController;
 
 
 
@@ -34,6 +35,8 @@ Route::middleware(['auth'])->get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('stripe', [StripeController::class, 'stripe'])->name('stripe');
+Route::post('stripe', [StripeController::class, 'stripePost'])->name('stripe.post');
 
  Route::middleware(['auth','role:pharmacy|doctor|admin'])->group(function()
 {
