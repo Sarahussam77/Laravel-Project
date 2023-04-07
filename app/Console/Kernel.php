@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
         SendMissYouEmails::class,
         Commands\ScanNewOrders::class,
         'App\Console\Commands\SendMissYouEmails',
+        
 
     ];
 
