@@ -139,3 +139,4 @@ Route::middleware(['auth','role:admin|pharmacy'])->group(function()
 Route::get('/doctors', [DoctorController::class, 'index'])->name('doctors.index');
 });
 
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');

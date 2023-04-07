@@ -28,7 +28,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
         'email',
         'typeable_type',
         'typeable_id',
-        
+        'email_verified_at'
         
     ];
 

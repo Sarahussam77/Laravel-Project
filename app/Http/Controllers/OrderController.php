@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\DataTables\OrdersDataTable;
@@ -89,8 +89,7 @@ class OrderController extends Controller
         return view("Orders.create",[
         'medicine'=>$medicine ,
         'pharmacy'=>$pharmacy ,
-        'doctors'=>$doctors,
-        
+        'doctors'=>$doctors, 
         'users' => $users]);
     }
 
@@ -109,7 +108,7 @@ class OrderController extends Controller
         
        
         $segments =Auth::User()->typeable_type;
-        if($segments=="null"){
+        if(!$segments){
             $creator='admin';
         }
         elseif($segments=='app\\Models\\Doctor'){

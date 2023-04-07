@@ -17,7 +17,8 @@
                     <option value="{{$user->type->typeable_id}}">{{$user->type->name}}</option>
                     @endforeach
                   </select>
-            </select>
+            </select>           
+      
         </div>
          <div class="mb-3">
             <label for="address" class="form-label">Address :street name</label>
