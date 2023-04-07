@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Address;
 use App\DataTables\AddressesDataTable;
 use App\Models\Area;
+use App\Models\Client;
 use Auth;
 use App\Models\User;
 use Yajra\DataTables\Facades\DataTables;
@@ -17,7 +18,7 @@ class UserAddressController extends Controller
      */
     public function index(Request $request)
     { 
-        $user=Auth::user()->typeable_type;
+        $authuser=Auth::user()->typeable_type;
         
          if ($request->ajax()) {
         $data = Address::select('id','street_name','building_number','floor_number','flat_number','is_main','area_id','user_id')->get();
@@ -43,7 +44,7 @@ class UserAddressController extends Controller
                 return $address->area->name;
             })
             ->addColumn('user', function (Address $address) {
-                return $address->user->name;
+                return Client::find($address->user_id)->type->name;
             })
             ->addColumn('ismain', function (Address $address) {
                 $is_main = NULL;
@@ -55,8 +56,10 @@ class UserAddressController extends Controller
         
             ->rawColumns(['action'])
             ->make(true);
+           
     }
-        return view("Addresses.index",["user"=>$user]);
+   
+        return view("Addresses.index",["authuser"=>$authuser]);
     }
 
     /**
@@ -64,7 +67,7 @@ class UserAddressController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        $users = Client::all();
         $areas = Area::all();
         return view("Addresses.create", ['users' => $users ,'areas' => $areas]);
     }

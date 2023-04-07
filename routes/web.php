@@ -41,6 +41,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::get('orders/process_order/{id}',[ OrderController::class,'processOrder'])->name('orders.process');
     
     Route::get('orders/deliver_order/{id}',[ OrderController::class,'deliverOrder'])->name('orders.deliver');
+    Route::get('orders/cancel_order/{id}',[ OrderController::class,'cancelOrder'])->name('orders.cancel');
 
 });
 
