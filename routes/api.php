@@ -51,8 +51,25 @@ Route::post('/register',[ClientController::class , 'register']);
 Route::post('/login', [ClientController::class,'login']);
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 
-
 //end of client api
 
+//esraa
+
+//address api
+Route::get('/addresses', [AddressController::class, 'index']);
+Route::get('/addresses/{address}',[AddressController::class, 'show']);
+Route::post('/addresses/{address}',[AddressController::class, 'update']);
+Route::post('/addresses',[AddressController::class , 'store']);
+Route::delete('/addresses/{address}',[AddressController::class, 'destroy']);
+//end of address api
+
+//oder api
+Route::get('/orders' , [OrderController::class , 'index']);
+Route::get('/orders/{order}' , [OrderController::class , 'show']);
+Route::post('/orders' , [OrderController::class , 'store']);
+Route::put('/orders/{order}' , [OrderController::class , 'update']);
+//end of order api
+
+//end esraa
 
 

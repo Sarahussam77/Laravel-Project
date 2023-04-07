@@ -49,7 +49,7 @@ class ClientController extends Controller
             'password'=>Hash::make($data['password']),
             'typeable_type'=>'app\Models\Client',
             'typeable_id'=>$client->id
-           
+             
         ])->assignRole('client');
 
         event(new Registered($mainUser));
