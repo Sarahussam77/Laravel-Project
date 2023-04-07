@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
-use App\Models\Presciption;
+use Auth;
+use App\Models\Prescription;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -29,27 +30,47 @@ class OrderController extends Controller
             return 'order not found';
         }
     }
+    function store(Request $request){
+        // $userId=Auth::user()->typeable_id;
+        $data = $request->all();
+        $order= Order::create([
+            'is_insured'=>$data['is_insured'],
+            'user_id'=>$data['user_id'],
+            'user_address_id'=>$data['user_address_id'],
+            'status'=>'NEW',
+        ]);
+        
+        $pres=Prescription::create([
+            'order_id'=>$order->id,
+            'path'=>$request->file('image')->store('images',['disk' => "public"])
+        ]);
+            return 'success';
+           
+        return new OrderResource($order);
+    }
 
-function store(StoreOrderRequest $request){
-    $data = $request->all();
-    $order= Order::create([
-        'is_insured'=>'yes',
-        'medicine.*'=>'-',
-        'user_id'=>'-',
-        'user_address_id'=>'-',
-        'pharmacy_id'=>'-',
-        'status'=>'new',
-        'creator_type'=>'client',
 
-    ]);
-    // $order->save();
-Prescription::create([
-    'order_id'=>$order->id,
-    'path'=>$request->file('image')->store('images',['disk' => "public"])
-]);
+    // function store(Request $request){
+    //     $data = $request->all();
+    //     $order= Order::create([
+    //         'is_insured'=>$data['is_insured'],
+    //         'medicine.*'=>'-',
+    //         'user_id'=>1,
+    //         'user_address_id'=>1,
+    //         'pharmacy_id'=>1,
+    //         'status'=>'new',
+    //         'creator_type'=>'client',
+    
+    //     ]);
+    //     // $order->save();
+    // Prescription::create([
+    //     'order_id'=>$order->id,
+    //     'path'=>$request->file('image')->store('images',['disk' => "public"])
+    // ]);
+    
+    //     return 'success';
+    // }
 
-    return 'success';
-}
     function update(StoreOrderRequest $request , Order $order){
 
     }

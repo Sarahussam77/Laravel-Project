@@ -46,7 +46,7 @@
                     <form action="{{route('stripe.post')}}" method="POST" id="subscribe-form">
                         <br>
                         <label for="card-holder-name form-control">Price</label> <br>
-                        <input type="number" name="amount" id="amount" class="form-control">
+                        <input type="number" name="amount" id="amount" class="form-control" value="{{$order->price}}">
                         <br>
                         <label for="card-holder-name form-control">Card Holder Name</label> <br>
                         <input id="card-holder-name" type="text" class="form-control">

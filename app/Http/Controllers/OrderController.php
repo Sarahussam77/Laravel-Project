@@ -152,16 +152,17 @@ class OrderController extends Controller
     public function show(string $id)
     {
         $order= Order::find($id);
-        $user = User::all();
-        $medicine = Medicine::all();
-        $pharmacy = Pharmacy::all();
-        $doctor = Doctor::all();
+        // $user = Client::all();
+         $medicine = Medicine::all();
+         $medicineorder = MedicineOrder::all()->where('order_id','$id');
+        // $doctor = Doctor::all();
         return view('orders.show', [
             'order' => $order,
-            'user' => $user,
-            'medicine' => $medicine,
-            'pharmacy' => $pharmacy,
-            'doctor' => $doctor,
+            // 'user' => $user,
+             'medicine' => $medicine,
+             'medicineorder' => $medicineorder,
+            // 'pharmacy' => $pharmacy,
+            // 'doctor' => $doctor,
     
         ]);
     }
@@ -172,7 +173,7 @@ class OrderController extends Controller
     public function edit(string $id)
     {
         $order= Order::find($id);
-        $users = User::all();
+        $users = Client::all();
         $doctors = Doctor::all();
         $medicine = Medicine::all();
         $pharmacy = Pharmacy::all();
@@ -195,10 +196,10 @@ class OrderController extends Controller
     public function update(Request $request, string $id)
     {
         $data = $request->all();
-        $UserId = User::all()->where('name' , $data['name_of_user'] )->first()->id;
-        $DocId = User::all()->where('name' , $data['DocName'] )->first()->id;
-        $PharmacyId = User::all()->where('name' , $data['PharmacyName'] )->first()->id;
-        $useradd = Address::all()->where('street_name' , $data['address'] )->first()->id;
+        $UserId = User::all()->where('id' , $data['name_of_user'] )->first()->id;
+        $DocId = User::all()->where('id' , $data['DocName'] )->first()->id;
+        $PharmacyId = User::all()->where('id' , $data['PharmacyName'] )->first()->id;
+        $useradd = Address::all()->where('id' , $data['address'] )->first()->id;
         $order = Order::findOrFail($id);
         
         $order->status =$data['status'];
@@ -214,7 +215,37 @@ class OrderController extends Controller
         return to_route('orders.index');
 
     }
+    public function completeOrder(Request $request, string $id)
+    {   $totalprice=0;
+        
+        $order = Order::find($id);
+      
 
+       
+      
+        $data = $request->all();
+        foreach($data['med'] as $key=>$value){
+          
+            $totalprice+=(Medicine::find($value)->price*$data['qty'][$key]??1);
+        }
+        
+    
+        foreach($data['med'] as $key=>$value){
+          
+            MedicineOrder::create([
+                'medicine_id'=>$value,
+                'order_id'=>$id,
+                'quantity'=>$data['qty'][$key]??1
+                ]);
+        }
+        $order->price = $totalprice;
+        $order->save();
+        
+
+        
+        return to_route('orders.index');
+
+    }
     /**
      * Remove the specified resource from storage.
      */
@@ -230,17 +261,17 @@ class OrderController extends Controller
         return view('orders.ajax_shipping_addresses',["shippingAddress"=>$shippingAddress]);
     } 
 
-    public function processOrder(Request $request){
-        $order=Order::find($request['id']);
+    public function processOrder(String $id){
+        $order=Order::find($id);
         $medicine_order=MedicineOrder::where('order_id',$order->id)->get();
         $medicine_id=$medicine_order->pluck('medicine_id');
-       
-          foreach($medicine_id as $id){
+     
+          foreach($medicine_id as $mid){
          
-        $medicine[]=Medicine::where('id',$id)->get();
+        $medicine[]=Medicine::where('id',$mid)->get();
       
           }
-          
+                 
         Mail::to('sarahussam203@gmail.com')->send(new SendOrderConfirmationMail($order,$medicine));
         $order->status="Waiting For User Confirmation";
         $order->save();

@@ -35,11 +35,11 @@ Route::middleware(['auth'])->get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('stripe', [StripeController::class, 'stripe'])->name('stripe');
+Route::get('stripe/{id}', [StripeController::class, 'stripe'])->name('stripe');
 Route::post('stripe', [StripeController::class, 'stripePost'])->name('stripe.post');
 
  Route::middleware(['auth','role:pharmacy|doctor|admin'])->group(function()
-{
+{      Route::post('orders/complete_order/{id}',[ OrderController::class,'CompleteOrder'])->name('orders.complete');
     Route::resource('orders', OrderController::class);
     Route::get('orders/process_order/{id}',[ OrderController::class,'processOrder'])->name('orders.process');
     

@@ -2,7 +2,7 @@
 <p>Please confirm your order by
 clicking the following link:</p>
 
-<p><a href=" ({ $confirmurl })">Confirm Order</a></p>
+<p><a  href="{{route('stripe',$order['id'])}}">Confirm Order</a></p>
 
 <p>If you want to cancel your order,
 please click the following link:</p>
