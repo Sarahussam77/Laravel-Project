@@ -38,7 +38,7 @@ class SendOrderConfirmationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address(Auth::user()->email, Auth::user()->name),
+            from: new Address('pharmacysystem@gmail.com', 'Pharmacy-System'),
             subject: 'Order Confirmation',
         );
     }
