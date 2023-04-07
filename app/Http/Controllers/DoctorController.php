@@ -175,7 +175,7 @@ class DoctorController extends Controller
 
             if($request->hasFile('avatar')){
 
-                Storage::disk("public")->delete($doctors->avatar);
+                 Storage::disk("public")->delete($doctors->avatar);
 
                 $image = $request->file('avatar')->store('images',['disk' => "public"]);
                 $doctors->avatar=$image;
