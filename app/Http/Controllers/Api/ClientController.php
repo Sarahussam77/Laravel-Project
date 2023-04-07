@@ -34,6 +34,7 @@ class ClientController extends Controller
             'password' => 'required',
             'date_of_birth'=>'required',
             'phone'=>'required',
+            'gender'=>'required',
         ]);
         $data = $request->all();
         $client= Client::create([

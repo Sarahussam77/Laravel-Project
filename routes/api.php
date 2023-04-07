@@ -49,6 +49,7 @@ Route::middleware('auth:sanctum')->group(function()
     // Route::post('email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail']);
 Route::post('/register',[ClientController::class , 'register']);
 Route::post('/login', [ClientController::class,'login']);
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 
 
 //end of client api

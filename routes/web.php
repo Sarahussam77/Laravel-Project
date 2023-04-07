@@ -31,7 +31,6 @@ use App\Http\Controllers\RevenueController;
 Route::middleware(['auth'])->get('/', function () {
     return view('welcome');
 })->name('welcome');
-Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -92,7 +91,6 @@ Route::get('/pharmacies/{pharmacy}/edit', [PharmacyController::class,'edit'])->n
 Route::put('/pharmacies/{id}', [PharmacyController::class, 'update'])->name('pharmacies.update');
     
 });
-
 
 
 
