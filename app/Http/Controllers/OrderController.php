@@ -14,6 +14,9 @@ use App\Models\User;
 use App\Models\Client;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendOrderConfirmationMail;
+
 
 use Phar;
 
@@ -50,12 +53,13 @@ class OrderController extends Controller
             $button ='<a class="btn btn-sm  mx-1" href="'.route("orders.process",$row->id).'">Process</a>';
             elseif($row->status=='Waiting For User Confirmation')
             $button='<p>Waiting for Confirmation </p>';
-            elseif($row->status='Confirmed')
+            elseif($row->status=='Confirmed')
             $button ='<a class="btn btn-sm  mx-1" href="'.route("orders.deliver",$row->id).'">Deliver</a>'; // change route 
-            elseif($row->status='Delivered')
+            elseif($row->status=='Cancelled')
+            $button ='<a class="btn btn-sm  mx-1" href="'.route("orders.cancel",$row->id).'">Cancel</a>'; 
+            elseif($row->status=='Delivered')
             $button ='<p>Completed </p>';
-            else
-            $button="<p>Canceled</p>";
+           
             return $button;
         })
         ->addColumn('doctor', function($row){
@@ -228,7 +232,16 @@ class OrderController extends Controller
 
     public function processOrder(Request $request){
         $order=Order::find($request['id']);
-        Mail::to(User::find($order['user_id'])->email)->send(new SendOrderConfirmationMail($order));
+        $medicine_order=MedicineOrder::where('order_id',$order->id)->get();
+        $medicine_id=$medicine_order->pluck('medicine_id');
+       
+          foreach($medicine_id as $id){
+         
+        $medicine[]=Medicine::where('id',$id)->get();
+      
+          }
+          
+        Mail::to('sarahussam203@gmail.com')->send(new SendOrderConfirmationMail($order,$medicine));
         $order->status="Waiting For User Confirmation";
         $order->save();
         return view("Orders.index");
@@ -237,6 +250,13 @@ class OrderController extends Controller
     public function deliverOrder(Request $request){
         $order=Order::find($request['id']);
         $order->status="Delivered";
+        $order->save();
+        return view("Orders.index");
+
+    }
+    public function cancelOrder(Request $request){
+        $order=Order::find($request['id']);
+        $order->status="Cancelled";
         $order->save();
         return view("Orders.index");
 

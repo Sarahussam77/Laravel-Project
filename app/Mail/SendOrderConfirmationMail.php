@@ -9,6 +9,10 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use app\Models\Order;
+use app\Models\Medicine;
+use app\Models\MedicineOrder;
+use Illuminate\Mail\Mailables\Address;
+use Illuminate\Mail\Mailables\Headers;
 use Auth;
 class SendOrderConfirmationMail extends Mailable
 {
@@ -18,15 +22,16 @@ class SendOrderConfirmationMail extends Mailable
      * Create a new message instance.
      */
     public $order;
-    public function __construct($order)
+    public $medicine;
+   
+    public function __construct($order,$medicine)
     {
         $this->order = $order;
+        $this->medicine = $medicine;
+        
     }
     
-    public function build()
-    {
-        return $this->from('john@webslesson.info')->subject('New Customer Equiry')->view('dynamic_email_template')->with('data', $this->data);
-    }
+    
     /**
      * Get the message envelope.
      */
@@ -47,6 +52,8 @@ class SendOrderConfirmationMail extends Mailable
             view: 'Orders.confirmation',
             with: [
                 'order' => $this->order,
+                'medicine' => $this->medicine,
+              
                 
             ],
         );

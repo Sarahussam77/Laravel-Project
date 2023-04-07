@@ -36,7 +36,7 @@
             <label for="user" class="form-label">User</label>
                 <select class="js-example-basic-multiple select2 @error('user') is-invalid @enderror" name="user"  style="width: 100%;" >
                         @foreach($users as $user)
-                            <option value="{{$user->id}}">{{$user->name}}</option>
+                            <option value="{{$user->type->id}}">{{$user->type->name}}</option>
                         @endforeach
                 </select>
         </div>

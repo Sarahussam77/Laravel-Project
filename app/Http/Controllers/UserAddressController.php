@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Address;
 use App\DataTables\AddressesDataTable;
 use App\Models\Area;
+use App\Models\Client;
 use Auth;
 use App\Models\User;
 use Yajra\DataTables\Facades\DataTables;
@@ -64,7 +65,7 @@ class UserAddressController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        $users = Client::all();
         $areas = Area::all();
         return view("Addresses.create", ['users' => $users ,'areas' => $areas]);
     }
