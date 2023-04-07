@@ -31,7 +31,6 @@ use App\Http\Controllers\RevenueController;
 Route::middleware(['auth'])->get('/', function () {
     return view('welcome');
 })->name('welcome');
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -42,6 +41,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::get('orders/process_order/{id}',[ OrderController::class,'processOrder'])->name('orders.process');
     
     Route::get('orders/deliver_order/{id}',[ OrderController::class,'deliverOrder'])->name('orders.deliver');
+    Route::get('orders/cancel_order/{id}',[ OrderController::class,'cancelOrder'])->name('orders.cancel');
 
 });
 
@@ -92,7 +92,6 @@ Route::get('/pharmacies/{pharmacy}/edit', [PharmacyController::class,'edit'])->n
 Route::put('/pharmacies/{id}', [PharmacyController::class, 'update'])->name('pharmacies.update');
     
 });
-
 
 
 

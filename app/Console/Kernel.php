@@ -5,7 +5,7 @@ namespace App\Console;
 use App\Console\Commands\SendMissYouEmails;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
+use App\Jobs\AssignNewOrderToPharmacy;
 class Kernel extends ConsoleKernel
 {
     /**
@@ -13,14 +13,22 @@ class Kernel extends ConsoleKernel
      */
      protected $commands = [
         SendMissYouEmails::class,
+        Commands\ScanNewOrders::class,
         'App\Console\Commands\SendMissYouEmails',
 
     ];
+
+        
+
+    
     protected function schedule(Schedule $schedule): void
-    {
+    {   
         $schedule->command('email:missyou')
         ->everyMinute();
+        $schedule->job(new AssignNewOrderToPharmacy)->everyMinute();
+        $schedule->command('scan:new-orders')->everyMinute();
     }
+        
 
     /**
      * Register the commands for the application.
