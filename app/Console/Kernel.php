@@ -12,6 +12,7 @@ class Kernel extends ConsoleKernel
      */
      protected $commands = [
         Commands\ScanNewOrders::class,
+        
 
     ];
     protected function schedule(Schedule $schedule): void

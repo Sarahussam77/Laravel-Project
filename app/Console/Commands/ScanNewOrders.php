@@ -15,7 +15,7 @@ class ScanNewOrders extends Command
      *
      * @var string
      */
-    protected $signature = 'app:scan-new-orders';
+    protected $signature = 'scan:new-orders';
 
     /**
      * The console command description.
