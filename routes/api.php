@@ -67,7 +67,8 @@ Route::delete('/addresses/{address}',[AddressController::class, 'destroy']);
 Route::get('/orders' , [OrderController::class , 'index']);
 Route::get('/orders/{order}' , [OrderController::class , 'show']);
 Route::post('/orders' , [OrderController::class , 'store']);
-Route::put('/orders/{order}' , [OrderController::class , 'update']);
+Route::post('/orders/{order}' , [OrderController::class , 'update']);
+Route::delete('/orders/{order}' , [OrderController::class , 'destroy']);
 //end of order api
 
 //end esraa
