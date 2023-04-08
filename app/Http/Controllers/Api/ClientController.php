@@ -140,11 +140,20 @@ class ClientController extends Controller
      */
     public function destroy($client)
     {
-        $client_id = User::find($client)->typeable_id;
-        Client::find($client_id)->delete();
-        User::find($client)->forceDelete();
-        return response()->json([
-            'success' => 'Client deleted'
-        ]);
+        $if_exist = User::where('id', $client);
+        if ($if_exist->count()>0) {
+            $client_id =User::find($client)->typeable_id; 
+            Client::find($client_id)->delete();
+            User::find($client)->forceDelete();
+            return response()->json([
+                'success' => 'Client deleted'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                "message" => "client not found"
+            ], 404);
+        }
     }
 }

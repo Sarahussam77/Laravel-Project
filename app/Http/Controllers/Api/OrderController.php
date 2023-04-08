@@ -71,8 +71,52 @@ class OrderController extends Controller
     //     return 'success';
     // }
 
-    function update(StoreOrderRequest $request , Order $order){
+    public function update(Request $request, $id)
+    {
+        $if_exist = Order::where('id', $id);
+        if ($if_exist->count()>0) 
+        {
+            $data = $request->all();
 
+            $if_exist->update([
+                'is_insured'=>$data['is_insured'],
+                'user_id'=>$data['user_id'],
+                'user_address_id'=>$data['user_address_id'],
+            ]);
+            
+            $pres=Prescription::where('order_id', $id);
+            // $pres->update([
+            //     'path'=>$request->file('image')->store('images',['disk' => "public"])
+            // ]);
+
+            return new OrderResource($if_exist);
+        }
+        else
+        {
+            return response()->json([
+                "message" => "order not found"
+            ], 404);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($order)
+    {
+        $if_exist = Order::where('id', $order);
+        if ($if_exist->count()>0) {
+            $if_exist->delete();
+            return response()->json([
+                'success' => 'Order deleted'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                "message" => "order not found"
+            ], 404);
+        }
     }
 }
 
