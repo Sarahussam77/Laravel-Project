@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UpdateClientRequest;
 use App\Http\Resources\ClientResource;
+use App\Mail\MissYouEmail;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerificationMail;
 
 // use App\Providers\EventServiceProvider\Registered;
 class ClientController extends Controller
@@ -51,9 +54,7 @@ class ClientController extends Controller
             'typeable_id'=>$client->id
              
         ])->assignRole('client');
-
-        event(new Registered($mainUser));
-        
+        // Mail::to("aahmed.mabdelrahim60@gmail.com")->send(new VerificationMail($mainUser));        
         return new ClientResource($client);
     }
 

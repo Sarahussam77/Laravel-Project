@@ -14,6 +14,7 @@ use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RevenueController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\Auth\VerificationController;
 
 
 

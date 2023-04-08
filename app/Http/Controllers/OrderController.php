@@ -195,19 +195,19 @@ class OrderController extends Controller
     public function update(Request $request, string $id)
     {
         $data = $request->all();
-        $UserId = User::all()->where('name' , $data['name_of_user'] )->first()->id;
-        $DocId = User::all()->where('name' , $data['DocName'] )->first()->id;
-        $PharmacyId = User::all()->where('name' , $data['PharmacyName'] )->first()->id;
-        $useradd = Address::all()->where('street_name' , $data['address'] )->first()->id;
+        // $UserId = User::all()->where('name' , $request['name_of_user'] )->first()->id;
+        $DocId = User::all()->where('name' , $request['DocName'] )->first()->id;
+        $PharmacyId = User::all()->where('name' , $request['PharmacyName'] )->first()->id;
+        // $useradd = Address::all()->where('street_name' , $request['address'] )->first()->id;
         $order = Order::findOrFail($id);
         
         $order->status =$data['status'];
         $order->pharmacy_id = $PharmacyId;
-        $order->user_id = $UserId;
+        // $order->user_id = $UserId;
         $order->doctor_id = $DocId;
         $order->is_insured = $request->input('insured');
         $order->creator_type = $request->input('creator_type');
-        $order->user_address_id = $useradd;
+        // $order->user_address_id = $useradd;
         $order->actions = "--";
 
         $order->save();
