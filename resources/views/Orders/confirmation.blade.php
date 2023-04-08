@@ -10,6 +10,7 @@ please click the following link:</p>
 
 <p>Order Information:</p>
 <ul>
+  
  @foreach ($medicine as $med)
 
 <li>Product: {{$med->pluck('name')}} -Price: {{$med->pluck('price')}} LE</li>

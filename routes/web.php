@@ -36,7 +36,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('stripe/{id}', [StripeController::class, 'stripe'])->name('stripe');
-Route::post('stripe', [StripeController::class, 'stripePost'])->name('stripe.post');
+Route::post('stripe/{id}', [StripeController::class, 'stripePost'])->name('stripe.post');
 
  Route::middleware(['auth','role:pharmacy|doctor|admin'])->group(function()
 {      Route::post('orders/complete_order/{id}',[ OrderController::class,'CompleteOrder'])->name('orders.complete');
