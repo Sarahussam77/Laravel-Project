@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
+use Auth;
+use App\Models\Prescription;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -28,22 +30,93 @@ class OrderController extends Controller
             return 'order not found';
         }
     }
-    function store(StoreOrderRequest $request){
+    function store(Request $request){
+        // $userId=Auth::user()->typeable_id;
         $data = $request->all();
         $order= Order::create([
             'is_insured'=>$data['is_insured'],
-            'medicine.*'=>$data['medicine'],
             'user_id'=>$data['user_id'],
             'user_address_id'=>$data['user_address_id'],
-            'pharmacy_id'=>$data['pharmacy_id'],
-            'status'=>$data['status'],
-            'creator_type'=>'client',
-
+            'status'=>'NEW',
         ]);
-
+        
+        $pres=Prescription::create([
+            'order_id'=>$order->id,
+            'path'=>$request->file('image')->store('images',['disk' => "public"])
+        ]);
+            return 'success';
+           
         return new OrderResource($order);
     }
-    function update(StoreOrderRequest $request , Order $order){
 
+
+    // function store(Request $request){
+    //     $data = $request->all();
+    //     $order= Order::create([
+    //         'is_insured'=>$data['is_insured'],
+    //         'medicine.*'=>'-',
+    //         'user_id'=>1,
+    //         'user_address_id'=>1,
+    //         'pharmacy_id'=>1,
+    //         'status'=>'new',
+    //         'creator_type'=>'client',
+    
+    //     ]);
+    //     // $order->save();
+    // Prescription::create([
+    //     'order_id'=>$order->id,
+    //     'path'=>$request->file('image')->store('images',['disk' => "public"])
+    // ]);
+    
+    //     return 'success';
+    // }
+
+    public function update(Request $request, $id)
+    {
+        $if_exist = Order::where('id', $id);
+        if ($if_exist->count()>0) 
+        {
+            $data = $request->all();
+
+            $if_exist->update([
+                'is_insured'=>$data['is_insured'],
+                'user_id'=>$data['user_id'],
+                'user_address_id'=>$data['user_address_id'],
+            ]);
+            
+            $pres=Prescription::where('order_id', $id);
+            // $pres->update([
+            //     'path'=>$request->file('image')->store('images',['disk' => "public"])
+            // ]);
+
+            return new OrderResource($if_exist);
+        }
+        else
+        {
+            return response()->json([
+                "message" => "order not found"
+            ], 404);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($order)
+    {
+        $if_exist = Order::where('id', $order);
+        if ($if_exist->count()>0) {
+            $if_exist->delete();
+            return response()->json([
+                'success' => 'Order deleted'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                "message" => "order not found"
+            ], 404);
+        }
     }
 }
+

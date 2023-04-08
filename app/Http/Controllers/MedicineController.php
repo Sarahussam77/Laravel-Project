@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Medicine;
+use App\Models\MedicineOrder;
 use App\DataTables\MedicinesDataTable;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -99,7 +100,8 @@ class MedicineController extends Controller
     public function destroy(string $id)
     {
         $medicine=Medicine::find($id);
-        if(count($medicine->orders))
+        $medicineorder=MedicineOrder::all()->where('medicine_id',$medicine->id);
+        if(count($medicineorder))
         {
            $alert=[];
            $alert['type']='danger';

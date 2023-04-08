@@ -50,19 +50,7 @@ class ScanNewOrders extends Command
                     }
                 }
             }
-            $medicine_order=MedicineOrder::where('order_id',$order->id)->get();
-          
-        $medicine_id=$medicine_order->pluck('medicine_id');
-    
-          foreach($medicine_id as $id){
-         
-        $medicine[]=Medicine::where('id',$id)->get();
-      
-          }
-          
-        Mail::to('sarahussam203@gmail.com')->send(new SendOrderConfirmationMail($order,$medicine));
-         $order->status="Waiting For User Confirmation";
-         $order->save();
+            
         }
         info('every_minute');
 

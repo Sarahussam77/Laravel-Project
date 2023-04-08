@@ -69,7 +69,7 @@
         <div class="mb-3">
             <label for="status" class="form-label">Status</label>
             <select name="status" class="form-control" >
-                <option>NEW</option>
+                <option>Processing</option>
             </select>
         </div>
         

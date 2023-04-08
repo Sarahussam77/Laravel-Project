@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Order;
 use Illuminate\Contracts\Session\Session as SessionSession;
 use Illuminate\Http\Request;
 
@@ -15,16 +15,18 @@ class StripeController extends Controller
         $this->middleware('auth');
     }
 
-    public function stripe()
-    {
+    public function stripe($id)
+    {   $order=Order::find($id);
         $user = auth()->user();
         return view('stripe', [
             'intent' => $user->createSetupIntent(),
-        ]);
+        'order' => $order]);
     }
 
-    public function stripePost(Request $request)
-    {
+    public function stripePost(Request $request,$id)
+    {   $order=Order::find($id);
+        $order->status="paid";
+        $order->save();
         $amount = $request->amount;
         $paymentMathod = $request->payment_method;
 

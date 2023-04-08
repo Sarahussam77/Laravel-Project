@@ -47,6 +47,9 @@ Route::middleware('auth:sanctum')->group(function()
 // Route::middleware('auth:sanctum')->group(function()
 // {
     // Route::post('email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail']);
+Route::post('/register',[ClientController::class , 'register']);
+Route::post('/login', [ClientController::class,'login']);
+ Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verifications.verify');
 
 
 //end of client api
@@ -65,7 +68,8 @@ Route::delete('/addresses/{address}',[AddressController::class, 'destroy']);
 Route::get('/orders' , [OrderController::class , 'index']);
 Route::get('/orders/{order}' , [OrderController::class , 'show']);
 Route::post('/orders' , [OrderController::class , 'store']);
-Route::put('/orders/{order}' , [OrderController::class , 'update']);
+Route::post('/orders/{order}' , [OrderController::class , 'update']);
+Route::delete('/orders/{order}' , [OrderController::class , 'destroy']);
 //end of order api
 
 //end esraa
