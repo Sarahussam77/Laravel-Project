@@ -233,6 +233,17 @@ class OrderController extends Controller
                 ]);
         }
         $order->price = $totalprice;
+        $segments =Auth::User()->typeable_type;
+        if($segments=='app\\Models\\Pharmacy'){
+            $creator='pharmacy';
+        }
+        elseif($segments=='app\\Models\\Doctor'){
+            $creator='doctor';
+        }
+        else {
+            $creator='admin';
+        }
+        $order->creator_type=$creator;
         $order->save();
         
         $this->processOrder($id);
