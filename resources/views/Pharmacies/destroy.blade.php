@@ -32,7 +32,7 @@
          <td>{{$user->name}}</td>
         <td>{{$user->email}}</td>
         @endforeach 
-        <th scope="col"><img src="{{asset('/storage/'.$pharmacies->avatar_image)}}" width="30px" height="30px"></th>
+        <th scope="col"><img src="{{asset('/'.'storage/'.$pharmacies->avatar)}}" width="30px" height="30px"></th>
         <td>{{$pharmacies->national_id}}</td>
         <td>{{$pharmacies->area_id}}</td>
         <td>{{$pharmacies->priority}}</td>
