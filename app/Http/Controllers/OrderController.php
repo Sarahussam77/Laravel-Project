@@ -219,17 +219,11 @@ class OrderController extends Controller
     {   $totalprice=0;
         
         $order = Order::find($id);
-      
-
-       
-      
         $data = $request->all();
         foreach($data['med'] as $key=>$value){
           
             $totalprice+=(Medicine::find($value)->price*$data['qty'][$key]??1);
         }
-        
-    
         foreach($data['med'] as $key=>$value){
           
             MedicineOrder::create([
@@ -239,9 +233,20 @@ class OrderController extends Controller
                 ]);
         }
         $order->price = $totalprice;
+        $segments =Auth::User()->typeable_type;
+        if($segments=='app\\Models\\Pharmacy'){
+            $creator='pharmacy';
+        }
+        elseif($segments=='app\\Models\\Doctor'){
+            $creator='doctor';
+        }
+        else {
+            $creator='admin';
+        }
+        $order->creator_type=$creator;
         $order->save();
         
-
+        $this->processOrder($id);
         
         return to_route('orders.index');
 
@@ -262,6 +267,7 @@ class OrderController extends Controller
     } 
 
     public function processOrder(String $id){
+        
         $order=Order::find($id);
         $medicine_order=MedicineOrder::where('order_id',$order->id)->get();
         $medicine_id=$medicine_order->pluck('medicine_id');
@@ -271,7 +277,7 @@ class OrderController extends Controller
         $medicine[]=Medicine::where('id',$mid)->get();
       
           }
-                 
+             
         Mail::to('sarahussam203@gmail.com')->send(new SendOrderConfirmationMail($order,$medicine));
         $order->status="Waiting For User Confirmation";
         $order->save();
@@ -285,8 +291,8 @@ class OrderController extends Controller
         return view("Orders.index");
 
     }
-    public function cancelOrder(Request $request){
-        $order=Order::find($request['id']);
+    public function cancelOrder($id){
+        $order=Order::find($id);
         $order->status="Cancelled";
         $order->save();
         return view("Orders.index");

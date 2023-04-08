@@ -43,8 +43,7 @@
                       @endfor
                       </select>
       </div>
-      <button  class="btn btn-success" style="background-color:#6D9886 ; color:white">
-        <a href="{{route('orders.process', $order->id)}}">Submit</a></button>
+      <button  class="btn btn-success" style="background-color:#6D9886 ; color:white">Submit</button>
     </form>
           @endif
         </div>
