@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\OrderController;
-use App\Http\Controllers\Api\EmailVerificationController;
+use App\Http\Controllers\Auth\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +51,7 @@ Route::post('/register',[ClientController::class , 'register']);
 Route::post('/login', [ClientController::class,'login']);
  Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verifications.verify');
 
+
 //end of client api
 
 //esraa
@@ -73,4 +74,6 @@ Route::delete('/orders/{order}' , [OrderController::class , 'destroy']);
 
 //end esraa
 
-
+Route::post('/register',[ClientController::class , 'register']);
+Route::post('/login', [ClientController::class,'login'])->name('login');
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');

@@ -204,11 +204,11 @@ class OrderController extends Controller
         
         $order->status =$data['status'];
         $order->pharmacy_id = $PharmacyId;
-        $order->user_id = $UserId;
+        // $order->user_id = $UserId;
         $order->doctor_id = $DocId;
         $order->is_insured = $request->input('insured');
         $order->creator_type = $request->input('creator_type');
-        $order->user_address_id = $useradd;
+        // $order->user_address_id = $useradd;
         $order->actions = "--";
 
         $order->save();
