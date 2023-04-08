@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Console\Commands;
-
 use Illuminate\Console\Command;
-// use Illuminate\Support\Carbon;
 use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Medicine;

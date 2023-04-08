@@ -74,11 +74,7 @@ class AreaController extends Controller
     /**
      * Display the specified resource.
      */
-    // public function show(string $id)
-    // {
-    //     $area= Area::find($id);
-    //     return view('areas.show', ['area' => $area]);
-    // }
+   
 
     /**
      * Show the form for editing the specified resource.

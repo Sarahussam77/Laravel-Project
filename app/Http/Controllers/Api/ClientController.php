@@ -16,7 +16,6 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificationMail;
 
-// use App\Providers\EventServiceProvider\Registered;
 class ClientController extends Controller
 
 {
@@ -54,7 +53,7 @@ class ClientController extends Controller
             'typeable_id'=>$client->id
              
         ])->assignRole('client');
-        // Mail::to("aahmed.mabdelrahim60@gmail.com")->send(new VerificationMail($mainUser));        
+                
         return new ClientResource($client);
     }
 
@@ -102,16 +101,7 @@ class ClientController extends Controller
         if ($if_exist->count()>0) 
         {
             $data = $request->all();
-            //$avatar = isset($data['avatar'])? $data['avatar'] : "";
-            // if ($avatar) 
-            // {
-            //     $new_name = time() . '_' . $avatar->getClientOriginalExtension();
-            //     $avatar->move(public_path('images'), $new_name);
-            // }
-            // else
-            // {
-            //     $new_name = "default.jpg";
-            // }
+           
 
            $user = User::find($request->client);
            $updateclient = Client::find($user->typeable->id);
@@ -119,8 +109,7 @@ class ClientController extends Controller
                 'name'=> $data['name'],
             ]);
             $updateclient->update([
-                // 'national_id' => $data['national_id'],
-                // 'avatar' => $new_name,
+               
                 'gender' => $data['gender'],
                 'date_of_birth' => $data['date_of_birth'],
                 'phone' => $data['phone'],

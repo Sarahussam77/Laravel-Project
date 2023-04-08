@@ -71,17 +71,7 @@ class PharmacyController extends Controller
         return view('Pharmacies.create', ['areas' => $areas]);
     }
 
-    // protected function validator(Request $data){
-
-    //     return Validator::make($data, [
-    //                'name' => ['required', 'string', 'max:255'],
-    //                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-    //                'national_id' => ['required', 'string', 'national_id', 'max:255', 'unique:users'],
-    //                'password' => ['required', 'string', 'min:6', 'confirmed'],
-    //             //    'phone'=>['required', 'string', 'min:11'],
-    //                'avatar'=>'required|image'
-    //            ]);
-    //            }
+    
     public function store(StoreRequest $request)
     {    
         $data = $request->all();

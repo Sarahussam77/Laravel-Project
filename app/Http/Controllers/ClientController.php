@@ -30,7 +30,7 @@ class ClientController extends Controller
             ;
         })
         ->addColumn('name', function($row){
-            // $username = Pharmacy::find($row['id']);
+           
             return Client::find($row['id'])->type->name;
         })
         

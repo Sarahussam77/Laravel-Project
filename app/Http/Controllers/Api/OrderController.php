@@ -15,10 +15,6 @@ class OrderController extends Controller
     function index(){
         $orders = Order::all();
         return OrderResource::collection($orders);
-        // return OrderResource::collection($orders);
-        // $userId = Auth::user()->id
-        // $userAddresses = Address::where('user_id','1')->first();
-        // return $userAddresses;
     }
     function show($order){
 
@@ -31,7 +27,7 @@ class OrderController extends Controller
         }
     }
     function store(Request $request){
-        // $userId=Auth::user()->typeable_id;
+        
         $data = $request->all();
         $order= Order::create([
             'is_insured'=>$data['is_insured'],
@@ -49,27 +45,6 @@ class OrderController extends Controller
         return new OrderResource($order);
     }
 
-
-    // function store(Request $request){
-    //     $data = $request->all();
-    //     $order= Order::create([
-    //         'is_insured'=>$data['is_insured'],
-    //         'medicine.*'=>'-',
-    //         'user_id'=>1,
-    //         'user_address_id'=>1,
-    //         'pharmacy_id'=>1,
-    //         'status'=>'new',
-    //         'creator_type'=>'client',
-    
-    //     ]);
-    //     // $order->save();
-    // Prescription::create([
-    //     'order_id'=>$order->id,
-    //     'path'=>$request->file('image')->store('images',['disk' => "public"])
-    // ]);
-    
-    //     return 'success';
-    // }
 
     public function update(Request $request, $id)
     {

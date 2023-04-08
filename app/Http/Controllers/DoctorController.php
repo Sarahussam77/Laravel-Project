@@ -51,7 +51,7 @@ class DoctorController extends Controller
         return "Yes";
         }})
             ->addColumn('name', function($row){
-                // $username = Pharmacy::find($row['id']);
+             
                 return Doctor::find($row['id'])->type->name;
             })
             
@@ -72,22 +72,7 @@ class DoctorController extends Controller
         return view("Doctors.index");
     }
 
-    // protected function validator(Request $data){
 
-    //     return Validator::make($data, [
-    //                'name' => ['required', 'string', 'max:255'],
-    //                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-    //                'national_id' => ['required', 'string', 'national_id', 'max:255', 'unique:users'],
-    //                'password' => ['required', 'string', 'min:6', 'confirmed'],
-    //             //    'phone'=>['required', 'string', 'min:11'],
-    //                'avatar'=>'required|image',
-    //            ]);
-    //            }
-    /**
-     * 
-     * 
-     * Show the form for creating a new resource.
-     */
     public function create()
     {  
          $pharmacy = Pharmacy::all();
@@ -182,8 +167,7 @@ class DoctorController extends Controller
               };
 
 
-            //'avatar_image'=> request()->avatar_image,
-            //'is_banned'=>0,
+            
            
 
         $doctors->type()->update([

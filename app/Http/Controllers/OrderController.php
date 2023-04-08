@@ -48,20 +48,7 @@ class OrderController extends Controller
             $Pharmacyname = $row->pharmacy?->type?->name;
             return $Pharmacyname;
         })
-        // ->addColumn('processing', function($row){
-        //     if($row->status=="NEW")
-        //     $button ='<a class="btn btn-danger  mx-1" href="'.route("orders.process",$row->id).'">Process</a>';
-        //     elseif($row->status=='Waiting For User Confirmation')
-        //     $button='<p>Waiting for Confirmation </p>';
-        //     elseif($row->status=='Confirmed')
-        //     $button ='<a class="btn btn-sm  mx-1" href="'.route("orders.deliver",$row->id).'">Deliver</a>'; // change route 
-        //     elseif($row->status=='Cancelled')
-        //     $button ='<a class="btn btn-sm  mx-1" href="'.route("orders.cancel",$row->id).'">Cancel</a>'; 
-        //     elseif($row->status=='Delivered')
-        //     $button ='<p>Completed </p>';
-           
-        //     return $button;
-        // })
+  
         ->addColumn('doctor', function($row){
             $doctorname =$row->doctor?->type?->name;
             return $doctorname;
@@ -152,18 +139,12 @@ class OrderController extends Controller
     public function show(string $id)
     {
         $order= Order::find($id);
-        // $user = Client::all();
          $medicine = Medicine::all();
          $medicineorder = MedicineOrder::all()->where('order_id','$id');
-        // $doctor = Doctor::all();
         return view('orders.show', [
             'order' => $order,
-            // 'user' => $user,
              'medicine' => $medicine,
              'medicineorder' => $medicineorder,
-            // 'pharmacy' => $pharmacy,
-            // 'doctor' => $doctor,
-    
         ]);
     }
 
@@ -204,11 +185,9 @@ class OrderController extends Controller
         
         $order->status =$data['status'];
         $order->pharmacy_id = $PharmacyId;
-        // $order->user_id = $UserId;
         $order->doctor_id = $DocId;
         $order->is_insured = $request->input('insured');
         $order->creator_type = $request->input('creator_type');
-        // $order->user_address_id = $useradd;
         $order->actions = "--";
 
         $order->save();

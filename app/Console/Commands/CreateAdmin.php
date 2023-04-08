@@ -40,7 +40,6 @@ class CreateAdmin extends Command
           
         ])->assignRole('admin');
         
-        // $role_id = DB::table('roles')->where('name', 'admin')->value('id');
-        // User::find($user)->roles()->sync($role_id) ;
+     
     }
 }
