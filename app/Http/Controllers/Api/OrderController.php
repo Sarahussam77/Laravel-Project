@@ -85,9 +85,9 @@ class OrderController extends Controller
             ]);
             
             $pres=Prescription::where('order_id', $id);
-            // $pres->update([
-            //     'path'=>$request->file('image')->store('images',['disk' => "public"])
-            // ]);
+            $pres->update([
+                'path'=>$request->file('image')->store('images',['disk' => "public"])
+            ]);
 
             return new OrderResource($if_exist);
         }
