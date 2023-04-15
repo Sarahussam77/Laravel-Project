@@ -1,6 +1,6 @@
 # PHARMACY MANAGMENT SYSTEM
 <p align="center" style="margin-top:6%;margin-bottom:6%;">
-  <img style = "width:200px; height:140px;" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzZhYjRjN2M3ZGIyOWIwM2VlOTFjNmIwMWU1NGVlOWE4NjAyMzU2MiZjdD1n/1hMk9kzfH3rPrmzVkp/giphy.gif" />
+  <img  src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzZhYjRjN2M3ZGIyOWIwM2VlOTFjNmIwMWU1NGVlOWE4NjAyMzU2MiZjdD1n/1hMk9kzfH3rPrmzVkp/giphy.gif" />
 </p>
 
 ## INTRODUCTION
