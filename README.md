@@ -1,6 +1,6 @@
 # PHARMACY MANAGMENT SYSTEM
 <p align="center" style="margin-top:6%;margin-bottom:6%;">
-  <img style = "width:140px; height:140px;" src="https://user-images.githubusercontent.com/81237428/230607665-ef41d0f9-52e6-4e21-b87d-6322b338e57c.gif" />
+  <img style = "width:140px; height:140px;" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzZhYjRjN2M3ZGIyOWIwM2VlOTFjNmIwMWU1NGVlOWE4NjAyMzU2MiZjdD1n/1hMk9kzfH3rPrmzVkp/giphy.gif" />
 </p>
 
 ## INTRODUCTION
@@ -69,8 +69,6 @@ The `client` is the end user who can make any Order.</br>
 <div align="center">
     <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white"/>
     <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white"/>
-    <img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white"/>
     <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white"/>
     <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E"/>
     <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
